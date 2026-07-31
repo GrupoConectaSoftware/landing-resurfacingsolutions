@@ -1,74 +1,280 @@
 ---
-import "../styles/global.css";
+// ============================================================
+// 1. IMPORTACIONES DE SECCIONES (LAYOUTS DEL HOMEPAGE)
+// ============================================================
+// Cada uno de estos componentes representa una "sección" visual
+// de la página de inicio. Están organizados en carpetas separadas
+// para mantener el código limpio y modular.
+
+// ------------------------------------------------------------
+// SECCIÓN 1: INTRODUCTION (HERO)
+// Es la primera impresión del usuario. Debe tener:
+// - Título grande y atractivo
+// - Subtítulo que explique el valor
+// - Imagen o fondo visual impactante
+// - Botón de llamada a la acción (CTA)
+// ------------------------------------------------------------
+import LayoutSectionIntroduction from '../components/homepages/layouts/layout-section-introduction.astro';
+
+// ------------------------------------------------------------
+// SECCIÓN 2: ABOUT (QUIÉNES SOMOS)
+// Cuenta la historia de la empresa, misión, visión o equipo.
+// Genera confianza y conexión emocional con el usuario.
+// ------------------------------------------------------------
+import LayoutSectionAbout from '../components/homepages/layouts/layout-section-about.astro';
+
+// ------------------------------------------------------------
+// SECCIÓN 3: CARRUSEL (GALERÍA DE IMÁGENES)
+// Muestra un carrusel con imágenes de trabajos realizados,
+// productos o proyectos destacados.
+// Usará Sharp para optimizar las imágenes y Alpine.js para
+// la interactividad del carrusel.
+// ------------------------------------------------------------
+import LayoutSectionCarrusel from '../components/homepages/layouts/layout-section-carrusel.astro';
+
+// ------------------------------------------------------------
+// SECCIÓN 4: SERVICES (SERVICIOS OFRECIDOS)
+// Lista los servicios que ofrece la empresa.
+// Normalmente incluye:
+// - Iconos representativos
+// - Título del servicio
+// - Breve descripción
+// - Precio o botón de "más información"
+// ------------------------------------------------------------
+import LayoutSectionServices from '../components/homepages/layouts/layout-section-services.astro';
+
+// ------------------------------------------------------------
+// SECCIÓN 5: PROCESS (PROCESO DE TRABAJO)
+// Explica paso a paso cómo trabaja la empresa.
+// Por ejemplo:
+// 1. Contacto inicial
+// 2. Cotización personalizada
+// 3. Ejecución del proyecto
+// 4. Entrega y seguimiento
+// ------------------------------------------------------------
+import LayoutSectionProcess from '../components/homepages/layouts/layout-section-process.astro';
+
+// ------------------------------------------------------------
+// SECCIÓN 6: RESULT (RESULTADOS Y ESTADÍSTICAS)
+// Muestra números que respaldan la calidad del servicio:
+// - Proyectos realizados
+// - Clientes satisfechos
+// - Años de experiencia
+// - Porcentaje de éxito, etc.
+// ------------------------------------------------------------
+import LayoutSectionResult from '../components/homepages/layouts/layout-section-result.astro';
+
+// ------------------------------------------------------------
+// SECCIÓN 7: INVITATION (LLAMADA A LA ACCIÓN FINAL)
+// Es el último empujón para que el usuario actúe:
+// - Frase motivadora
+// - Botón grande de contacto o cotización
+// - Puede incluir un formulario rápido
+// ------------------------------------------------------------
+import LayoutSectionInvitation from '../components/homepages/layouts/layout-section-invitation.astro';
+
+
+// ============================================================
+// 2. IMPORTACIONES DE COMPONENTES GLOBALES
+// ============================================================
+// Estos componentes se repiten en TODAS las páginas del sitio
+// (home, about, contact, gallery). Por eso están fuera de
+// la carpeta pages, en "min-layouts".
+
+// ------------------------------------------------------------
+// NAVEGACIÓN (MENÚ DE NAVEGACIÓN)
+// Contiene el logo, los enlaces a las páginas y el menú móvil.
+// Usa Alpine.js para abrir/cerrar el menú en móviles.
+// ------------------------------------------------------------
+import Navegations from '../min-layouts/navegation/navegations.astro';
+
+// ------------------------------------------------------------
+// FOOTER (PIE DE PÁGINA)
+// Contiene información de contacto, redes sociales,
+// enlaces rápidos y copyright.
+// Se repite en todas las páginas para mantener consistencia.
+// ------------------------------------------------------------
+import Footer from '../min-layouts/footer/footer.astro';
+
+// Vite procesa este import e incluye el CSS global en la página.
+import '../styles/global.css';
+
+
+// ============================================================
+// 3. CONFIGURACIÓN SEO (Toda centralizada aquí)
+// ============================================================
+// Estas variables se usan en las etiquetas <head> para
+// optimizar el posicionamiento en buscadores y redes sociales.
+
+const siteUrl = 'https://resurfacingsolutions.com'; // Cambiar por dominio real
+const siteTitle = 'Resurfacing Solutions | Expertos en Cuidado de Superficies';
+const siteDescription = 'Soluciones profesionales para el cuidado, mantenimiento y restauración de superficies. Calidad garantizada y resultados duraderos.';
+const siteKeywords = 'resurfacing, cuidado de superficies, restauración, mantenimiento, limpieza profesional';
+const siteAuthor = 'Resurfacing Solutions';
+const siteImage = '/images/og-image.jpg'; // Imagen para redes sociales (en public/images/)
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
-        <title>Resurfacing Solutions</title>
-    </head>
+<!-- ============================================================ -->
+<!-- ESTRUCTURA HTML DE LA PÁGINA -->
+<!-- ============================================================ -->
 
-    <body class="bg-brand-white">
-        <main class="min-h-screen flex items-center justify-center p-10">
+<!-- 
+  x-data define el estado global de Alpine.js para toda la página.
+  - isMenuOpen: controla el menú móvil (true = abierto, false = cerrado)
+  - currentYear: se usa en el footer para mostrar el año automáticamente
+-->
+<html lang="es" x-data="{ 
+  isMenuOpen: false,
+  currentYear: new Date().getFullYear() 
+}">
+  <head>
+    <!-- ========================================================== -->
+    <!-- METADATOS BÁSICOS (SEO esencial) -->
+    <!-- ========================================================== -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- Título: aparece en la pestaña del navegador y en resultados de Google -->
+    <title>{siteTitle}</title>
+    
+    <!-- Descripción: el texto que aparece bajo el título en Google -->
+    <meta name="description" content={siteDescription} />
+    
+    <!-- Palabras clave: ayudan a los buscadores a entender el tema -->
+    <meta name="keywords" content={siteKeywords} />
+    
+    <!-- Autor: quién creó el contenido -->
+    <meta name="author" content={siteAuthor} />
+    
+    <!-- Robots: permite que Google indexe la página y siga los enlaces -->
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Idioma y geolocalización: mejora el SEO local -->
+    <meta name="language" content="Spanish" />
+    <meta name="geo.region" content="CO" /> <!-- Colombia -->
+    <meta name="geo.placename" content="Bogotá" /> <!-- Ciudad -->
 
-            <div class="max-w-4xl rounded-xl border border-brand-gray-light bg-brand-white p-12 shadow-lg">
 
-                <p class="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-brand-red">
-                    Tailwind CSS 4 ✔
-                </p>
+    <!-- ========================================================== -->
+    <!-- OPEN GRAPH (para Facebook, LinkedIn, WhatsApp, etc.) -->
+    <!-- ========================================================== -->
+    <!-- Cuando alguien comparte el link, se ve así: -->
+    <!-- Título | Descripción | Imagen grande -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={siteDescription} />
+    <meta property="og:image" content={siteUrl + siteImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="Resurfacing Solutions" />
 
-                <h1 class="mb-6 text-6xl font-bold text-brand-charcoal font-primary">
-                    Resurfacing
-                    <span class="font-secondary italic text-brand-red">
-                        Solutions
-                    </span>
-                </h1>
 
-                <p class="mb-10 max-w-2xl text-lg text-brand-gray">
-                    Si estás viendo esta pantalla correctamente significa que
-                    Astro está leyendo Tailwind CSS 4, el archivo global.css y
-                    los colores definidos en <strong>@theme</strong>.
-                </p>
+    <!-- ========================================================== -->
+    <!-- TWITTER CARDS (para Twitter / X) -->
+    <!-- ========================================================== -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={siteTitle} />
+    <meta name="twitter:description" content={siteDescription} />
+    <meta name="twitter:image" content={siteUrl + siteImage} />
+    <meta name="twitter:site" content="@resurfacing" />
+    <meta name="twitter:creator" content="@resurfacing" />
 
-                <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
 
-                    <div class="rounded-lg bg-brand-red p-6 text-center font-semibold text-brand-white">
-                        RED
-                    </div>
+    <!-- ========================================================== -->
+    <!-- DATOS ESTRUCTURADOS (JSON-LD) -->
+    <!-- ========================================================== -->
+    <!-- Esto le dice a Google que somos una organización legítima -->
+    <!-- y ayuda a mostrar "rich snippets" en los resultados. -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Resurfacing Solutions",
+      "url": siteUrl,
+      "logo": siteUrl + "/images/logo.png",
+      "description": siteDescription,
+      "sameAs": [
+        "https://facebook.com/resurfacing",
+        "https://instagram.com/resurfacing",
+        "https://linkedin.com/company/resurfacing"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+57-123-456-7890",
+        "contactType": "customer service",
+        "availableLanguage": ["Spanish", "English"]
+      }
+    })}></script>
 
-                    <div class="rounded-lg bg-brand-charcoal p-6 text-center font-semibold text-brand-white">
-                        CHARCOAL
-                    </div>
 
-                    <div class="rounded-lg bg-brand-dark p-6 text-center font-semibold text-brand-white">
-                        DARK
-                    </div>
+    <!-- ========================================================== -->
+    <!-- FAVICON (icono de la pestaña del navegador) -->
+    <!-- ========================================================== -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-                    <div class="rounded-lg bg-brand-black p-6 text-center font-semibold text-brand-white">
-                        BLACK
-                    </div>
+  </head>
 
-                    <div class="rounded-lg bg-brand-gray p-6 text-center font-semibold text-brand-white">
-                        GRAY
-                    </div>
+  <!-- 
+    antialiased: mejora la renderización de fuentes.
+    text-slate-800: color de texto oscuro.
+    bg-slate-50: fondo muy claro.
+    smooth-scroll: scroll suave.
+  -->
+  <body class="antialiased text-slate-800 bg-slate-50 smooth-scroll">
+    
+    <!-- ========================================================== -->
+    <!-- NAVEGACIÓN GLOBAL (aparece en todas las páginas) -->
+    <!-- ========================================================== -->
+    <Navegations />
 
-                    <div class="rounded-lg bg-brand-gray-medium p-6 text-center font-semibold text-brand-charcoal">
-                        MEDIUM
-                    </div>
+    <!-- ========================================================== -->
+    <!-- CONTENIDO PRINCIPAL (MAIN) -->
+    <!-- ========================================================== -->
+    <!-- 
+      Aquí se renderizan las 7 secciones en el orden exacto en que
+      el usuario las verá al hacer scroll hacia abajo.
+      Cada una es un componente independiente y reutilizable.
+    -->
+    <main class="flex flex-col min-h-screen">
+      
+      <!-- 1. HERO: Primera impresión, engancha al usuario -->
+      <LayoutSectionIntroduction />
+      
+      <!-- 2. ABOUT: Genera confianza contando quiénes somos -->
+      <LayoutSectionAbout />
+      
+      <!-- 3. CARRUSEL: Muestra trabajos o productos visualmente -->
+      <LayoutSectionCarrusel />
+      
+      <!-- 4. SERVICES: Lista de servicios con iconos y descripciones -->
+      <LayoutSectionServices />
+      
+      <!-- 5. PROCESS: Explica paso a paso cómo trabajamos -->
+      <LayoutSectionProcess />
+      
+      <!-- 6. RESULT: Muestra números que respaldan la calidad -->
+      <LayoutSectionResult />
+      
+      <!-- 7. INVITATION: Último llamado a la acción (CTA) -->
+      <LayoutSectionInvitation />
+      
+    </main>
 
-                    <div class="rounded-lg bg-brand-gray-light p-6 text-center font-semibold text-brand-charcoal">
-                        LIGHT
-                    </div>
+    <!-- ========================================================== -->
+    <!-- FOOTER GLOBAL (información de contacto y redes) -->
+    <!-- ========================================================== -->
+    <Footer />
 
-                    <div class="rounded-lg bg-brand-blue p-6 text-center font-semibold text-brand-white">
-                        BLUE
-                    </div>
-
-                </div>
-
-            </div>
-
-        </main>
-    </body>
+    <!-- ========================================================== -->
+    <!-- SCRIPTS (Alpine.js ya viene con la integración de Astro) -->
+    <!-- ========================================================== -->
+    <!-- No hace falta cargar nada más, @astrojs/alpinejs ya lo maneja -->
+    <!-- Vite empaqueta este punto de entrada de JavaScript. -->
+    <script>
+      import '../scripts/main.js';
+    </script>
+  </body>
 </html>

@@ -1,11 +1,74 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import "../styles/global.css";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Resurfacing Solutions</title>
+    </head>
+
+    <body class="bg-brand-white">
+        <main class="min-h-screen flex items-center justify-center p-10">
+
+            <div class="max-w-4xl rounded-xl border border-brand-gray-light bg-brand-white p-12 shadow-lg">
+
+                <p class="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-brand-red">
+                    Tailwind CSS 4 ✔
+                </p>
+
+                <h1 class="mb-6 text-6xl font-bold text-brand-charcoal font-primary">
+                    Resurfacing
+                    <span class="font-secondary italic text-brand-red">
+                        Solutions
+                    </span>
+                </h1>
+
+                <p class="mb-10 max-w-2xl text-lg text-brand-gray">
+                    Si estás viendo esta pantalla correctamente significa que
+                    Astro está leyendo Tailwind CSS 4, el archivo global.css y
+                    los colores definidos en <strong>@theme</strong>.
+                </p>
+
+                <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+
+                    <div class="rounded-lg bg-brand-red p-6 text-center font-semibold text-brand-white">
+                        RED
+                    </div>
+
+                    <div class="rounded-lg bg-brand-charcoal p-6 text-center font-semibold text-brand-white">
+                        CHARCOAL
+                    </div>
+
+                    <div class="rounded-lg bg-brand-dark p-6 text-center font-semibold text-brand-white">
+                        DARK
+                    </div>
+
+                    <div class="rounded-lg bg-brand-black p-6 text-center font-semibold text-brand-white">
+                        BLACK
+                    </div>
+
+                    <div class="rounded-lg bg-brand-gray p-6 text-center font-semibold text-brand-white">
+                        GRAY
+                    </div>
+
+                    <div class="rounded-lg bg-brand-gray-medium p-6 text-center font-semibold text-brand-charcoal">
+                        MEDIUM
+                    </div>
+
+                    <div class="rounded-lg bg-brand-gray-light p-6 text-center font-semibold text-brand-charcoal">
+                        LIGHT
+                    </div>
+
+                    <div class="rounded-lg bg-brand-blue p-6 text-center font-semibold text-brand-white">
+                        BLUE
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+    </body>
+</html>

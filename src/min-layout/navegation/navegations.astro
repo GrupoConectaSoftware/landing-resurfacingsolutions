@@ -7,12 +7,18 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
 
 <!-- Contenedor de Mneu de Navegacion -->
 <header
-  class="sticky top-0 z-100-full overflow-x-clip font-primary transition-transform duration-500 ease-out will-change-transform"
+  class="sticky top-0 z-[9999] isolate overflow-x-clip font-primary transition-transform duration-500 ease-out will-change-transform"
   role="banner"
   x-data="{
     lastScrollY: 0,
     isHeaderVisible: true,
+    footerInView: false,
     handleScroll() {
+      if (this.footerInView) {
+        this.isHeaderVisible = false;
+        return;
+      }
+
       const currentScrollY = Math.max(window.scrollY, 0);
       const scrollDifference = currentScrollY - this.lastScrollY;
 
@@ -25,7 +31,18 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
       this.lastScrollY = currentScrollY;
     }
   }"
-  x-init="lastScrollY = Math.max(window.scrollY, 0)"
+  x-init="
+    lastScrollY = Math.max(window.scrollY, 0);
+    const pageFooter = document.querySelector('footer[role=contentinfo]');
+    if (pageFooter) {
+      const footerObserver = new IntersectionObserver(([entry]) => {
+        footerInView = entry.isIntersecting;
+        if (footerInView) isHeaderVisible = false;
+      }, { threshold: 0 });
+      footerObserver.observe(pageFooter);
+      $cleanup(() => footerObserver.disconnect());
+    }
+  "
   @scroll.window.throttle.100ms="handleScroll()"
   :class="isHeaderVisible ? 'translate-y-0' : '-translate-y-full'"
 >

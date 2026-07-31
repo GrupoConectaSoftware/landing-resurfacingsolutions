@@ -48,6 +48,13 @@
     --font-secondary: "Lora", serif;
 }
 
+html,
 body {
+    min-height: 100%;
+    background-color: #ffffff;
+}
+
+body {
+    margin: 0;
     font-family: var(--font-primary);
 }

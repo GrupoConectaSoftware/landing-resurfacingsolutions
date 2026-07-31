@@ -1,1 +1,73 @@
-<!-- Sección About de la página principal. -->
+---
+import { Image } from 'astro:assets';
+import machineImage from '../../../assets/sections/about/imagen-about1.webp';
+import vanImage from '../../../assets/sections/about/imagen-about2.webp';
+---
+
+<section
+  class="w-full overflow-hidden bg-white py-16 sm:py-20 lg:py-24 xl:py-28"
+  aria-labelledby="home-about-title"
+>
+  <div class="mx-auto grid w-full max-w-7xl items-center gap-12 px-5 sm:gap-14 sm:px-8 lg:grid-cols-[1.04fr_0.96fr] lg:gap-14 lg:px-10 xl:gap-20">
+    <div class="relative mx-auto h-[370px] w-full max-w-[560px] min-[430px]:h-[410px] sm:h-[500px] lg:h-[520px]">
+      <div class="absolute bottom-0 right-0 h-[82%] w-[82%] overflow-hidden border-[3px] border-brand-charcoal bg-white shadow-xl sm:h-[88%]">
+        <Image
+          src={vanImage}
+          alt="Vehículo de trabajo de Resurfacing Solutions"
+          class="h-full w-full object-cover object-center"
+          widths={[420, 560, 720]}
+          sizes="(max-width: 640px) 82vw, (max-width: 1024px) 460px, 470px"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="absolute left-0 top-0 z-20 h-[48%] w-[38%] -rotate-3 overflow-hidden border-[3px] border-brand-charcoal bg-white shadow-2xl sm:h-[52%] sm:w-[40%]">
+        <Image
+          src={machineImage}
+          alt="Máquina profesional para restauración de superficies"
+          class="h-full w-full object-cover object-center"
+          widths={[220, 320, 420]}
+          sizes="(max-width: 640px) 38vw, 225px"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="absolute bottom-[5%] left-0 z-30 min-w-32 bg-brand-charcoal px-5 py-3.5 text-white shadow-xl sm:min-w-36 sm:px-6 sm:py-4">
+        <strong class="block font-primary text-2xl font-bold leading-none text-brand-red sm:text-3xl">15+</strong>
+        <span class="mt-1 block font-secondary text-sm italic leading-none sm:text-base">Años Experiencia</span>
+      </div>
+    </div>
+
+    <div class="mx-auto flex w-full max-w-xl flex-col lg:mx-0">
+      <p class="mb-3 font-primary text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-brand-red sm:mb-4 sm:text-xs">
+        Sobre Resurfacing Solutions
+      </p>
+
+      <h2
+        id="home-about-title"
+        class="font-primary text-[2.15rem] font-bold leading-[1.01] tracking-[-0.04em] text-brand-charcoal min-[430px]:text-4xl sm:text-5xl md:text-[3.15rem] lg:text-[3.25rem] xl:text-[3.45rem]"
+      >
+        Nacimos para devolverle vida a superficies que otros
+        <span class="mt-1 block font-secondary text-[2.15rem] font-normal italic leading-[0.98] tracking-normal text-brand-red min-[430px]:text-4xl sm:text-5xl md:text-[3.15rem] lg:text-[3.35rem] xl:text-[3.5rem]">
+          daban por perdidas.
+        </span>
+      </h2>
+
+      <p class="mt-6 max-w-lg font-primary text-sm leading-[1.75] text-brand-gray sm:mt-7 sm:text-[0.95rem] md:text-base">
+        Resurfacing Solutions nació con una idea clara: ofrecer una forma profesional de restaurar,
+        renovar y preservar superficies sin reemplazarlas por completo. Con experiencia, atención al
+        detalle y respeto por cada espacio, transformamos piedra natural y concreto para recuperar su
+        belleza, funcionalidad y valor original.
+      </p>
+
+      <a
+        href="/about/about/"
+        class="group mt-6 inline-flex w-fit max-w-full items-center gap-1.5 whitespace-nowrap font-primary text-[0.46rem] font-semibold uppercase leading-none tracking-[0.035em] text-brand-red transition-[gap,color] duration-300 hover:gap-2.5 hover:text-brand-charcoal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-4 min-[430px]:text-[0.52rem] min-[430px]:tracking-[0.07em] sm:mt-7 sm:gap-3 sm:text-[0.65rem] sm:tracking-[0.1em] md:text-xs md:tracking-[0.12em]"
+        aria-label="Conocer más sobre Resurfacing Solutions"
+      >
+        Te invitamos a conocer más sobre nuestra compañía
+        <span aria-hidden="true" class="h-px w-4 shrink-0 bg-current transition-all duration-300 group-hover:w-6 sm:w-7 sm:group-hover:w-10"></span>
+      </a>
+    </div>
+  </div>
+</section>

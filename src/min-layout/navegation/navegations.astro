@@ -1,0 +1,355 @@
+---
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import desktopLogo from "../../assets/navegation/imagen-logo.webp";
+import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
+---
+
+<!-- Contenedor de Mneu de Navegacion -->
+<header
+  class="sticky top-0 z-100-full overflow-x-clip font-primary transition-transform duration-500 ease-out will-change-transform"
+  role="banner"
+  x-data="{
+    lastScrollY: 0,
+    isHeaderVisible: true,
+    handleScroll() {
+      const currentScrollY = Math.max(window.scrollY, 0);
+      const scrollDifference = currentScrollY - this.lastScrollY;
+
+      if (currentScrollY <= 64) {
+        this.isHeaderVisible = true;
+      } else if (Math.abs(scrollDifference) >= 8) {
+        this.isHeaderVisible = scrollDifference < 0;
+      }
+
+      this.lastScrollY = currentScrollY;
+    }
+  }"
+  x-init="lastScrollY = Math.max(window.scrollY, 0)"
+  @scroll.window.throttle.100ms="handleScroll()"
+  :class="isHeaderVisible ? 'translate-y-0' : '-translate-y-full'"
+>
+  <!-- Barra superior: servicios, utilidades y redes -->
+  <div class="h-10 bg-brand-black text-brand-white">
+    <div
+      class="mx-auto flex h-full max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8"
+    >
+      <div
+        class="relative h-5 min-w-0 flex-1 overflow-hidden text-xs font-medium"
+        x-data="{
+          current: 0,
+          visible: true,
+          services: [
+            'Natural Stone Restoration & Surface Renewal',
+            'Professional Surface Polishing & Protection',
+            'Stone Repair, Sealing & Maintenance',
+            'Custom Stone Finishes & Detailing',
+            'Commercial & Residential Stone Care',
+            'Eco-Friendly Cleaning & Restoration'
+          ],
+          schedule() {
+            setTimeout(() => {
+              this.visible = false;
+              setTimeout(() => {
+                this.current = (this.current + 1) % this.services.length;
+                this.visible = true;
+                setTimeout(() => this.schedule(), 700);
+              }, 800);
+            }, 5000);
+          },
+          init() { this.schedule(); }
+        }"
+        aria-live="polite"
+      >
+        <span
+          class="absolute inset-0 flex items-center truncate"
+          x-show="visible"
+          x-transition:enter="transition transform ease-out duration-700"
+          x-transition:enter-start="translate-y-full opacity-0"
+          x-transition:enter-end="translate-y-0 opacity-100"
+          x-transition:leave="transition transform ease-in duration-700"
+          x-transition:leave-start="translate-y-0 opacity-100"
+          x-transition:leave-end="-translate-y-full opacity-0"
+          x-text="services[current]"
+          >Natural Stone Restoration &amp; Surface Renewal</span
+        >
+      </div>
+
+      <div
+        class="hidden shrink-0 items-center gap-3 text-xs font-semibold md:flex lg:gap-5"
+      >
+        <a href="/es/" hreflang="es" class="transition-opacity hover:opacity-70"
+          >Traducir a español</a
+        >
+        <a href="/#faq" class="transition-opacity hover:opacity-70"
+          >Preguntas Frecuentes</a
+        >
+
+        <div class="flex items-center gap-3" aria-label="Redes sociales">
+          <a
+            href="https://instagram.com/resurfacing"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            class="grid place-items-center text-base transition-opacity hover:opacity-70"
+          >
+            <Icon name="mdi:instagram" class="text-base" aria-hidden="true" />
+          </a>
+          <a
+            href="https://wa.me/18884565674"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="WhatsApp"
+            class="grid place-items-center text-base transition-opacity hover:opacity-70"
+          >
+            <Icon name="mdi:whatsapp" class="text-base" aria-hidden="true" />
+          </a>
+          <a
+            href="https://facebook.com/resurfacing"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+            class="grid place-items-center text-base transition-opacity hover:opacity-70"
+          >
+            <Icon name="mdi:facebook" class="text-base" aria-hidden="true" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Barra de contacto y promociones -->
+  <div
+    class="hidden h-8 border-b border-brand-gray-medium bg-brand-gray-light text-brand-charcoal md:block"
+  >
+    <div
+      class="mx-auto flex h-full max-w-7xl items-center justify-between gap-4 overflow-hidden px-4 text-xs font-medium sm:px-6 lg:px-8"
+    >
+      <div class="flex min-w-0 items-center gap-4 lg:gap-5">
+        <a
+          href="tel:+18884565674"
+          class="flex shrink-0 cursor-default items-center gap-1.5"
+          aria-label="Llamar al +1 888 456 5674"
+        >
+          <Icon name="mdi:phone" class="text-sm" aria-hidden="true" />
+          <span>+1 (888) 456-5674</span>
+        </a>
+        <a
+          href="mailto:resurfacingsolutions@gmail.com"
+          class="hidden min-w-0 cursor-default items-center gap-1.5 sm:flex"
+        >
+          <Icon
+            name="mdi:email-outline"
+            class="shrink-0 text-sm"
+            aria-hidden="true"
+          />
+          <span class="truncate">resurfacingsolutions@gmail.com</span>
+        </a>
+        <span class="hidden shrink-0 items-center gap-1.5 md:flex">
+          <Icon name="mdi:clock-outline" class="text-sm" aria-hidden="true" />
+          <span>Lunes - Viernes: 8am a 7pm</span>
+        </span>
+      </div>
+
+      <div class="hidden min-w-0 flex-1 overflow-hidden lg:block">
+        <div
+          class="relative h-5 w-full"
+          x-data="{
+            current: 0,
+            visible: true,
+            banners: [
+              'Soluciones duraderas para superficies que necesitan renovarse.',
+              'Transformamos tus espacios con calidad y experiencia.',
+              'Más de 10 años restaurando superficies con excelencia.',
+              'Comprometidos con tu satisfacción y el medio ambiente.'
+            ],
+            schedule() {
+              setTimeout(() => {
+                this.visible = false;
+                setTimeout(() => {
+                  this.current = (this.current + 1) % this.banners.length;
+                  this.visible = true;
+                  setTimeout(() => this.schedule(), 1000);
+                }, 1100);
+              }, 5000);
+            },
+            init() { this.schedule(); }
+          }"
+          aria-live="polite"
+        >
+          <span
+            class="absolute inset-0 flex items-center justify-end text-xs"
+            x-show="visible"
+            x-transition:enter="transition transform ease-out duration-1000"
+            x-transition:enter-start="-translate-x-full opacity-0"
+            x-transition:enter-end="translate-x-0 opacity-100"
+            x-transition:leave="transition transform ease-in duration-1000"
+            x-transition:leave-start="translate-x-0 opacity-100"
+            x-transition:leave-end="translate-x-full opacity-0"
+            x-text="banners[current]"
+            >Soluciones duraderas para superficies que necesitan renovarse.</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navegación principal -->
+  <nav
+    class="relative z-50 h-24 w-full overflow-visible bg-brand-red text-brand-white md:h-36 md:overflow-hidden"
+    aria-label="Navegación principal"
+    x-data="{ isOpen: false }"
+  >
+    <!-- El panel oscuro solo existe desde tablet -->
+    <div
+      class="absolute left-0 top-0 hidden h-32 w-1/2 bg-brand-charcoal [clip-path:polygon(0%_0%,100%_0%,85%_100%,0%_100%)] md:block"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div
+      class="relative z-20 mx-auto flex h-full w-full max-w-7xl items-center justify-between gap-4 px-4 pb-5 sm:px-6 lg:px-8"
+    >
+      <a
+        href="/"
+        class="relative z-30 flex min-w-0 items-center md:w-96 md:shrink-0"
+        aria-label="Resurfacing Solutions, página de inicio"
+      >
+        <Image
+          src={mobileLogo}
+          alt="Resurfacing Solutions"
+          class="h-12 w-auto max-w-44 object-contain sm:h-16 md:hidden"
+          loading="eager"
+          decoding="async"
+        />
+        <Image
+          src={desktopLogo}
+          alt="Resurfacing Solutions"
+          class="hidden h-16 w-auto object-contain md:block lg:h-20"
+          loading="eager"
+          decoding="async"
+        />
+      </a>
+
+      <div
+        class="ml-auto hidden items-center justify-end gap-5 md:flex lg:gap-7"
+      >
+        <a
+          href="/"
+          class="text-sm font-bold uppercase tracking-wide text-brand-white transition-all duration-200 hover:text-white hover:[text-shadow:0_0_10px_rgba(255,255,255,0.9)]"
+          >INICIO</a
+        >
+        <a
+          href="/about/about/"
+          class="text-sm font-bold uppercase tracking-wide text-brand-white transition-all duration-200 hover:text-white hover:[text-shadow:0_0_10px_rgba(255,255,255,0.9)]"
+          >NOSOTROS</a
+        >
+        <a
+          href="/gallery/gallery/"
+          class="text-sm font-bold uppercase tracking-wide text-brand-white transition-all duration-200 hover:text-white hover:[text-shadow:0_0_10px_rgba(255,255,255,0.9)]"
+          >GALERÍA</a
+        >
+        <a
+          href="https://wa.me/18884565674"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ml-2 flex h-12 items-center gap-3 whitespace-nowrap rounded-lg bg-brand-white px-4 text-sm font-bold text-brand-charcoal shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-black hover:text-brand-white lg:ml-5 lg:px-6"
+          aria-label="Hablar con Resurfacing Solutions"
+        >
+          <Icon name="mdi:forum-outline" class="text-xl" aria-hidden="true" />
+          <span>Habla con Nosotros</span>
+        </a>
+      </div>
+
+      <button
+        type="button"
+        class="relative z-110 ml-auto grid h-11 w-11 shrink-0 place-items-center rounded-md border border-white/80 text-3xl text-white shadow-sm transition-all duration-200 hover:border-white hover:bg-white/10 md:hidden"
+        @click="isOpen = !isOpen"
+        :aria-expanded="isOpen"
+        aria-controls="mobile-navigation"
+        :aria-label="isOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'"
+      >
+        <Icon
+          x-show="!isOpen"
+          name="mdi:menu"
+          class="text-3xl text-white"
+          aria-hidden="true"
+        />
+        <Icon
+          x-show="isOpen"
+          name="mdi:close"
+          class="text-3xl text-white"
+          aria-hidden="true"
+        />
+      </button>
+    </div>
+
+    <!-- Menú móvil desplegable debajo del nav -->
+    <div
+      id="mobile-navigation"
+      x-show="isOpen"
+      x-transition:enter="transition transform ease-out duration-300"
+      x-transition:enter-start="-translate-y-4 opacity-0"
+      x-transition:enter-end="translate-y-0 opacity-100"
+      x-transition:leave="transition transform ease-in duration-200"
+      x-transition:leave-start="translate-y-0 opacity-100"
+      x-transition:leave-end="-translate-y-4 opacity-0"
+      class="absolute inset-x-0 top-full z-100 flex w-full flex-col overflow-x-hidden bg-brand-white px-6 pb-7 pt-5 text-brand-charcoal shadow-xl md:hidden"
+    >
+      <div class="mx-auto flex w-full max-w-sm flex-col">
+        <a
+          href="/"
+          class="border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:pl-2"
+          @click="isOpen = false">INICIO</a
+        >
+        <a
+          href="/about/about/"
+          class="border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:pl-2"
+          @click="isOpen = false">NOSOTROS</a
+        >
+        <a
+          href="/gallery/gallery/"
+          class="border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:pl-2"
+          @click="isOpen = false">GALERÍA</a
+        >
+
+        <a
+          href="/contact/contact/"
+          class="mb-6 mt-7 flex items-center justify-center gap-2 rounded-md bg-brand-black px-5 py-3 text-sm font-bold text-white shadow-md"
+          @click="isOpen = false"
+        >
+          <Icon name="mdi:forum-outline" class="text-xl" aria-hidden="true" />
+          <span>HABLA CON NOSOTROS</span>
+        </a>
+
+        <div
+          class="flex flex-col items-start gap-4 text-left text-sm text-brand-charcoal"
+          aria-label="Información de contacto"
+        >
+          <a
+            href="tel:+18884565674"
+            class="flex items-center justify-start gap-2"
+          >
+            <Icon name="mdi:phone" class="text-lg" aria-hidden="true" />
+            <span>+1 (888) 456-5674</span>
+          </a>
+          <a
+            href="mailto:resurfacingsolutions@gmail.com"
+            class="flex max-w-full items-center justify-start gap-2 break-all"
+          >
+            <Icon
+              name="mdi:email-outline"
+              class="shrink-0 text-lg"
+              aria-hidden="true"
+            />
+            <span>resurfacingsolutions@gmail.com</span>
+          </a>
+          <span class="flex items-center justify-start gap-2">
+            <Icon name="mdi:clock-outline" class="text-lg" aria-hidden="true" />
+            <span>Lunes - Viernes: 8am a 7pm</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

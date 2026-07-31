@@ -14,14 +14,14 @@
 // - Imagen o fondo visual impactante
 // - Botón de llamada a la acción (CTA)
 // ------------------------------------------------------------
-import LayoutSectionIntroduction from '../components/homepages/layouts/layout-section-introduction.astro';
+import LayoutSectionIntroduction from './homepages/layouts/layout-section-introduction.astro';
 
 // ------------------------------------------------------------
 // SECCIÓN 2: ABOUT (QUIÉNES SOMOS)
 // Cuenta la historia de la empresa, misión, visión o equipo.
 // Genera confianza y conexión emocional con el usuario.
 // ------------------------------------------------------------
-import LayoutSectionAbout from '../components/homepages/layouts/layout-section-about.astro';
+import LayoutSectionAbout from './homepages/layouts/layout-section-about.astro';
 
 // ------------------------------------------------------------
 // SECCIÓN 3: CARRUSEL (GALERÍA DE IMÁGENES)
@@ -30,7 +30,7 @@ import LayoutSectionAbout from '../components/homepages/layouts/layout-section-a
 // Usará Sharp para optimizar las imágenes y Alpine.js para
 // la interactividad del carrusel.
 // ------------------------------------------------------------
-import LayoutSectionCarrusel from '../components/homepages/layouts/layout-section-carrusel.astro';
+import LayoutSectionCarrusel from './homepages/layouts/layout-section-carrusel.astro';
 
 // ------------------------------------------------------------
 // SECCIÓN 4: SERVICES (SERVICIOS OFRECIDOS)
@@ -41,7 +41,7 @@ import LayoutSectionCarrusel from '../components/homepages/layouts/layout-sectio
 // - Breve descripción
 // - Precio o botón de "más información"
 // ------------------------------------------------------------
-import LayoutSectionServices from '../components/homepages/layouts/layout-section-services.astro';
+import LayoutSectionServices from './homepages/layouts/layout-section-services.astro';
 
 // ------------------------------------------------------------
 // SECCIÓN 5: PROCESS (PROCESO DE TRABAJO)
@@ -52,7 +52,7 @@ import LayoutSectionServices from '../components/homepages/layouts/layout-sectio
 // 3. Ejecución del proyecto
 // 4. Entrega y seguimiento
 // ------------------------------------------------------------
-import LayoutSectionProcess from '../components/homepages/layouts/layout-section-process.astro';
+import LayoutSectionProcess from './homepages/layouts/layout-section-process.astro';
 
 // ------------------------------------------------------------
 // SECCIÓN 6: RESULT (RESULTADOS Y ESTADÍSTICAS)
@@ -62,7 +62,7 @@ import LayoutSectionProcess from '../components/homepages/layouts/layout-section
 // - Años de experiencia
 // - Porcentaje de éxito, etc.
 // ------------------------------------------------------------
-import LayoutSectionResult from '../components/homepages/layouts/layout-section-result.astro';
+import LayoutSectionResult from './homepages/layouts/layout-section-result.astro';
 
 // ------------------------------------------------------------
 // SECCIÓN 7: INVITATION (LLAMADA A LA ACCIÓN FINAL)
@@ -71,7 +71,7 @@ import LayoutSectionResult from '../components/homepages/layouts/layout-section-
 // - Botón grande de contacto o cotización
 // - Puede incluir un formulario rápido
 // ------------------------------------------------------------
-import LayoutSectionInvitation from '../components/homepages/layouts/layout-section-invitation.astro';
+import LayoutSectionInvitation from './homepages/layouts/layout-section-invitation.astro';
 
 
 // ============================================================
@@ -86,7 +86,7 @@ import LayoutSectionInvitation from '../components/homepages/layouts/layout-sect
 // Contiene el logo, los enlaces a las páginas y el menú móvil.
 // Usa Alpine.js para abrir/cerrar el menú en móviles.
 // ------------------------------------------------------------
-import Navegations from '../min-layouts/navegation/navegations.astro';
+import Navegations from '../min-layout/navegation/navegations.astro';
 
 // ------------------------------------------------------------
 // FOOTER (PIE DE PÁGINA)
@@ -94,7 +94,7 @@ import Navegations from '../min-layouts/navegation/navegations.astro';
 // enlaces rápidos y copyright.
 // Se repite en todas las páginas para mantener consistencia.
 // ------------------------------------------------------------
-import Footer from '../min-layouts/footer/footer.astro';
+import Footer from '../min-layout/footerr/footer.astro';
 
 // Vite procesa este import e incluye el CSS global en la página.
 import '../styles/global.css';

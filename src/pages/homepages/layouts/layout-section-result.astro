@@ -55,7 +55,7 @@ import afterImage from '../../../assets/sections/result/imagen-result2.webp';
         }
       }"
       x-ref="comparison"
-      class="relative mx-auto aspect-[4/3] w-full max-w-5xl cursor-ew-resize touch-none select-none overflow-hidden border border-white/20 bg-brand-charcoal shadow-2xl sm:aspect-[16/9] lg:aspect-[2/1]"
+      class="relative mx-auto aspect-4/3 w-full max-w-5xl cursor-ew-resize touch-none select-none overflow-hidden border border-white/20 bg-brand-charcoal shadow-2xl sm:aspect-video lg:aspect-2/1"
       @pointerdown.prevent="startDragging($event)"
       @pointermove.prevent="if (dragging) updatePosition($event)"
       @pointerup="stopDragging($event)"

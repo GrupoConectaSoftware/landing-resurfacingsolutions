@@ -1,1 +1,161 @@
-<!-- Sección Services de la página principal. -->
+---
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import surfaceTexture from '../../../assets/homepages/sections/services/Imagen-services1.webp';
+import polishedInterior from '../../../assets/homepages/sections/services/Imagen-services2.webp';
+import maintenanceInterior from '../../../assets/homepages/sections/services/Imagen-services3.webp';
+---
+
+<section class="w-full overflow-hidden bg-white py-16 sm:py-20 lg:py-24" aria-labelledby="services-title">
+  <div class="mx-auto w-full max-w-[112rem] px-5 sm:px-7 lg:px-10 xl:px-14">
+    <header class="grid items-end gap-8 lg:grid-cols-[1.35fr_0.9fr] lg:gap-16 xl:gap-24">
+      <div>
+        <p class="mb-3 font-primary text-[10px] font-bold uppercase tracking-[0.18em] text-brand-red sm:text-xs">
+          Servicios destacados
+        </p>
+        <h2
+          id="services-title"
+          class="font-primary text-4xl font-bold leading-[0.98] tracking-tighter text-brand-charcoal sm:text-5xl lg:text-6xl xl:text-7xl"
+        >
+          Maestría aplicada a
+          <span class="mt-1 block font-secondary font-normal italic tracking-normal text-brand-red">cada superficie.</span>
+        </h2>
+      </div>
+
+      <p class="max-w-2xl font-primary text-sm leading-relaxed text-brand-gray sm:text-base lg:pb-1 lg:text-lg xl:text-xl xl:leading-snug">
+        No aplicamos el mismo proceso a todos los materiales. Cada servicio se adapta al tipo de superficie,
+        su estado actual y el acabado que deseas, garantizando una restauración precisa, duradera y hecha a
+        la medida de cada espacio.
+      </p>
+    </header>
+
+    <div class="mt-12 grid grid-cols-1 gap-3 sm:mt-14 sm:grid-cols-2 sm:gap-4 lg:mt-16 lg:grid-cols-[1.9fr_0.6fr_0.6fr] lg:gap-3 xl:gap-4">
+      <article class="group relative flex min-h-96 overflow-hidden rounded-md bg-brand-charcoal p-7 sm:col-span-2 sm:min-h-110 sm:p-10 lg:col-span-1 lg:min-h-105 xl:min-h-120 xl:p-14">
+        <Image
+          src={surfaceTexture}
+          alt="Textura profesional de superficie restaurada"
+          class="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+          widths={[640, 960, 1440]}
+          sizes="(max-width: 1024px) 100vw, 60vw"
+          quality={90}
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="absolute inset-0 bg-linear-to-t from-black/85 via-black/35 to-black/10"></div>
+
+        <div class="relative z-10 mt-auto max-w-4xl">
+          <h3 class="font-primary text-3xl font-bold leading-[1.04] tracking-[-0.04em] text-white sm:text-4xl lg:text-4xl xl:text-5xl">
+            Restauración y<br class="hidden sm:block" /> reacabado de superficies
+          </h3>
+          <div class="my-5 h-0.5 w-full max-w-xl bg-brand-red sm:my-6"></div>
+          <p class="max-w-3xl font-primary text-sm leading-relaxed text-white/80 sm:text-base xl:text-lg">
+            Devolvemos el brillo, la uniformidad y la vida útil a sus superficies de piedra natural y concreto
+            con precisión y experiencia.
+          </p>
+        </div>
+      </article>
+
+      <article class="group flex min-h-80 flex-col rounded-md bg-brand-gray-light p-7 transition-transform duration-300 hover:-translate-y-1 sm:min-h-96 lg:min-h-105 lg:p-6 xl:min-h-120 xl:p-9">
+        <div class="h-1 w-12 bg-brand-red transition-all duration-300 group-hover:w-16"></div>
+        <div class="mt-auto">
+          <h3 class="font-primary text-2xl font-bold leading-tight tracking-[-0.04em] text-brand-charcoal lg:text-3xl">
+            Pulido<br />y afinado
+          </h3>
+          <p class="mt-6 font-primary text-sm leading-relaxed text-brand-charcoal/80 sm:text-base lg:text-sm xl:text-base">
+            Eliminamos opacidad, marcas y pequeñas imperfecciones para conseguir una superficie más lisa,
+            uniforme y con el nivel de brillo adecuado.
+          </p>
+        </div>
+      </article>
+
+      <article class="group flex min-h-80 flex-col rounded-md bg-brand-charcoal p-7 transition-transform duration-300 hover:-translate-y-1 sm:min-h-96 lg:min-h-105 lg:p-6 xl:min-h-120 xl:p-9">
+        <div class="h-1 w-12 bg-white transition-all duration-300 group-hover:w-16"></div>
+        <div class="mt-auto">
+          <h3 class="font-primary text-2xl font-bold leading-tight tracking-[-0.04em] text-white lg:text-3xl">
+            Limpieza<br />y sellado
+          </h3>
+          <p class="mt-6 font-primary text-sm leading-relaxed text-white/65 sm:text-base lg:text-sm xl:text-base">
+            Retiramos suciedad, residuos y contaminantes, aplicando selladores profesionales que ayudan a
+            proteger la superficie y prolongar su vida útil.
+          </p>
+        </div>
+      </article>
+    </div>
+
+    <div class="mt-3 grid grid-cols-1 gap-3 sm:mt-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 lg:gap-3 xl:gap-4">
+      <article class="group flex min-h-90 flex-col rounded-md bg-brand-red p-7 text-white transition-transform duration-300 hover:-translate-y-1 sm:min-h-100 sm:p-9 lg:min-h-105 xl:p-12">
+        <div class="h-1 w-12 bg-white transition-all duration-300 group-hover:w-16"></div>
+        <h3 class="mx-auto mt-auto max-w-sm font-primary text-2xl font-bold leading-[1.05] tracking-[-0.04em] sm:text-3xl lg:text-3xl xl:text-4xl">
+          Reparación de grietas, astillas y juntas
+        </h3>
+        <div class="my-7 h-0.5 w-full bg-white/90"></div>
+        <p class="font-primary text-sm leading-relaxed text-white/90 sm:text-base">
+          Corregimos grietas, bordes dañados, astillas y juntas deterioradas para restaurar la integridad,
+          continuidad y apariencia de la superficie.
+        </p>
+      </article>
+
+      <article class="group relative flex min-h-90 overflow-hidden rounded-md bg-brand-gray-light p-7 sm:min-h-100 sm:p-9 lg:min-h-105 xl:p-12">
+        <Image
+          src={polishedInterior}
+          alt="Piso de concreto pulido en un espacio comercial"
+          class="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          widths={[480, 720, 960]}
+          sizes="(max-width: 640px) 100vw, 34vw"
+          quality={90}
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="absolute inset-0 bg-linear-to-b from-white/90 via-white/75 to-brand-charcoal/15"></div>
+        <div class="relative z-10 max-w-sm">
+          <div class="h-1 w-12 bg-brand-red transition-all duration-300 group-hover:w-16"></div>
+          <h3 class="mt-10 font-primary text-2xl font-bold leading-tight tracking-[-0.04em] text-brand-charcoal sm:text-3xl">
+            Pulido de<br />concreto
+          </h3>
+          <p class="mt-6 font-primary text-sm leading-relaxed text-brand-charcoal/85 sm:text-base">
+            Refinamos la superficie para obtener un acabado uniforme, resistente, luminoso y fácil de mantener.
+          </p>
+        </div>
+      </article>
+
+      <article class="group flex min-h-90 flex-col rounded-md border border-brand-gray-medium bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:col-span-2 sm:min-h-100 sm:p-9 lg:col-span-1 lg:min-h-105 xl:p-10">
+        <div class="h-1 w-1/2 bg-brand-red transition-all duration-300 group-hover:w-2/3"></div>
+
+        <div class="mt-5 grid items-center gap-6 sm:grid-cols-[0.75fr_1.25fr] lg:grid-cols-1 xl:grid-cols-[0.8fr_1.2fr]">
+          <div class="aspect-4/3 overflow-hidden bg-brand-gray-light">
+            <Image
+              src={maintenanceInterior}
+              alt="Superficie incluida en un programa de mantenimiento"
+              class="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+              widths={[320, 480, 640]}
+              sizes="(max-width: 640px) 100vw, 20vw"
+              quality={90}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+
+          <div>
+            <h3 class="font-primary text-2xl font-bold leading-[1.05] tracking-[-0.04em] text-brand-gray sm:text-3xl">
+              Programas de Mantenimiento
+            </h3>
+            <div class="mt-5 h-1 w-12 bg-brand-red"></div>
+          </div>
+        </div>
+
+        <p class="mt-6 font-primary text-sm leading-relaxed text-brand-gray sm:text-base">
+          Diseñamos planes preventivos que conservan el acabado, reducen el desgaste y mantienen cada
+          superficie en condiciones óptimas.
+        </p>
+
+        <a
+          href="/contact/contact/"
+          class="mt-auto flex items-center gap-2 border-t border-brand-gray-medium pt-5 font-primary text-xs font-medium text-brand-gray transition-colors duration-300 hover:text-brand-red"
+        >
+          <Icon name="mdi:chevron-right" class="shrink-0 text-lg text-brand-red" aria-hidden="true" />
+          Planes personalizados para cada necesidad
+        </a>
+      </article>
+    </div>
+  </div>
+</section>

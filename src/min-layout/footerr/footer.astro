@@ -1,1 +1,132 @@
-<!-- Footer global. -->
+---
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import footerImage from '../../assets/footer/imagen-footer.webp'; 
+
+---
+
+<footer class="relative flex min-h-[115vh] w-full flex-col justify-end overflow-x-clip bg-white" role="contentinfo">
+  <div class="w-full min-h-[70vh] bg-brand-charcoal text-brand-white">
+  <!-- Banner fotográfico con corte diagonal -->
+  <section class="relative hidden min-h-102.5 overflow-hidden bg-white pt-24 md:block lg:min-h-112.5 lg:pt-32">
+    <div class="absolute inset-0 overflow-hidden">
+      <Image
+        src={footerImage}
+        alt="Interior restaurado por Resurfacing Solutions"
+        class="absolute inset-0 h-full w-full object-cover brightness-125"
+        widths={[640, 960, 1440, 1920]}
+        sizes="100vw"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="absolute inset-x-0 bottom-0 h-32 bg-linear-to-b from-transparent via-brand-charcoal/65 to-brand-charcoal" aria-hidden="true"></div>
+    </div>
+
+    <div
+      class="relative z-10 mx-auto flex min-h-75 max-w-375 items-center px-5 pt-24 transition-all duration-1000 ease-out sm:min-h-80 sm:px-6 sm:pt-28 lg:min-h-83.75 lg:px-5 lg:pt-32"
+      x-data="{ shown: false }"
+      x-init="new IntersectionObserver(([entry], observer) => { if (entry.isIntersecting) { shown = true; observer.disconnect(); } }, { threshold: 0.2 }).observe($el)"
+      :class="shown ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
+    >
+      <div class="w-full -translate-y-10 lg:-translate-y-22">
+        <h2 class="text-3xl font-bold leading-none tracking-tight text-white sm:text-4xl md:whitespace-nowrap lg:text-6xl">
+          Tu superficie no necesita un reemplazo
+        </h2>
+        <p class="-mt-1 font-secondary text-3xl italic leading-none text-brand-red sm:text-4xl md:whitespace-nowrap lg:-mt-2 lg:text-6xl">
+          Solo necesitas una restauración adecuada
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Información principal -->
+  <div
+    class="mx-auto max-w-375 px-5 pb-7 pt-10 transition-all duration-1000 ease-out sm:px-6 sm:pb-8 sm:pt-12 lg:px-5 lg:pt-18"
+    x-data="{ shown: false }"
+    x-init="new IntersectionObserver(([entry], observer) => { if (entry.isIntersecting) { shown = true; observer.disconnect(); } }, { threshold: 0.1 }).observe($el)"
+    :class="shown ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
+  >
+    <div class="grid grid-cols-1 gap-10 pb-12 sm:grid-cols-2 sm:gap-x-12 md:grid-cols-3 md:gap-x-8 lg:grid-cols-[1.4fr_0.65fr_1.15fr_0.9fr] lg:gap-6 lg:pb-16 xl:gap-8">
+      <div class="max-w-xl sm:col-span-2 md:col-span-3 lg:col-span-1">
+        <p class="font-secondary text-3xl italic text-white">Resurfacing Solutions</p>
+        <p class="mt-6 text-base leading-relaxed text-white/75 sm:text-lg lg:text-base">
+          Devuélvele la belleza, la resistencia y el valor a tus superficies de piedra natural y concreto. Nuestro equipo ofrece soluciones profesionales de restauración, pulido, reparación y mantenimiento, con atención al detalle y resultados hechos para durar.
+        </p>
+      </div>
+
+      <nav aria-label="Navegación del pie de página">
+        <h3 class="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-brand-red">Navegación</h3>
+        <ul class="space-y-3">
+          <li><a href="/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Inicio</a></li>
+          <li><a href="/about/about/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Nosotros</a></li>
+          <li><a href="/gallery/gallery/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Galería</a></li>
+          <li><a href="/contact/contact/" class="inline-block text-sm text-brand-red transition-all duration-200 hover:translate-x-1">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Servicios">
+        <h3 class="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-brand-red">Servicios</h3>
+        <ul class="space-y-3">
+          <li><a href="/services/restauracion/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Restauración y Reacabado de Superficies</a></li>
+          <li><a href="/services/pulido/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Pulido y Afinado</a></li>
+          <li><a href="/services/limpieza/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Limpieza y Sellado</a></li>
+          <li><a href="/services/reparacion/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Reparación de Grietas, Astillas y Juntas</a></li>
+          <li><a href="/services/concreto/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Pulido de Concreto</a></li>
+          <li><a href="/services/mantenimiento/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Programas de Mantenimiento</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Privacidad y ayuda">
+        <h3 class="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-brand-red">Privacidad</h3>
+        <ul class="space-y-3">
+          <li><a href="/privacy/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Políticas de Privacidad</a></li>
+          <li><a href="/terms/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Términos y Condiciones</a></li>
+          <li><a href="/#faq" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Preguntas Frecuentes</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="flex w-full flex-col gap-5 border-t border-white/20 py-5 sm:flex-row sm:items-center sm:justify-between">
+      <p class="whitespace-nowrap text-[9px] font-medium tracking-normal text-white/65 sm:text-xs sm:tracking-wider">
+        © {new Date().getFullYear()} Resurfacing Solutions. Todos los derechos reservados
+      </p>
+
+      <div class="flex items-center gap-1" aria-label="Redes sociales">
+        <a href="https://instagram.com/resurfacing" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="grid h-8 w-8 place-items-center text-white/70">
+          <Icon name="mdi:instagram" class="text-xl" aria-hidden="true" />
+        </a>
+        <a href="https://wa.me/18884565674" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="grid h-8 w-8 place-items-center text-white/70">
+          <Icon name="mdi:whatsapp" class="text-xl" aria-hidden="true" />
+        </a>
+        <a href="https://facebook.com/resurfacing" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="grid h-8 w-8 place-items-center text-white/70">
+          <Icon name="mdi:facebook" class="text-xl" aria-hidden="true" />
+        </a>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <button
+    x-data="{
+      show: false,
+      init() {
+        window.addEventListener('scroll', () => { this.show = window.scrollY > 500; }, { passive: true });
+      },
+      scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }"
+    x-show="show"
+    x-transition:enter="transition ease-out duration-300"
+    x-transition:enter-start="translate-y-4 opacity-0"
+    x-transition:enter-end="translate-y-0 opacity-100"
+    x-transition:leave="transition ease-in duration-200"
+    x-transition:leave-start="translate-y-0 opacity-100"
+    x-transition:leave-end="translate-y-4 opacity-0"
+    @click="scrollToTop()"
+    class="fixed bottom-5 right-5 z-40 grid h-11 w-11 place-items-center rounded-full bg-brand-red text-white shadow-lg transition-transform hover:-translate-y-1 active:scale-95 sm:bottom-6 sm:right-6"
+    aria-label="Volver al inicio"
+  >
+    <Icon name="mdi:arrow-up" class="text-xl" aria-hidden="true" />
+  </button>
+</footer>

@@ -78,10 +78,10 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
       <div
         class="hidden shrink-0 items-center gap-3 text-xs font-semibold md:flex lg:gap-5"
       >
-        <a href="/es/" hreflang="es" class="transition-opacity hover:opacity-70"
+        <a href="/es/" hreflang="es" class="hidden transition-opacity hover:opacity-70 lg:inline"
           >Traducir a español</a
         >
-        <a href="/#faq" class="transition-opacity hover:opacity-70"
+        <a href="/#faq" class="hidden transition-opacity hover:opacity-70 lg:inline"
           >Preguntas Frecuentes</a
         >
 
@@ -196,13 +196,13 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
 
   <!-- Navegación principal -->
   <nav
-    class="relative z-50 h-24 w-full overflow-visible bg-brand-red text-brand-white md:h-36 md:overflow-hidden"
+    class="relative z-50 h-24 w-full overflow-visible bg-brand-red text-brand-white lg:h-36 lg:overflow-hidden"
     aria-label="Navegación principal"
     x-data="{ isOpen: false }"
   >
     <!-- El panel oscuro solo existe desde tablet -->
     <div
-      class="absolute left-0 top-0 hidden h-32 w-1/2 bg-brand-charcoal [clip-path:polygon(0%_0%,100%_0%,85%_100%,0%_100%)] md:block"
+      class="absolute left-0 top-0 hidden h-32 w-1/2 bg-brand-charcoal [clip-path:polygon(0%_0%,100%_0%,85%_100%,0%_100%)] lg:block"
       aria-hidden="true"
     >
     </div>
@@ -218,21 +218,21 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
         <Image
           src={mobileLogo}
           alt="Resurfacing Solutions"
-          class="h-12 w-auto max-w-44 object-contain sm:h-16 md:hidden"
+          class="h-12 w-auto max-w-44 object-contain sm:h-16 lg:hidden"
           loading="eager"
           decoding="async"
         />
         <Image
           src={desktopLogo}
           alt="Resurfacing Solutions"
-          class="hidden h-16 w-auto object-contain md:block lg:h-20"
+          class="hidden h-20 w-auto object-contain lg:block"
           loading="eager"
           decoding="async"
         />
       </a>
 
       <div
-        class="ml-auto hidden items-center justify-end gap-5 md:flex lg:gap-7"
+        class="ml-auto hidden items-center justify-end gap-7 lg:flex"
       >
         <a
           href="/"
@@ -263,7 +263,7 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
 
       <button
         type="button"
-        class="relative z-110 ml-auto grid h-11 w-11 shrink-0 place-items-center rounded-md border border-white/80 text-3xl text-white shadow-sm transition-all duration-200 hover:border-white hover:bg-white/10 md:hidden"
+        class="relative z-110 ml-auto grid h-11 w-11 shrink-0 place-items-center rounded-md border border-white/80 text-3xl text-white shadow-sm transition-all duration-200 hover:border-white hover:bg-white/10 lg:hidden"
         @click="isOpen = !isOpen"
         :aria-expanded="isOpen"
         aria-controls="mobile-navigation"
@@ -294,7 +294,7 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
       x-transition:leave="transition transform ease-in duration-200"
       x-transition:leave-start="translate-y-0 opacity-100"
       x-transition:leave-end="-translate-y-4 opacity-0"
-      class="absolute inset-x-0 top-full z-100 flex w-full flex-col overflow-x-hidden bg-brand-white px-6 pb-7 pt-5 text-brand-charcoal shadow-xl md:hidden"
+      class="absolute inset-x-0 top-full z-100 flex w-full flex-col overflow-x-hidden bg-brand-white px-6 pb-7 pt-5 text-brand-charcoal shadow-xl lg:hidden"
     >
       <div class="mx-auto flex w-full max-w-sm flex-col">
         <a

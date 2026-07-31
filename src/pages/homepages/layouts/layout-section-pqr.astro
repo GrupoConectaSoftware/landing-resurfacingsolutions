@@ -1,0 +1,66 @@
+---
+const questions = [
+  {
+    question: '¿Qué tipos de superficies restauran?',
+    answer: 'Trabajamos con mármol, travertino, terrazo, piedra natural y concreto. Antes de recomendar un tratamiento evaluamos el material, su acabado y el nivel de desgaste.'
+  },
+  {
+    question: '¿Es necesario reemplazar toda la superficie?',
+    answer: 'En muchos casos no. El pulido, la reparación, el sellado o el reacabado profesional pueden recuperar la apariencia y funcionalidad de la superficie sin una sustitución completa.'
+  },
+  {
+    question: '¿Cómo preparan una cotización?',
+    answer: 'Comenzamos con fotografías y una descripción del área. Cuando el proyecto lo requiere, realizamos una evaluación para confirmar medidas, daños, material y acabado deseado antes de presentar la propuesta.'
+  },
+  {
+    question: '¿Cuánto puede durar el proceso?',
+    answer: 'Depende del tamaño, el material y el tratamiento necesario. Los trabajos pequeños pueden completarse en pocos días; antes de comenzar te entregamos una estimación clara del tiempo de ejecución.'
+  },
+  {
+    question: '¿Cómo protegen el espacio durante el trabajo?',
+    answer: 'Delimitamos el área, protegemos las superficies cercanas y mantenemos un proceso ordenado. Nuestro objetivo es intervenir con precisión y reducir al mínimo el polvo, los residuos y las molestias.'
+  },
+  {
+    question: '¿Ofrecen mantenimiento después de la restauración?',
+    answer: 'Sí. Diseñamos recomendaciones y programas de mantenimiento según el uso de la superficie para conservar el acabado, prolongar su vida útil y evitar deterioros prematuros.'
+  }
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: questions.map(({ question, answer }) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: { '@type': 'Answer', text: answer }
+  }))
+};
+---
+
+<section id="faq" class="w-full scroll-mt-36 bg-white py-20 sm:py-24 lg:scroll-mt-56 lg:py-28" aria-labelledby="faq-title">
+  <div class="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
+    <header class="max-w-4xl">
+      <p class="mb-4 font-primary text-[10px] font-bold uppercase tracking-[0.18em] text-brand-red sm:text-xs">
+        Preguntas frecuentes
+      </p>
+      <h2 id="faq-title" class="font-primary text-4xl font-bold leading-[0.98] tracking-tighter text-brand-charcoal sm:text-5xl lg:text-6xl">
+        Antes de comenzar,
+        <span class="mt-1 block font-secondary font-normal italic tracking-normal text-brand-red">resolvemos tus dudas.</span>
+      </h2>
+    </header>
+
+    <div class="mt-14 max-w-5xl space-y-9 sm:mt-16 sm:space-y-10 lg:ml-8 lg:mt-20 xl:ml-12">
+      {questions.map(({ question, answer }) => (
+        <article class="grid grid-cols-[1rem_1fr] gap-4 sm:grid-cols-[1.25rem_1fr] sm:gap-5">
+          <span class="mt-0.5 h-3.5 w-3.5 rounded-full bg-brand-red sm:h-4 sm:w-4" aria-hidden="true"></span>
+          <div>
+            <h3 class="font-primary text-[11px] font-bold uppercase tracking-[0.11em] text-brand-red sm:text-xs">{question}</h3>
+            <p class="mt-3 max-w-4xl font-primary text-sm leading-relaxed text-brand-gray sm:text-base lg:text-lg lg:leading-snug">{answer}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>

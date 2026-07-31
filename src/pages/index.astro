@@ -63,6 +63,7 @@ import LayoutSectionProcess from './homepages/layouts/layout-section-process.ast
 // - Porcentaje de éxito, etc.
 // ------------------------------------------------------------
 import LayoutSectionResult from './homepages/layouts/layout-section-result.astro';
+import LayoutSectionPqr from './homepages/layouts/layout-section-pqr.astro';
 
 // ------------------------------------------------------------
 // SECCIÓN 7: INVITATION (LLAMADA A LA ACCIÓN FINAL)
@@ -223,7 +224,7 @@ const siteImage = '/images/og-image.jpg'; // Imagen para redes sociales (en publ
     bg-slate-50: fondo muy claro.
     smooth-scroll: scroll suave.
   -->
-  <body class="bg-white text-brand-charcoal antialiased smooth-scroll">
+  <body class="bg-brand-dark text-brand-charcoal antialiased smooth-scroll">
     
     <!-- ========================================================== -->
     <!-- NAVEGACIÓN GLOBAL (aparece en todas las páginas) -->
@@ -238,7 +239,7 @@ const siteImage = '/images/og-image.jpg'; // Imagen para redes sociales (en publ
       el usuario las verá al hacer scroll hacia abajo.
       Cada una es un componente independiente y reutilizable.
     -->
-    <main class="flex flex-col min-h-screen">
+    <main class="flex min-h-screen flex-col gap-0">
       
       <!-- 1. HERO: Primera impresión, engancha al usuario -->
       <LayoutSectionIntroduction />
@@ -260,6 +261,9 @@ const siteImage = '/images/og-image.jpg'; // Imagen para redes sociales (en publ
       
       <!-- 7. RESULT: Muestra números que respaldan la calidad -->
       <LayoutSectionResult />
+
+      <!-- 8. FAQ: Respuestas visibles a las preguntas más frecuentes -->
+      <LayoutSectionPqr />
       
     </main>
 

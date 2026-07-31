@@ -1,1 +1,177 @@
-<!-- Sección Introduction de la página principal. -->
+---
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import backgroundImage from '../../../assets/homepages/sections/introduction/imagen-introduction.webp';
+import carouselImage1 from '../../../assets/homepages/sections/introduction/carrusel/imagen-carrusel1.webp';
+import carouselImage2 from '../../../assets/homepages/sections/introduction/carrusel/imagen-carrusel2.webp';
+import carouselImage3 from '../../../assets/homepages/sections/introduction/carrusel/imagen-carrusel3.webp';
+import carouselImage4 from '../../../assets/homepages/sections/introduction/carrusel/imagen-carrusel4.webp';
+import carouselImage5 from '../../../assets/homepages/sections/introduction/carrusel/imagen-carrusel5.webp';
+import carouselImage6 from '../../../assets/homepages/sections/introduction/carrusel/imagen-carrusel6.webp';
+import carouselImage7 from '../../../assets/homepages/sections/introduction/carrusel/imagen-carrusel7.webp';
+
+const carouselImages = [
+  { src: carouselImage1, alt: 'Piso de mármol restaurado y pulido' },
+  { src: carouselImage2, alt: 'Superficie de piedra natural restaurada' },
+  { src: carouselImage3, alt: 'Piso oscuro con acabado brillante' },
+  { src: carouselImage4, alt: 'Piso profesional después de la restauración' },
+  { src: carouselImage5, alt: 'Acabado pulido en superficie residencial' },
+  { src: carouselImage6, alt: 'Detalle de piso renovado' },
+  { src: carouselImage7, alt: 'Superficie restaurada por Resurfacing Solutions' }
+];
+---
+
+<section
+  class="relative -mt-px flex min-h-[calc(100svh-8.5rem)] w-full items-center overflow-hidden bg-brand-dark py-14 md:min-h-[calc(100svh-10.5rem)] md:py-12 lg:min-h-[calc(100svh-13.5rem)] lg:py-14"
+  aria-labelledby="introduction-title"
+>
+  <Image
+    src={backgroundImage}
+    alt="Superficie oscura de piedra restaurada"
+    class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
+    widths={[640, 960, 1440, 1920]}
+    sizes="100vw"
+    quality={90}
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+  />
+  <div class="relative z-10 mx-auto w-full max-w-[100rem] px-5 sm:px-7 lg:px-10 xl:px-14">
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-4 xl:gap-6">
+      <div class="flex min-w-0 flex-col justify-center">
+        <p class="mb-4 font-primary text-[10px] font-bold lowercase tracking-[0.2em] text-brand-red sm:text-xs">
+          Stone Restoration Specialists
+        </p>
+
+        <h1
+          id="introduction-title"
+          class="max-w-2xl font-primary text-4xl font-bold leading-[0.98] tracking-[-0.045em] text-white sm:text-5xl md:text-4xl lg:text-[2.8rem] xl:text-[3.4rem]"
+        >
+          Restaure la<br />
+          superficie.
+          <span class="font-secondary font-normal italic tracking-normal text-brand-red">Preserve</span><br />
+          <span class="font-secondary font-normal italic tracking-normal text-brand-red">el espacio.</span>
+        </h1>
+
+        <p class="mt-6 max-w-xl font-primary text-sm leading-relaxed text-white/70 sm:text-base md:text-sm lg:text-base">
+          Professional restoration, refinishing, polishing, repair and maintenance for natural stone and
+          concrete surfaces throughout Los Angeles County.
+        </p>
+
+        <div class="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
+          <a
+            href="/#services"
+            class="inline-flex min-h-12 items-center justify-center gap-2.5 rounded-sm bg-white px-6 py-3 font-primary text-xs font-bold uppercase tracking-[0.07em] text-brand-charcoal shadow-lg transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_22px_rgba(255,255,255,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+          >
+            <Icon name="mdi:hexagon-multiple" class="text-lg" aria-hidden="true" />
+            Visualizar Servicios
+          </a>
+
+          <a
+            href="/gallery/gallery/"
+            class="inline-flex min-h-12 items-center justify-center gap-2.5 rounded-sm border border-white/70 bg-black/10 px-6 py-3 font-primary text-xs font-bold uppercase tracking-[0.07em] text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-[1.03] hover:border-white hover:bg-white hover:text-brand-charcoal hover:shadow-[0_0_22px_rgba(255,255,255,0.15)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+          >
+            <Icon name="mdi:play-circle-outline" class="text-lg" aria-hidden="true" />
+            Visualizar Galería
+          </a>
+        </div>
+      </div>
+
+      <div
+        class="relative hidden h-120 w-full lg:block xl:h-135"
+        x-data="{
+          currentIndex: 0,
+          total: 7,
+          intervalId: null,
+
+          startRotation() {
+            if (this.intervalId) return;
+            this.intervalId = setInterval(() => {
+              this.currentIndex = (this.currentIndex + 1) % this.total;
+            }, 4000);
+          },
+
+          stopRotation() {
+            if (!this.intervalId) return;
+            clearInterval(this.intervalId);
+            this.intervalId = null;
+          },
+
+          init() {
+            this.startRotation();
+            this.$cleanup(() => this.stopRotation());
+          }
+        }"
+        @mouseenter="stopRotation()"
+        @mouseleave="startRotation()"
+        aria-label="Galería rotativa de superficies restauradas"
+      >
+        <figure class="absolute left-0 top-1/2 z-20 h-[88%] w-[55%] -translate-y-1/2 -rotate-1 overflow-hidden rounded-sm border-2 border-white/90 bg-brand-charcoal shadow-[0_22px_55px_rgba(0,0,0,0.55)]">
+          {carouselImages.map((image, index) => (
+            <Image
+              src={image.src}
+              alt={image.alt}
+              class="absolute inset-0 h-full w-full object-cover object-center"
+              widths={[480, 640, 800]}
+              sizes="40vw"
+              quality={95}
+              loading={index === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              x-show={`currentIndex === ${index}`}
+              x-transition:enter="transition duration-700 ease-out"
+              x-transition:enter-start="translate-x-6 scale-[1.03] opacity-0"
+              x-transition:enter-end="translate-x-0 scale-100 opacity-100"
+              x-transition:leave="transition duration-500 ease-in"
+              x-transition:leave-start="translate-x-0 scale-100 opacity-100"
+              x-transition:leave-end="-translate-x-6 scale-[0.98] opacity-0"
+            />
+          ))}
+        </figure>
+
+        <figure class="absolute left-[57%] top-1/2 z-10 h-[70%] w-[25%] -translate-y-1/2 overflow-hidden rounded-sm border-2 border-white/90 bg-brand-charcoal shadow-[0_18px_42px_rgba(0,0,0,0.5)]">
+          {carouselImages.map((image, index) => (
+            <Image
+              src={image.src}
+              alt=""
+              class="absolute inset-0 h-full w-full object-cover object-center"
+              widths={[320, 480, 640]}
+              sizes="18vw"
+              quality={95}
+              loading="lazy"
+              decoding="async"
+              x-show={`(currentIndex + 1) % total === ${index}`}
+              x-transition:enter="transition duration-700 ease-out"
+              x-transition:enter-start="translate-x-5 scale-[1.04] opacity-0"
+              x-transition:enter-end="translate-x-0 scale-100 opacity-100"
+              x-transition:leave="transition duration-500 ease-in"
+              x-transition:leave-start="translate-x-0 opacity-100"
+              x-transition:leave-end="-translate-x-5 opacity-0"
+            />
+          ))}
+        </figure>
+
+        <figure class="absolute right-0 top-1/2 z-0 h-[58%] w-[17%] -translate-y-1/2 rotate-1 overflow-hidden rounded-sm border-2 border-white/90 bg-brand-charcoal shadow-[0_14px_34px_rgba(0,0,0,0.45)]">
+          {carouselImages.map((image, index) => (
+            <Image
+              src={image.src}
+              alt=""
+              class="absolute inset-0 h-full w-full object-cover object-center"
+              widths={[240, 320, 480]}
+              sizes="10vw"
+              quality={95}
+              loading="lazy"
+              decoding="async"
+              x-show={`(currentIndex + 2) % total === ${index}`}
+              x-transition:enter="transition duration-700 ease-out"
+              x-transition:enter-start="translate-x-4 scale-[1.05] opacity-0"
+              x-transition:enter-end="translate-x-0 scale-100 opacity-100"
+              x-transition:leave="transition duration-500 ease-in"
+              x-transition:leave-start="translate-x-0 opacity-100"
+              x-transition:leave-end="-translate-x-4 opacity-0"
+            />
+          ))}
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>

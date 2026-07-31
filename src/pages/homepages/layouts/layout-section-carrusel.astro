@@ -1,1 +1,87 @@
-<!-- Sección Carrusel de la página principal. -->
+---
+const items = [
+  'Free Estimates',
+  'Professional Results',
+  'Lasting Finishes',
+  'Experienced Team',
+  'Personalized Service',
+  'Quality Guaranteed'
+];
+
+const cycleItems = [...items, ...items];
+const duplicatedItems = [...cycleItems, ...cycleItems];
+---
+
+<section
+  class="w-full overflow-hidden border-y border-white/20 bg-[#dcdcdc] py-3"
+  aria-label="Beneficios de Resurfacing Solutions"
+  x-data={`{
+    items: ${JSON.stringify(duplicatedItems)},
+    offset: 0,
+    loopWidth: 0,
+    speed: 39,
+    frameId: null,
+    lastFrame: null,
+    resizeHandler: null,
+
+    measure() {
+      this.loopWidth = this.$refs.loop.getBoundingClientRect().width;
+      this.offset = -this.loopWidth;
+      this.$refs.track.classList.remove('-translate-x-1/2');
+      this.$refs.track.style.transform = 'translate3d(' + this.offset + 'px, 0, 0)';
+    },
+
+    animate(timestamp) {
+      if (this.lastFrame === null) this.lastFrame = timestamp;
+
+      const elapsed = Math.min(timestamp - this.lastFrame, 50);
+      this.lastFrame = timestamp;
+      this.offset += (this.speed * elapsed) / 1000;
+
+      if (this.offset >= 0) this.offset -= this.loopWidth;
+
+      this.$refs.track.style.transform = 'translate3d(' + this.offset + 'px, 0, 0)';
+      this.frameId = requestAnimationFrame((time) => this.animate(time));
+    },
+
+    init() {
+      this.measure();
+      this.resizeHandler = () => {
+        this.lastFrame = null;
+        this.measure();
+      };
+
+      window.addEventListener('resize', this.resizeHandler, { passive: true });
+      this.frameId = requestAnimationFrame((time) => this.animate(time));
+
+      this.$cleanup(() => {
+        if (this.frameId) cancelAnimationFrame(this.frameId);
+        if (this.resizeHandler) window.removeEventListener('resize', this.resizeHandler);
+      });
+    }
+  }`}
+>
+  <div
+    x-ref="track"
+    class="flex w-max -translate-x-1/2 whitespace-nowrap will-change-transform"
+  >
+    {[0, 1].map((copyIndex) => (
+      <div
+        x-ref={copyIndex === 0 ? 'loop' : undefined}
+        class="flex min-w-screen shrink-0 items-center justify-around gap-5 px-3 sm:gap-6 sm:px-4 md:gap-7 lg:px-5"
+        aria-hidden={copyIndex === 1 ? 'true' : undefined}
+      >
+        {cycleItems.map((item, index) => (
+          <span
+            class:list={[
+              'shrink-0 font-secondary text-[11px] font-bold uppercase tracking-[0.12em] sm:text-xs md:text-[13px] lg:text-sm',
+              index % 2 === 0 ? 'text-brand-red' : 'text-brand-charcoal'
+            ]}
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+    ))}
+  </div>
+</section>

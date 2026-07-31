@@ -53,11 +53,11 @@ const duplicatedItems = [...cycleItems, ...cycleItems];
 
       window.addEventListener('resize', this.resizeHandler, { passive: true });
       this.frameId = requestAnimationFrame((time) => this.animate(time));
+    },
 
-      this.$cleanup(() => {
-        if (this.frameId) cancelAnimationFrame(this.frameId);
-        if (this.resizeHandler) window.removeEventListener('resize', this.resizeHandler);
-      });
+    destroy() {
+      if (this.frameId) cancelAnimationFrame(this.frameId);
+      if (this.resizeHandler) window.removeEventListener('resize', this.resizeHandler);
     }
   }`}
 >

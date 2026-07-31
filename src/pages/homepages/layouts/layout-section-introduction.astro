@@ -99,7 +99,10 @@ const carouselImages = [
 
           init() {
             this.startRotation();
-            this.$cleanup(() => this.stopRotation());
+          },
+
+          destroy() {
+            this.stopRotation();
           }
         }"
         @mouseenter="stopRotation()"

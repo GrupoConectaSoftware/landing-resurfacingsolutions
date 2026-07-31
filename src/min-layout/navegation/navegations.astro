@@ -13,6 +13,22 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
     lastScrollY: 0,
     isHeaderVisible: true,
     footerInView: false,
+    footerObserver: null,
+    init() {
+      this.lastScrollY = Math.max(window.scrollY, 0);
+      const pageFooter = document.querySelector('footer[role=contentinfo]');
+
+      if (pageFooter) {
+        this.footerObserver = new IntersectionObserver(([entry]) => {
+          this.footerInView = entry.isIntersecting;
+          if (this.footerInView) this.isHeaderVisible = false;
+        }, { threshold: 0 });
+        this.footerObserver.observe(pageFooter);
+      }
+    },
+    destroy() {
+      this.footerObserver?.disconnect();
+    },
     handleScroll() {
       if (this.footerInView) {
         this.isHeaderVisible = false;
@@ -31,18 +47,6 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
       this.lastScrollY = currentScrollY;
     }
   }"
-  x-init="
-    lastScrollY = Math.max(window.scrollY, 0);
-    const pageFooter = document.querySelector('footer[role=contentinfo]');
-    if (pageFooter) {
-      const footerObserver = new IntersectionObserver(([entry]) => {
-        footerInView = entry.isIntersecting;
-        if (footerInView) isHeaderVisible = false;
-      }, { threshold: 0 });
-      footerObserver.observe(pageFooter);
-      $cleanup(() => footerObserver.disconnect());
-    }
-  "
   @scroll.window.throttle.100ms="handleScroll()"
   :class="isHeaderVisible ? 'translate-y-0' : '-translate-y-full'"
 >

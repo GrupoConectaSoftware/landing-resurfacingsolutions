@@ -1,1 +1,30 @@
-<!-- Sección Map de Contact. -->
+---
+const mapUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2568.3044045159277!2d-118.51378402549867!3d34.37801000046101!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2867297d507fb%3A0xa3ae04678b9b66a3!2s24412%20Valle%20Del%20Oro%2C%20Santa%20Clarita%2C%20CA%2091321%2C%20EE.%20UU.!5e1!3m2!1ses!2sco!4v1785644116956!5m2!1ses!2sco';
+---
+
+<!-- ============================================================ -->
+<!-- SECCIÓN MAPA  -->
+<!-- ============================================================ -->
+<section 
+  class="w-full overflow-hidden bg-white border-t border-gray-200/80 py-8 lg:py-20"
+  aria-label="Resurfacing Solutions location map"
+>
+  <!-- Contenedor del mapa: w-full (ocupa toda la pantalla) -->
+  <div class="w-full">
+    
+    <figure class="mx-auto w-full overflow-hidden border border-gray-100/60 shadow-[0_14px_42px_rgba(0,0,0,0.06)]">
+      <iframe
+        src={mapUrl}
+        width="100%"
+        height="560"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="strict-origin-when-cross-origin"
+        title="Map showing Resurfacing Solutions at 24412 Valle Del Oro in Santa Clarita, California"
+        class="block h-88 w-full border-0 sm:h-112 lg:h-128 2xl:h-144"
+      ></iframe>
+      <figcaption class="sr-only">Resurfacing Solutions location at 24412 Valle Del Oro, Santa Clarita, California 91321.</figcaption>
+    </figure>
+    
+  </div>
+</section>

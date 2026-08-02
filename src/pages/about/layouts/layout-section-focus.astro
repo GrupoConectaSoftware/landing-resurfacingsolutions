@@ -1,0 +1,86 @@
+---
+import { Image } from 'astro:assets';
+import interiorImage from '../../../assets/about/sections/focus/imagen-focus1.webp';
+import technicianImage from '../../../assets/about/sections/focus/imagen-focus2.webp';
+---
+
+<section
+  class="relative isolate flex w-full items-center overflow-hidden bg-white py-16 sm:py-20 lg:min-h-[90svh] lg:py-20 xl:py-24"
+  aria-labelledby="about-focus-title"
+>
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(33,33,33,0.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(33,33,33,0.055)_1px,transparent_1px)] bg-size-[42px_42px] mask-[linear-gradient(to_bottom,black_0%,black_82%,transparent_100%)] sm:bg-size-[52px_52px] lg:bg-size-[64px_64px]"
+  ></div>
+
+  <div class="relative z-10 mx-auto grid w-full max-w-360 items-center gap-14 px-5 sm:px-8 lg:grid-cols-[1.12fr_0.88fr] lg:gap-12 lg:px-10 xl:gap-16 xl:px-12 2xl:grid-cols-[1.08fr_0.92fr] 2xl:gap-24">
+    <figure
+      data-reveal-left
+      class="relative mx-auto aspect-[1.36] w-full max-w-3xl pb-[8%] pr-[7%] sm:pb-[9%] sm:pr-[8%] lg:mx-0"
+      aria-labelledby="about-focus-images-caption"
+    >
+      <div class="absolute left-0 top-0 h-[86%] w-[92%] overflow-hidden rounded-sm bg-brand-charcoal shadow-[0_22px_55px_rgba(0,0,0,0.2)]">
+        <Image
+          src={interiorImage}
+          alt="Restored modern living room with large windows"
+          class="h-full w-full object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.02]"
+          widths={[640, 960, 1280]}
+          sizes="(max-width: 1023px) 88vw, 48vw"
+          quality={92}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+      <div
+        data-reveal-image
+        class="absolute bottom-0 right-0 z-10 h-[46%] w-[57%]"
+      >
+        <div class="h-full w-full -rotate-1 overflow-hidden rounded-sm bg-transparent shadow-[0_22px_48px_rgba(0,0,0,0.24)] transition-transform duration-700 ease-out hover:-rotate-2 hover:scale-[1.025]">
+          <Image
+            src={technicianImage}
+            alt="Resurfacing Solutions technician restoring a stone surface"
+            class="h-full w-full object-cover object-center"
+            widths={[360, 520, 720]}
+            sizes="(max-width: 1023px) 53vw, 26vw"
+            quality={92}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+
+      <figcaption id="about-focus-images-caption" class="sr-only">
+        A restored residential interior and a technician applying a professional surface restoration process.
+      </figcaption>
+    </figure>
+
+    <div class="flex min-w-0 flex-col lg:max-w-136">
+      <header>
+        <p class="mb-4 font-primary text-[10px] font-bold uppercase tracking-[0.18em] text-brand-red sm:text-xs">
+          Our Approach
+        </p>
+
+        <h2
+          id="about-focus-title"
+          class="font-primary text-[2.55rem] font-bold leading-[0.96] tracking-[-0.045em] text-brand-charcoal min-[430px]:text-5xl sm:text-[3.35rem] lg:text-[3.25rem] xl:text-[3.55rem] 2xl:text-[3.8rem]"
+        >
+          Every surface<br />
+          <span class="whitespace-nowrap">deserves <span class="font-secondary font-normal italic tracking-normal text-brand-red">the right</span></span><br />
+          <span class="font-secondary font-normal italic tracking-normal text-brand-red">process.</span>
+        </h2>
+      </header>
+
+      <div class="mt-6 max-w-xl space-y-5 font-primary text-sm leading-[1.65] text-brand-gray sm:text-base lg:mt-7 lg:text-[1.02rem] xl:text-[1.08rem]">
+        <p>
+          No two surfaces experience the same wear or respond in exactly the same way. Before beginning any
+          work, we assess the material, its condition, how the space is used, and the finish you want to recover.
+        </p>
+        <p>
+          From that assessment, we define a specific process to restore, protect, and extend its service life—no
+          generic solutions and no one-size-fits-all treatments.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

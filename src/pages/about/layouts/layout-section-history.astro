@@ -4,10 +4,15 @@ import machineImage from '../../../assets/about/sections/history/imagen-about.we
 ---
 
 <section
-  class="flex w-full items-center overflow-hidden bg-white py-16 sm:py-20 lg:min-h-svh lg:py-20 xl:py-24"
+  class="relative isolate flex w-full items-center overflow-hidden bg-white py-16 sm:py-20 lg:min-h-svh lg:py-20 xl:py-24"
   aria-labelledby="about-history-title"
 >
-  <div class="mx-auto grid w-full max-w-7xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-[0.94fr_1.06fr] lg:gap-14 lg:px-10 xl:gap-20">
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(33,33,33,0.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(33,33,33,0.055)_1px,transparent_1px)] bg-size-[42px_42px] sm:bg-size-[52px_52px] lg:bg-size-[64px_64px]"
+  ></div>
+
+  <div class="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-[0.94fr_1.06fr] lg:gap-14 lg:px-10 xl:gap-20">
     <div class="flex min-w-0 flex-col">
       <p class="mb-4 font-primary text-[10px] font-bold uppercase tracking-[0.18em] text-brand-red sm:text-xs">
         About Resurfacing Solutions

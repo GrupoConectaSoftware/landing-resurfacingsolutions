@@ -1,0 +1,45 @@
+---
+import { Image } from 'astro:assets';
+import backgroundImage from '../../../assets/contact/sections/introduction/imagen-introduction.webp';
+---
+
+<section
+  class="relative isolate flex h-svh min-h-svh max-h-svh w-full min-w-0 items-center overflow-hidden bg-brand-black xl:-mt-40 2xl:-mt-54"
+  aria-labelledby="contact-introduction-title"
+>
+  <Image
+    src={backgroundImage}
+    alt="Resurfacing Solutions service van and professional surface restoration equipment"
+    class="pointer-events-none absolute inset-0 block h-full! min-h-full! w-full max-h-none! object-cover object-[62%_center] sm:object-[66%_center] lg:object-center"
+    widths={[640, 960, 1280, 1600, 1920, 2560]}
+    sizes="100vw"
+    quality={92}
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+  />
+
+  <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.91)_0%,rgba(0,0,0,0.76)_42%,rgba(0,0,0,0.42)_72%,rgba(0,0,0,0.25)_100%)]" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-linear-to-b from-transparent to-black/45" aria-hidden="true"></div>
+
+  <div class="relative z-10 mx-auto w-full min-w-0 max-w-7xl px-5 py-10 sm:px-8 sm:py-14 lg:px-10 lg:py-16 xl:translate-y-10 xl:px-12 2xl:max-w-[100rem] 2xl:translate-y-16 2xl:px-16">
+    <header class="max-w-2xl">
+      <p class="mb-4 font-primary text-[10px] font-bold uppercase tracking-[0.18em] text-brand-red sm:text-xs">
+        Contact Us
+      </p>
+
+      <h1
+        id="contact-introduction-title"
+        class="font-primary text-[2.7rem] font-bold leading-[0.97] tracking-[-0.045em] text-white min-[430px]:text-5xl sm:text-[3.5rem] lg:text-[4rem] xl:text-[4.35rem] 2xl:text-[4.7rem] [@media(min-width:1280px)_and_(max-width:1535px)_and_(max-height:800px)]:text-[clamp(3rem,4.2vw,3.65rem)]"
+      >
+        Tell us what<br />
+        <span class="whitespace-nowrap">your surface <span class="font-secondary font-normal italic tracking-normal text-brand-red">needs.</span></span>
+      </h1>
+
+      <p class="mt-6 max-w-xl font-primary text-sm leading-[1.65] text-white/72 sm:text-base lg:text-[1.05rem] 2xl:text-lg [@media(min-width:1280px)_and_(max-width:1535px)_and_(max-height:800px)]:mt-5 [@media(min-width:1280px)_and_(max-width:1535px)_and_(max-height:800px)]:text-[0.95rem]">
+        Send us photos, identify the material if you know it, and describe the wear, damage, or change you
+        would like to make. With that information, we can assess your project and recommend the right process.
+      </p>
+    </header>
+  </div>
+</section>

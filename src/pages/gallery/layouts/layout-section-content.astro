@@ -5,12 +5,18 @@ import ComponentSectionTravertine from '../components/component-section-traverti
 import ComponentSectionTerrazzo from '../components/component-section-terrazzo.astro';
 import ComponentSectionNaturalStone from '../components/component-section-natural-stone.astro';
 import ComponentSectionConcrete from '../components/component-section-concrete.astro';
-import beforeImage from '../../../assets/homepages/sections/result/imagen-result1.webp';
-import afterImage from '../../../assets/homepages/sections/result/imagen-result2.webp';
+import beforeImage from '../../../assets/gallery/sections/gallery/cleaning-sealing/imagen-before.webp';
+import afterImage from '../../../assets/gallery/sections/gallery/cleaning-sealing/imagen-after.webp';
+import { getImage } from 'astro:assets';
+
+const [optimizedBefore, optimizedAfter] = await Promise.all([
+  getImage({ src: beforeImage, width: 900, height: 900, fit: 'cover', format: 'webp', quality: 90 }),
+  getImage({ src: afterImage, width: 900, height: 900, fit: 'cover', format: 'webp', quality: 90 }),
+]);
 
 const placeholderPair = {
-  before: beforeImage.src,
-  after: afterImage.src,
+  before: optimizedBefore.src,
+  after: optimizedAfter.src,
 };
 
 const categories = [

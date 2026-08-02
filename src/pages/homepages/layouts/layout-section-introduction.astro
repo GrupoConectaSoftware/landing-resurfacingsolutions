@@ -11,24 +11,24 @@ import carouselImage6 from '../../../assets/homepages/sections/introduction/carr
 import carouselImage7 from '../../../assets/homepages/sections/introduction/carrusel/imagen-carrusel7.webp';
 
 const carouselImages = [
-  { src: carouselImage1, alt: 'Piso de mármol restaurado y pulido' },
-  { src: carouselImage2, alt: 'Superficie de piedra natural restaurada' },
-  { src: carouselImage3, alt: 'Piso oscuro con acabado brillante' },
-  { src: carouselImage4, alt: 'Piso profesional después de la restauración' },
-  { src: carouselImage5, alt: 'Acabado pulido en superficie residencial' },
-  { src: carouselImage6, alt: 'Detalle de piso renovado' },
-  { src: carouselImage7, alt: 'Superficie restaurada por Resurfacing Solutions' }
+  { src: carouselImage1, alt: 'Restored and polished marble floor' },
+  { src: carouselImage2, alt: 'Restored natural stone surface' },
+  { src: carouselImage3, alt: 'Dark floor with a glossy finish' },
+  { src: carouselImage4, alt: 'Professional flooring after restoration' },
+  { src: carouselImage5, alt: 'Polished finish on a residential surface' },
+  { src: carouselImage6, alt: 'Renewed floor detail' },
+  { src: carouselImage7, alt: 'Surface restored by Resurfacing Solutions' }
 ];
 ---
 
 <section
-  class="relative -mt-px flex min-h-[calc(100svh-8.5rem)] w-full items-center overflow-hidden bg-brand-dark py-14 md:min-h-[calc(100svh-10.5rem)] md:py-12 lg:min-h-[calc(100svh-13.5rem)] lg:py-14"
+  class="hero-introduction relative -mt-px box-border flex h-svh min-h-svh max-h-svh w-full min-w-0 items-center overflow-hidden bg-brand-dark py-14 md:py-12 lg:py-14 xl:-mt-40 xl:py-[clamp(1.25rem,3.2vh,2rem)] 2xl:-mt-54"
   aria-labelledby="introduction-title"
 >
   <Image
     src={backgroundImage}
-    alt="Superficie oscura de piedra restaurada"
-    class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
+    alt="Restored dark stone surface"
+    class="hero-background pointer-events-none absolute inset-0 block h-full! min-h-full! w-full max-h-none! object-cover object-center"
     widths={[640, 960, 1440, 1920]}
     sizes="100vw"
     quality={90}
@@ -36,49 +36,49 @@ const carouselImages = [
     fetchpriority="high"
     decoding="async"
   />
-  <div class="relative z-10 mx-auto w-full max-w-[100rem] px-5 sm:px-7 lg:px-10 xl:px-14">
-    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-4 xl:gap-6">
-      <div class="flex min-w-0 flex-col justify-center">
+  <div class="relative z-10 mx-auto w-full min-w-0 max-w-[100rem] px-5 sm:px-7 lg:px-10 xl:px-14">
+    <div class="hero-grid grid min-w-0 grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,45fr)_minmax(0,55fr)] lg:gap-5 xl:translate-y-20 xl:gap-6 2xl:translate-y-27 2xl:gap-8">
+      <div class="hero-copy flex w-full min-w-0 max-w-full flex-col justify-center overflow-hidden">
         <p class="mb-4 font-primary text-[10px] font-bold lowercase tracking-[0.2em] text-brand-red sm:text-xs">
           Stone Restoration Specialists
         </p>
 
         <h1
           id="introduction-title"
-          class="max-w-2xl font-primary text-4xl font-bold leading-[0.98] tracking-[-0.045em] text-white sm:text-5xl md:text-4xl lg:text-[2.8rem] xl:text-[3.4rem]"
+          class="hero-title max-w-2xl font-primary text-4xl font-bold leading-[0.98] tracking-[-0.045em] text-white sm:text-5xl md:text-4xl lg:text-[2.8rem] xl:text-[clamp(2.75rem,3.55vw,3.05rem)]"
         >
-          Restaure la<br />
-          superficie.
+          Restore the<br />
+          surface.
           <span class="font-secondary font-normal italic tracking-normal text-brand-red">Preserve</span><br />
-          <span class="font-secondary font-normal italic tracking-normal text-brand-red">el espacio.</span>
+          <span class="font-secondary font-normal italic tracking-normal text-brand-red">the space.</span>
         </h1>
 
-        <p class="mt-6 max-w-xl font-primary text-sm leading-relaxed text-white/70 sm:text-base md:text-sm lg:text-base">
+        <p class="hero-description mt-6 w-full max-w-xl font-primary text-sm leading-relaxed wrap-break-word text-white/70 sm:text-base md:text-sm lg:text-base xl:mt-[clamp(1rem,2.5vh,1.5rem)] xl:text-[0.925rem]">
           Professional restoration, refinishing, polishing, repair and maintenance for natural stone and
           concrete surfaces throughout Los Angeles County.
         </p>
 
-        <div class="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
+        <div class="hero-actions mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4 xl:mt-[clamp(1.25rem,3vh,2rem)]">
           <a
             href="/#services"
-            class="inline-flex min-h-12 items-center justify-center gap-2.5 rounded-sm bg-white px-6 py-3 font-primary text-xs font-bold uppercase tracking-[0.07em] text-brand-charcoal shadow-lg transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_22px_rgba(255,255,255,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            class="inline-flex min-h-12 w-full max-w-full items-center justify-center gap-2.5 rounded-sm bg-white px-4 py-3 font-primary text-xs font-bold uppercase tracking-[0.07em] text-brand-charcoal shadow-lg transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_22px_rgba(255,255,255,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:w-auto sm:px-6"
           >
-            <Icon name="mdi:hexagon-multiple" class="text-lg" aria-hidden="true" />
-            Visualizar Servicios
+            <Icon name="mdi:tools" class="text-lg" aria-hidden="true" />
+            Explore Services
           </a>
 
           <a
             href="/gallery/gallery/"
-            class="inline-flex min-h-12 items-center justify-center gap-2.5 rounded-sm border border-white/70 bg-black/10 px-6 py-3 font-primary text-xs font-bold uppercase tracking-[0.07em] text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-[1.03] hover:border-white hover:bg-white hover:text-brand-charcoal hover:shadow-[0_0_22px_rgba(255,255,255,0.15)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            class="inline-flex min-h-12 w-full max-w-full items-center justify-center gap-2.5 rounded-sm border border-white/70 bg-black/10 px-4 py-3 font-primary text-xs font-bold uppercase tracking-[0.07em] text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-[1.03] hover:border-white hover:bg-white hover:text-brand-charcoal hover:shadow-[0_0_22px_rgba(255,255,255,0.15)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:w-auto sm:px-6"
           >
             <Icon name="mdi:play-circle-outline" class="text-lg" aria-hidden="true" />
-            Visualizar Galería
+            View Gallery
           </a>
         </div>
       </div>
 
       <div
-        class="relative hidden h-120 w-full lg:block xl:h-135"
+        class="hero-gallery relative hidden h-[clamp(20rem,52vh,28rem)] w-[94%] min-w-0 justify-self-center lg:block xl:h-[clamp(20rem,calc(100svh-13.5rem),30rem)] xl:w-[90%] 2xl:h-135 2xl:w-[92%]"
         x-data="{
           currentIndex: 0,
           total: 7,
@@ -107,9 +107,9 @@ const carouselImages = [
         }"
         @mouseenter="stopRotation()"
         @mouseleave="startRotation()"
-        aria-label="Galería rotativa de superficies restauradas"
+        aria-label="Rotating gallery of restored surfaces"
       >
-        <figure class="absolute left-0 top-1/2 z-20 h-[88%] w-[55%] -translate-y-1/2 -rotate-1 overflow-hidden rounded-sm border-2 border-white/90 bg-brand-charcoal shadow-[0_22px_55px_rgba(0,0,0,0.55)]">
+        <figure class="carousel-card-primary absolute left-0 top-1/2 z-20 h-[88%] w-[56%] -translate-y-1/2 -rotate-1 overflow-hidden rounded-sm border-2 border-white/90 bg-brand-charcoal shadow-[0_22px_55px_rgba(0,0,0,0.55)]">
           {carouselImages.map((image, index) => (
             <Image
               src={image.src}
@@ -131,7 +131,7 @@ const carouselImages = [
           ))}
         </figure>
 
-        <figure class="absolute left-[57%] top-1/2 z-10 h-[70%] w-[25%] -translate-y-1/2 overflow-hidden rounded-sm border-2 border-white/90 bg-brand-charcoal shadow-[0_18px_42px_rgba(0,0,0,0.5)]">
+        <figure class="carousel-card-secondary absolute left-[57%] top-1/2 z-10 h-[70%] w-[25%] -translate-y-1/2 overflow-hidden rounded-sm border-2 border-white/90 bg-brand-charcoal shadow-[0_18px_42px_rgba(0,0,0,0.5)]">
           {carouselImages.map((image, index) => (
             <Image
               src={image.src}
@@ -153,7 +153,7 @@ const carouselImages = [
           ))}
         </figure>
 
-        <figure class="absolute right-0 top-1/2 z-0 h-[58%] w-[17%] -translate-y-1/2 rotate-1 overflow-hidden rounded-sm border-2 border-white/90 bg-brand-charcoal shadow-[0_14px_34px_rgba(0,0,0,0.45)]">
+        <figure class="carousel-card-tertiary absolute right-0 top-1/2 z-0 h-[58%] w-[17%] -translate-y-1/2 rotate-1 overflow-hidden rounded-sm border-2 border-white/90 bg-brand-charcoal shadow-[0_14px_34px_rgba(0,0,0,0.45)]">
           {carouselImages.map((image, index) => (
             <Image
               src={image.src}
@@ -178,3 +178,4 @@ const carouselImages = [
     </div>
   </div>
 </section>
+

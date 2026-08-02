@@ -108,9 +108,9 @@ import '../styles/global.css';
 // optimizar el posicionamiento en buscadores y redes sociales.
 
 const siteUrl = 'https://resurfacingsolutions.com'; // Cambiar por dominio real
-const siteTitle = 'Resurfacing Solutions | Expertos en Cuidado de Superficies';
-const siteDescription = 'Soluciones profesionales para el cuidado, mantenimiento y restauración de superficies. Calidad garantizada y resultados duraderos.';
-const siteKeywords = 'resurfacing, cuidado de superficies, restauración, mantenimiento, limpieza profesional';
+const siteTitle = 'Resurfacing Solutions | Professional Surface Restoration';
+const siteDescription = 'Professional natural stone and concrete restoration, polishing, repair, sealing, and maintenance with lasting results.';
+const siteKeywords = 'resurfacing, surface restoration, natural stone, concrete polishing, sealing, professional maintenance';
 const siteAuthor = 'Resurfacing Solutions';
 const siteImage = '/images/og-image.jpg'; // Imagen para redes sociales (en public/images/)
 ---
@@ -124,7 +124,7 @@ const siteImage = '/images/og-image.jpg'; // Imagen para redes sociales (en publ
   - isMenuOpen: controla el menú móvil (true = abierto, false = cerrado)
   - currentYear: se usa en el footer para mostrar el año automáticamente
 -->
-<html lang="es" x-data="{ 
+<html lang="en" x-data="{
   isMenuOpen: false,
   currentYear: new Date().getFullYear() 
 }">
@@ -203,7 +203,7 @@ const siteImage = '/images/og-image.jpg'; // Imagen para redes sociales (en publ
       ],
       "contactPoint": {
         "@type": "ContactPoint",
-        "telephone": "+57-123-456-7890",
+        "telephone": "+1-818-618-0574",
         "contactType": "customer service",
         "availableLanguage": ["Spanish", "English"]
       }
@@ -224,7 +224,7 @@ const siteImage = '/images/og-image.jpg'; // Imagen para redes sociales (en publ
     bg-slate-50: fondo muy claro.
     smooth-scroll: scroll suave.
   -->
-  <body class="bg-brand-dark text-brand-charcoal antialiased smooth-scroll">
+  <body class="max-w-full overflow-x-clip bg-brand-dark text-brand-charcoal antialiased [scroll-behavior:smooth]">
     
     <!-- ========================================================== -->
     <!-- NAVEGACIÓN GLOBAL (aparece en todas las páginas) -->
@@ -239,7 +239,7 @@ const siteImage = '/images/og-image.jpg'; // Imagen para redes sociales (en publ
       el usuario las verá al hacer scroll hacia abajo.
       Cada una es un componente independiente y reutilizable.
     -->
-    <main class="flex min-h-screen flex-col gap-0">
+    <main class="flex min-w-0 max-w-full flex-col gap-0 overflow-x-clip">
       
       <!-- 1. HERO: Primera impresión, engancha al usuario -->
       <LayoutSectionIntroduction />

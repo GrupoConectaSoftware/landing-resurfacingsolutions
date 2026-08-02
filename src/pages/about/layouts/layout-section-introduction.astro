@@ -1,1 +1,52 @@
-<!-- Sección Introduction de About. -->
+---
+import { Image } from 'astro:assets';
+import backgroundImage from '../../../assets/about/sections/introduction/imagen-introduction.webp';
+---
+
+<section
+  class="about-hero relative isolate flex h-svh min-h-svh max-h-svh w-full min-w-0 items-center overflow-hidden bg-brand-black xl:-mt-40 2xl:-mt-54"
+  aria-labelledby="about-introduction-title"
+>
+  <Image
+    src={backgroundImage}
+    alt="Resurfacing Solutions team restoring a marble surface"
+    class="about-hero-image pointer-events-none absolute inset-0 block h-full! min-h-full! w-full max-h-none! object-cover object-[58%_center] sm:object-center"
+    widths={[640, 960, 1280, 1600, 1920, 2560]}
+    sizes="100vw"
+    quality={92}
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+  />
+
+  <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.9)_0%,rgba(0,0,0,0.68)_46%,rgba(0,0,0,0.28)_100%)]" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-linear-to-b from-transparent to-brand-black/55" aria-hidden="true"></div>
+
+  <div class="about-hero-content relative z-10 mx-auto w-full min-w-0 max-w-7xl px-5 py-10 sm:px-8 sm:py-14 xl:mt-10 lg:px-10 lg:py-16 xl:translate-y-10 xl:px-12 2xl:max-w-[100rem] 2xl:translate-y-16 2xl:px-16 [@media(min-width:1280px)_and_(max-width:1535px)_and_(max-height:800px)]:py-6">
+    <div class="max-w-172 2xl:max-w-3xl">
+      <div class="about-label mb-4 flex items-center gap-3 sm:mb-5 [@media(min-width:1280px)_and_(max-width:1535px)_and_(max-height:800px)]:mb-3">
+        <p class="font-primary text-[10px] font-bold uppercase tracking-[0.2em] text-brand-red sm:text-xs">
+          About Resurfacing Solutions
+        </p>
+      </div>
+
+      <h1
+        id="about-introduction-title"
+        class="about-title font-primary text-[2.65rem] font-bold leading-[0.98] tracking-[-0.045em] text-white min-[430px]:text-5xl sm:text-[3.5rem] md:text-[3.8rem] lg:text-[4.15rem] xl:text-[4.35rem] 2xl:text-[4.8rem] [@media(min-width:1280px)_and_(max-width:1535px)_and_(max-height:800px)]:text-[clamp(2.7rem,3.6vw,3.1rem)]"
+      >
+        Experience built<br />
+        through real work.
+      </h1>
+
+      <p class="about-tagline mt-1.5 font-secondary text-[2rem] italic leading-[1.03] text-brand-red min-[430px]:text-4xl sm:mt-2 sm:text-[2.7rem] md:text-[3rem] lg:text-[3.25rem] xl:text-[3.45rem] 2xl:text-[3.8rem] [@media(min-width:1280px)_and_(max-width:1535px)_and_(max-height:800px)]:mt-1 [@media(min-width:1280px)_and_(max-width:1535px)_and_(max-height:800px)]:text-[clamp(2rem,2.8vw,2.4rem)]">
+        Commitment in every surface.
+      </p>
+
+      <p class="about-description mt-5 max-w-2xl font-primary text-sm leading-[1.7] text-white/78 sm:mt-6 sm:text-base md:max-w-xl lg:text-[1.05rem] 2xl:max-w-2xl 2xl:text-lg [@media(min-width:1280px)_and_(max-width:1535px)_and_(max-height:800px)]:mt-[1.15rem] [@media(min-width:1280px)_and_(max-width:1535px)_and_(max-height:800px)]:max-w-xl [@media(min-width:1280px)_and_(max-width:1535px)_and_(max-height:800px)]:text-[0.9rem] [@media(min-width:1280px)_and_(max-width:1535px)_and_(max-height:800px)]:leading-[1.6]">
+        We began with a purpose: to recover surfaces that still hold lasting value. Our experience, attention
+        to detail, and knowledge of every material allow us to create precise solutions for homes, businesses,
+        and properties throughout Los Angeles County.
+      </p>
+    </div>
+  </div>
+</section>

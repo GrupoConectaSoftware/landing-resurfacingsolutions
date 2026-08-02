@@ -5,38 +5,35 @@ import footerImage from '../../assets/footer/imagen-footer.webp';
 
 ---
 
-<footer class="relative flex min-h-[115vh] w-full flex-col justify-end overflow-x-clip bg-white" role="contentinfo">
+<footer id="site-footer" class="relative flex min-h-[115vh] w-full flex-col justify-end overflow-x-clip bg-white md:min-h-0 min-[800px]:landscape:min-h-[106vh] xl:min-h-[106vh]" role="contentinfo">
   <!-- Espacio de respiración móvil independiente de la altura del contenido oscuro -->
   <div class="h-[45vh] min-h-64 w-full shrink-0 bg-white md:hidden" aria-hidden="true"></div>
 
-  <div class="w-full min-h-[70vh] bg-brand-charcoal text-brand-white">
+  <div class="min-h-[70vh] w-full bg-brand-charcoal text-brand-white md:min-h-0 min-[800px]:landscape:min-h-[76vh] xl:min-h-[76vh]">
   <!-- Banner fotográfico con corte diagonal -->
-  <section class="relative hidden min-h-102.5 overflow-hidden bg-white pt-24 md:block lg:min-h-112.5 lg:pt-32">
-    <div class="absolute inset-0 overflow-hidden">
+  <section id="footer-banner" class="relative hidden w-full overflow-hidden bg-white min-[800px]:landscape:-mb-px min-[800px]:landscape:block min-[800px]:landscape:aspect-1433/278 xl:-mb-px xl:block xl:aspect-1433/278">
+    <div class="absolute inset-0 overflow-hidden min-[800px]:landscape:-bottom-0.5 xl:-bottom-0.5">
       <Image
         src={footerImage}
         alt="Interior restaurado por Resurfacing Solutions"
-        class="absolute inset-0 h-full w-full object-cover brightness-125"
+        class="absolute inset-0 h-full w-full object-cover"
         widths={[640, 960, 1440, 1920]}
         sizes="100vw"
-        loading="lazy"
+        loading="eager"
         decoding="async"
       />
-      <div class="absolute inset-x-0 bottom-0 h-32 bg-linear-to-b from-transparent via-brand-charcoal/65 to-brand-charcoal" aria-hidden="true"></div>
+      <div class="absolute inset-x-0 bottom-0 h-[58%] bg-[linear-gradient(to_bottom,transparent_0%,rgba(33,33,33,0.22)_30%,rgba(33,33,33,0.70)_68%,var(--brand-charcoal)_100%)] 2xl:h-[64%] 2xl:bg-[linear-gradient(to_bottom,transparent_0%,rgba(33,33,33,0.28)_26%,rgba(33,33,33,0.82)_66%,var(--brand-charcoal)_100%)]" aria-hidden="true"></div>
     </div>
 
     <div
-      class="relative z-10 mx-auto flex min-h-75 max-w-375 items-center px-5 pt-24 transition-all duration-1000 ease-out sm:min-h-80 sm:px-6 sm:pt-28 lg:min-h-83.75 lg:px-5 lg:pt-32"
-      x-data="{ shown: false }"
-      x-init="new IntersectionObserver(([entry], observer) => { if (entry.isIntersecting) { shown = true; observer.disconnect(); } }, { threshold: 0.2 }).observe($el)"
-      :class="shown ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
+      class="relative z-10 mx-auto flex w-full max-w-none flex-col items-start px-5 transition-all duration-1000 ease-out sm:px-6 lg:px-5 min-[800px]:landscape:absolute min-[800px]:landscape:inset-0 min-[800px]:landscape:justify-start min-[800px]:landscape:px-[4vw] min-[800px]:landscape:pt-[8vw] xl:absolute xl:inset-0 xl:justify-start xl:px-[4vw] xl:pt-[8vw] 2xl:pt-[8.5vw]"
     >
-      <div class="w-full -translate-y-10 lg:-translate-y-22">
-        <h2 class="text-3xl font-bold leading-none tracking-tight text-white sm:text-4xl md:whitespace-nowrap lg:text-6xl">
-          Tu superficie no necesita un reemplazo
+      <div class="w-full">
+        <h2 class="text-3xl font-bold leading-none tracking-tight text-white sm:text-4xl md:whitespace-nowrap min-[800px]:landscape:text-[clamp(2.35rem,3.25vw,2.8rem)] lg:text-6xl xl:text-[clamp(2.35rem,3.25vw,2.8rem)] 2xl:text-[clamp(2.75rem,3.9vw,3.75rem)]">
+          Your surface does not need replacement
         </h2>
-        <p class="-mt-1 font-secondary text-3xl italic leading-none text-brand-red sm:text-4xl md:whitespace-nowrap lg:-mt-2 lg:text-6xl">
-          Solo necesitas una restauración adecuada
+        <p class="mt-1.5 font-secondary text-3xl italic leading-none text-brand-red sm:text-4xl md:whitespace-nowrap min-[800px]:landscape:text-[clamp(2.35rem,3.25vw,2.8rem)] lg:text-6xl xl:text-[clamp(2.35rem,3.25vw,2.8rem)] 2xl:mt-2 2xl:text-[clamp(2.75rem,3.9vw,3.75rem)]">
+          It only needs the right restoration
         </p>
       </div>
     </div>
@@ -44,61 +41,58 @@ import footerImage from '../../assets/footer/imagen-footer.webp';
 
   <!-- Información principal -->
   <div
-    class="mx-auto max-w-375 px-5 pb-7 pt-10 transition-all duration-1000 ease-out sm:px-6 sm:pb-8 sm:pt-12 lg:px-5 lg:pt-18"
-    x-data="{ shown: false }"
-    x-init="new IntersectionObserver(([entry], observer) => { if (entry.isIntersecting) { shown = true; observer.disconnect(); } }, { threshold: 0.1 }).observe($el)"
-    :class="shown ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
+    class="mx-auto w-full max-w-375 px-5 pb-7 pt-10 transition-all duration-1000 ease-out sm:px-6 sm:pb-8 sm:pt-12 min-[800px]:landscape:max-w-7xl min-[800px]:landscape:pb-0 min-[800px]:landscape:pt-20 lg:px-5 lg:pt-18 xl:max-w-7xl xl:pb-0 xl:pt-20"
   >
-    <div class="grid grid-cols-1 gap-10 pb-12 sm:grid-cols-2 sm:gap-x-12 md:grid-cols-3 md:gap-x-8 lg:grid-cols-[1.4fr_0.65fr_1.15fr_0.9fr] lg:gap-6 lg:pb-16 xl:gap-8">
-      <div class="max-w-xl sm:col-span-2 md:col-span-3 lg:col-span-1">
-        <p class="font-secondary text-3xl italic text-white">Resurfacing Solutions</p>
-        <p class="mt-6 text-base leading-relaxed text-white/75 sm:text-lg lg:text-base">
-          Devuélvele la belleza, la resistencia y el valor a tus superficies de piedra natural y concreto. Nuestro equipo ofrece soluciones profesionales de restauración, pulido, reparación y mantenimiento, con atención al detalle y resultados hechos para durar.
+    <div class="grid grid-cols-1 gap-10 pb-12 sm:grid-cols-2 sm:gap-x-12 md:grid-cols-3 md:gap-x-8 min-[800px]:landscape:grid-cols-[1.35fr_0.55fr_1.1fr_0.8fr] min-[800px]:landscape:gap-[clamp(2rem,3.5vw,4rem)] min-[800px]:landscape:pb-[clamp(1.75rem,3.5vh,2.75rem)] min-[800px]:landscape:[&_a]:text-[clamp(0.68rem,0.78vw,0.82rem)] min-[800px]:landscape:[&_h3]:mb-[0.9rem] min-[800px]:landscape:[&_h3]:text-[0.65rem] min-[800px]:landscape:[&_li+li]:mt-[0.45rem] lg:grid-cols-[1.4fr_0.65fr_1.15fr_0.9fr] lg:gap-6 lg:pb-16 xl:grid-cols-[1.35fr_0.55fr_1.1fr_0.8fr] xl:gap-[clamp(2rem,3.5vw,4rem)] xl:pb-[clamp(1.75rem,3.5vh,2.75rem)] xl:[&_a]:text-[clamp(0.68rem,0.78vw,0.82rem)] xl:[&_h3]:mb-[0.9rem] xl:[&_h3]:text-[0.65rem] xl:[&_li+li]:mt-[0.45rem]">
+      <div class="max-w-xl sm:col-span-2 md:col-span-3 min-[800px]:landscape:col-span-1 lg:col-span-1">
+        <p class="font-secondary text-3xl italic text-white min-[800px]:landscape:text-[clamp(1.45rem,1.8vw,2rem)] xl:text-[clamp(1.45rem,1.8vw,2rem)]">Resurfacing Solutions</p>
+        <p class="mt-6 text-base leading-relaxed text-white/75 sm:text-lg min-[800px]:landscape:mt-4 min-[800px]:landscape:text-[clamp(0.72rem,0.85vw,0.9rem)] min-[800px]:landscape:leading-[1.55] lg:text-base xl:mt-4 xl:text-[clamp(0.72rem,0.85vw,0.9rem)] xl:leading-[1.55]">
+          Restore the beauty, strength, and value of your natural stone and concrete surfaces. Our team provides professional restoration, polishing, repair, and maintenance solutions with meticulous attention to detail and results built to last.
         </p>
       </div>
 
-      <nav aria-label="Navegación del pie de página">
-        <h3 class="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-brand-red">Navegación</h3>
+      <nav aria-label="Footer navigation">
+        <h3 class="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-brand-red">Navigation</h3>
         <ul class="space-y-3">
-          <li><a href="/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Inicio</a></li>
-          <li><a href="/about/about/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Nosotros</a></li>
-          <li><a href="/gallery/gallery/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Galería</a></li>
-          <li><a href="/contact/contact/" class="inline-block text-sm text-brand-red transition-all duration-200 hover:translate-x-1">Contacto</a></li>
+          <li><a href="/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Home</a></li>
+          <li><a href="/about/about/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">About</a></li>
+          <li><a href="/gallery/gallery/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Gallery</a></li>
+          <li><a href="/contact/contact/" class="inline-block text-sm text-brand-red transition-all duration-200 hover:translate-x-1">Contact</a></li>
         </ul>
       </nav>
 
-      <nav aria-label="Servicios">
-        <h3 class="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-brand-red">Servicios</h3>
+      <nav aria-label="Services">
+        <h3 class="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-brand-red">Services</h3>
         <ul class="space-y-3">
-          <li><a href="/services/restauracion/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Restauración y Reacabado de Superficies</a></li>
-          <li><a href="/services/pulido/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Pulido y Afinado</a></li>
-          <li><a href="/services/limpieza/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Limpieza y Sellado</a></li>
-          <li><a href="/services/reparacion/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Reparación de Grietas, Astillas y Juntas</a></li>
-          <li><a href="/services/concreto/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Pulido de Concreto</a></li>
-          <li><a href="/services/mantenimiento/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Programas de Mantenimiento</a></li>
+          <li><a href="/services/restauracion/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Surface Restoration and Refinishing</a></li>
+          <li><a href="/services/pulido/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Honing and Polishing</a></li>
+          <li><a href="/services/limpieza/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Cleaning and Sealing</a></li>
+          <li><a href="/services/reparacion/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Crack, Chip, and Joint Repair</a></li>
+          <li><a href="/services/concreto/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Concrete Polishing</a></li>
+          <li><a href="/services/mantenimiento/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Maintenance Programs</a></li>
         </ul>
       </nav>
 
-      <nav aria-label="Privacidad y ayuda">
-        <h3 class="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-brand-red">Privacidad</h3>
+      <nav aria-label="Privacy and support">
+        <h3 class="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-brand-red">Privacy</h3>
         <ul class="space-y-3">
-          <li><a href="/privacy/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Políticas de Privacidad</a></li>
-          <li><a href="/terms/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Términos y Condiciones</a></li>
-          <li><a href="/#faq" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Preguntas Frecuentes</a></li>
+          <li><a href="/privacy/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Privacy Policy</a></li>
+          <li><a href="/terms/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Terms and Conditions</a></li>
+          <li><a href="/#faq" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Frequently Asked Questions</a></li>
         </ul>
       </nav>
     </div>
 
-    <div class="flex w-full flex-col gap-5 border-t border-white/20 py-5 sm:flex-row sm:items-center sm:justify-between">
-      <p class="whitespace-nowrap text-[9px] font-medium tracking-normal text-white/65 sm:text-xs sm:tracking-wider">
-        © {new Date().getFullYear()} Resurfacing Solutions. Todos los derechos reservados
+    <div class="flex w-full flex-col gap-5 border-t border-white/20 py-5 sm:flex-row sm:items-center sm:justify-between min-[800px]:landscape:grid min-[800px]:landscape:grid-cols-[minmax(0,1fr)_auto] min-[800px]:landscape:items-center min-[800px]:landscape:gap-8 min-[800px]:landscape:py-4 xl:grid xl:grid-cols-[minmax(0,1fr)_auto] xl:items-center xl:gap-8 xl:py-4">
+      <p class="whitespace-nowrap text-[9px] font-medium tracking-normal text-white/65 sm:text-xs sm:tracking-wider min-[800px]:landscape:m-0 min-[800px]:landscape:text-left xl:m-0 xl:text-left">
+        © {new Date().getFullYear()} Resurfacing Solutions. All rights reserved
       </p>
 
-      <div class="flex items-center gap-1" aria-label="Redes sociales">
+      <div class="flex items-center gap-1 min-[800px]:landscape:justify-self-end xl:mr-5 xl:justify-self-end" aria-label="Redes sociales">
         <a href="https://instagram.com/resurfacing" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="grid h-8 w-8 place-items-center text-white/70">
           <Icon name="mdi:instagram" class="text-xl" aria-hidden="true" />
         </a>
-        <a href="https://wa.me/18884565674" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="grid h-8 w-8 place-items-center text-white/70">
+        <a href="https://wa.me/18186180574" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="grid h-8 w-8 place-items-center text-white/70">
           <Icon name="mdi:whatsapp" class="text-xl" aria-hidden="true" />
         </a>
         <a href="https://facebook.com/resurfacing" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="grid h-8 w-8 place-items-center text-white/70">

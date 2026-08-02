@@ -1,3 +1,244 @@
 ---
-// Página About.
+// ============================================================
+// 1. IMPORTACIONES DE SECCIONES (LAYOUTS DE ABOUT)
+// ============================================================
+// Cada uno de estos componentes representa una "sección" visual
+// de la página sobre nosotros. Están organizados en carpetas
+// separadas para mantener el código limpio y modular.
+
+// ------------------------------------------------------------
+// SECCIÓN 1: INTRODUCTION (HERO DE ABOUT)
+// Es la primera impresión del usuario en esta página.
+// Debe tener un título atractivo y una imagen o fondo que represente
+// la esencia de la empresa.
+// ------------------------------------------------------------
+import LayoutSectionIntroduction from './layouts/layout-section-introduction.astro';
+
+// ------------------------------------------------------------
+// SECCIÓN 2: HISTORY (HISTORIA)
+// Cuenta la historia de la empresa, cómo empezó y su trayectoria.
+// Genera confianza y conexión emocional con el usuario.
+// ------------------------------------------------------------
+import LayoutSectionHistory from './layouts/layout-section-history.astro';
+
+// ------------------------------------------------------------
+// SECCIÓN 3: FOCUS (ENFOQUE)
+// Explica el enfoque principal de la empresa, su filosofía de trabajo
+// o el tipo de proyectos que más trabaja.
+// ------------------------------------------------------------
+import LayoutSectionFocus from './layouts/layout-section-focus.astro';
+
+// ------------------------------------------------------------
+// SECCIÓN 4: ADVANTAGE (VENTAJAS)
+// Destaca las ventajas competitivas o los valores que diferencian
+// a la empresa de la competencia.
+// ------------------------------------------------------------
+import LayoutSectionAdvantage from './layouts/layout-section-adventage.astro';
+
+// ------------------------------------------------------------
+// SECCIÓN 5: STATISTIC (ESTADÍSTICAS)
+// Muestra datos numéricos que respaldan la calidad del servicio:
+// - Años de experiencia
+// - Proyectos realizados
+// - Clientes satisfechos
+// ------------------------------------------------------------
+import LayoutSectionStatistic from './layouts/layout-section-stadistic.astro';
+
+
+// ============================================================
+// 2. IMPORTACIONES DE COMPONENTES GLOBALES
+// ============================================================
+// Estos componentes se repiten en TODAS las páginas del sitio
+// (home, about, contact, gallery). Por eso están fuera de
+// la carpeta pages, en "min-layouts".
+
+// ------------------------------------------------------------
+// NAVEGACIÓN (MENÚ DE NAVEGACIÓN)
+// Contiene el logo, los enlaces a las páginas y el menú móvil.
+// Usa Alpine.js para abrir/cerrar el menú en móviles.
+// ------------------------------------------------------------
+import Navegations from '../../min-layout/navegation/navegations.astro';
+
+// ------------------------------------------------------------
+// FOOTER (PIE DE PÁGINA)
+// Contiene información de contacto, redes sociales,
+// enlaces rápidos y copyright.
+// Se repite en todas las páginas para mantener consistencia.
+// ------------------------------------------------------------
+import Footer from '../../min-layout/footerr/footer.astro';
+
+// Vite procesa este import e incluye el CSS global en la página.
+import '../../styles/global.css';
+
+
+// ============================================================
+// 3. CONFIGURACIÓN SEO (Toda centralizada aquí)
+// ============================================================
+// Estas variables se usan en las etiquetas <head> para
+// optimizar el posicionamiento en buscadores y redes sociales.
+
+const siteUrl = 'https://resurfacingsolutions.com'; // Cambiar por dominio real
+const pageUrl = `${siteUrl}/about/about/`;
+const siteTitle = 'About Us | Resurfacing Solutions';
+const siteDescription = 'Discover the experience, history, and commitment behind Resurfacing Solutions and our professional natural stone and concrete restoration services.';
+const siteKeywords = 'Resurfacing Solutions, about us, surface restoration, natural stone, concrete, Los Angeles County';
+const siteAuthor = 'Resurfacing Solutions';
+const siteImage = '/images/og-image.jpg'; // Imagen para redes sociales (en public/images/)
+
+// Schema.org específico para AboutPage
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: siteTitle,
+  description: siteDescription,
+  url: pageUrl,
+  about: {
+    '@type': 'Organization',
+    name: 'Resurfacing Solutions',
+    url: siteUrl,
+    telephone: '+1-818-618-0574',
+    email: 'info@resurfacingsolutions.services'
+  }
+};
 ---
+
+<!-- ============================================================ -->
+<!-- ESTRUCTURA HTML DE LA PÁGINA ABOUT -->
+<!-- ============================================================ -->
+
+<!-- 
+  x-data define el estado global de Alpine.js para toda la página.
+  - isMenuOpen: controla el menú móvil (true = abierto, false = cerrado)
+  - currentYear: se usa en el footer para mostrar el año automáticamente
+-->
+<html lang="en" x-data="{
+  isMenuOpen: false,
+  currentYear: new Date().getFullYear() 
+}">
+  <head>
+    <!-- ========================================================== -->
+    <!-- METADATOS BÁSICOS (SEO esencial) -->
+    <!-- ========================================================== -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- Título: aparece en la pestaña del navegador y en resultados de Google -->
+    <title>{siteTitle}</title>
+    
+    <!-- Descripción: el texto que aparece bajo el título en Google -->
+    <meta name="description" content={siteDescription} />
+    
+    <!-- Palabras clave: ayudan a los buscadores a entender el tema -->
+    <meta name="keywords" content={siteKeywords} />
+    
+    <!-- Autor: quién creó el contenido -->
+    <meta name="author" content={siteAuthor} />
+    
+    <!-- Robots: permite que Google indexe la página y siga los enlaces -->
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Idioma y geolocalización: mejora el SEO local -->
+    <meta name="language" content="Spanish" />
+    <meta name="geo.region" content="CO" /> <!-- Colombia -->
+    <meta name="geo.placename" content="Bogotá" /> <!-- Ciudad -->
+
+
+    <!-- ========================================================== -->
+    <!-- OPEN GRAPH (para Facebook, LinkedIn, WhatsApp, etc.) -->
+    <!-- ========================================================== -->
+    <!-- Cuando alguien comparte el link, se ve así: -->
+    <!-- Título | Descripción | Imagen grande -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={siteDescription} />
+    <meta property="og:image" content={siteUrl + siteImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_US" />
+    <meta property="og:site_name" content="Resurfacing Solutions" />
+
+
+    <!-- ========================================================== -->
+    <!-- TWITTER CARDS (para Twitter / X) -->
+    <!-- ========================================================== -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={siteTitle} />
+    <meta name="twitter:description" content={siteDescription} />
+    <meta name="twitter:image" content={siteUrl + siteImage} />
+    <meta name="twitter:site" content="@resurfacing" />
+    <meta name="twitter:creator" content="@resurfacing" />
+
+
+    <!-- ========================================================== -->
+    <!-- DATOS ESTRUCTURADOS (JSON-LD) -->
+    <!-- ========================================================== -->
+    <!-- Esto le dice a Google que somos una organización legítima -->
+    <!-- y ayuda a mostrar "rich snippets" en los resultados. -->
+    <script type="application/ld+json" set:html={JSON.stringify(aboutSchema)}></script>
+
+
+    <!-- ========================================================== -->
+    <!-- FAVICON (icono de la pestaña del navegador) -->
+    <!-- ========================================================== -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  </head>
+
+  <!-- 
+    antialiased: mejora la renderización de fuentes.
+    text-slate-800: color de texto oscuro.
+    bg-slate-50: fondo muy claro.
+    smooth-scroll: scroll suave.
+  -->
+  <body class="max-w-full overflow-x-clip bg-brand-dark text-brand-charcoal antialiased [scroll-behavior:smooth]">
+    
+    <!-- ========================================================== -->
+    <!-- NAVEGACIÓN GLOBAL (aparece en todas las páginas) -->
+    <!-- ========================================================== -->
+    <Navegations />
+
+    <!-- ========================================================== -->
+    <!-- CONTENIDO PRINCIPAL (MAIN) -->
+    <!-- ========================================================== -->
+    <!-- 
+      Aquí se renderizan las secciones en el orden exacto en que
+      el usuario las verá al hacer scroll hacia abajo.
+      Cada una es un componente independiente y reutilizable.
+    -->
+    <main class="flex min-w-0 max-w-full flex-col gap-0 overflow-x-clip">
+      
+      <!-- 1. INTRODUCTION: Hero de la página About -->
+      <LayoutSectionIntroduction />
+      
+      <!-- 2. HISTORY: Historia y trayectoria de la empresa -->
+      <LayoutSectionHistory />
+      
+      <!-- 3. FOCUS: Enfoque principal y filosofía de trabajo -->
+      <LayoutSectionFocus />
+      
+      <!-- 4. ADVANTAGE: Ventajas competitivas y valores diferenciales -->
+      <LayoutSectionAdvantage />
+      
+      <!-- 5. STATISTIC: Datos numéricos que respaldan la experiencia -->
+      <LayoutSectionStatistic />
+      
+    </main>
+
+    <!-- ========================================================== -->
+    <!-- FOOTER GLOBAL (información de contacto y redes) -->
+    <!-- ========================================================== -->
+    <Footer />
+
+    <!-- ========================================================== -->
+    <!-- SCRIPTS (Alpine.js ya viene con la integración de Astro) -->
+    <!-- ========================================================== -->
+    <!-- No hace falta cargar nada más, @astrojs/alpinejs ya lo maneja -->
+    <!-- Vite empaqueta este punto de entrada de JavaScript. -->
+    <script>
+      import '../../scripts/main.js';
+    </script>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<form
+  class="grid gap-5"
+  x-data="{ submitted: false, handleSubmit() { this.submitted = true; setTimeout(() => this.submitted = false, 3000); } }"
+  @submit.prevent="handleSubmit()"
+>
+  <div class="grid gap-5 sm:grid-cols-2">
+    <label class="grid gap-2 font-primary text-xs font-semibold text-brand-charcoal">
+      Full Name
+      <input name="name" type="text" autocomplete="name" placeholder="e.g. John Smith" required class="h-12 w-full rounded-md border border-black/15 bg-white px-4 font-primary text-sm font-normal outline-none transition placeholder:text-black/35 focus:border-brand-red focus:ring-2 focus:ring-brand-red/12" />
+    </label>
+    <label class="grid gap-2 font-primary text-xs font-semibold text-brand-charcoal">
+      Phone
+      <input name="phone" type="tel" autocomplete="tel" placeholder="e.g. (818) 618-0574" required class="h-12 w-full rounded-md border border-black/15 bg-white px-4 font-primary text-sm font-normal outline-none transition placeholder:text-black/35 focus:border-brand-red focus:ring-2 focus:ring-brand-red/12" />
+    </label>
+  </div>
+
+  <label class="grid gap-2 font-primary text-xs font-semibold text-brand-charcoal">
+    Email Address
+    <input name="email" type="email" autocomplete="email" placeholder="e.g. john@example.com" required class="h-12 w-full rounded-md border border-black/15 bg-white px-4 font-primary text-sm font-normal outline-none transition placeholder:text-black/35 focus:border-brand-red focus:ring-2 focus:ring-brand-red/12" />
+  </label>
+
+  <div class="grid gap-5 sm:grid-cols-3">
+    <label class="grid gap-2 font-primary text-xs font-semibold text-brand-charcoal">
+      Property Type
+      <select name="propertyType" required class="h-12 w-full rounded-md border border-black/15 bg-white px-3 font-primary text-sm font-normal text-brand-charcoal outline-none transition focus:border-brand-red focus:ring-2 focus:ring-brand-red/12">
+        <option value="">Select an option</option><option>Residential</option><option>Commercial</option><option>Industrial</option>
+      </select>
+    </label>
+    <label class="grid gap-2 font-primary text-xs font-semibold text-brand-charcoal">
+      Material
+      <select name="material" required class="h-12 w-full rounded-md border border-black/15 bg-white px-3 font-primary text-sm font-normal text-brand-charcoal outline-none transition focus:border-brand-red focus:ring-2 focus:ring-brand-red/12">
+        <option value="">Select an option</option><option>Marble</option><option>Travertine</option><option>Terrazzo</option><option>Concrete</option><option>Natural Stone</option><option>Other</option>
+      </select>
+    </label>
+    <label class="grid gap-2 font-primary text-xs font-semibold text-brand-charcoal">
+      Surface Type
+      <select name="surfaceType" required class="h-12 w-full rounded-md border border-black/15 bg-white px-3 font-primary text-sm font-normal text-brand-charcoal outline-none transition focus:border-brand-red focus:ring-2 focus:ring-brand-red/12">
+        <option value="">Select an option</option><option>Floor</option><option>Countertop</option><option>Wall</option><option>Stairs</option><option>Exterior</option><option>Other</option>
+      </select>
+    </label>
+  </div>
+
+  <label class="grid gap-2 font-primary text-xs font-semibold text-brand-charcoal">
+    Service Needed
+    <select name="service" required class="h-12 w-full rounded-md border border-black/15 bg-white px-3 font-primary text-sm font-normal text-brand-charcoal outline-none transition focus:border-brand-red focus:ring-2 focus:ring-brand-red/12">
+      <option value="">Select an option</option><option>Surface Restoration and Refinishing</option><option>Honing and Polishing</option><option>Cleaning and Sealing</option><option>Crack, Chip, and Joint Repair</option><option>Concrete Polishing</option><option>Maintenance Program</option>
+    </select>
+  </label>
+
+  <label class="grid gap-2 font-primary text-xs font-semibold text-brand-charcoal">
+    Project Description
+    <textarea name="description" rows="8" placeholder="Describe the surface, its current condition, the affected area, and the result you would like to achieve." required class="min-h-48 w-full resize-none rounded-md border border-black/15 bg-white px-4 py-3 font-primary text-sm font-normal leading-relaxed outline-none transition placeholder:text-black/35 focus:border-brand-red focus:ring-2 focus:ring-brand-red/12"></textarea>
+  </label>
+
+  <label class="flex items-start gap-3 font-primary text-xs leading-relaxed text-brand-charcoal/65">
+    <input name="consent" type="checkbox" required class="mt-0.5 size-4 shrink-0 accent-brand-red" />
+    I agree to be contacted by Resurfacing Solutions regarding my request.
+  </label>
+
+  <button type="submit" class="group flex min-h-13 w-full items-center justify-center gap-3 rounded-md bg-brand-black px-6 py-4 font-primary text-sm font-bold uppercase tracking-[0.08em] text-white transition duration-300 hover:-translate-y-0.5 hover:bg-brand-red active:translate-y-0">
+    <Icon name="mdi:send-outline" class="text-lg transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+    <span x-show="!submitted">Send Project Information</span>
+    <span x-show="submitted">Information Sent</span>
+  </button>
+</form>

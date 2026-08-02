@@ -1,1 +1,56 @@
-<!-- Sección Statistics de About. -->
+---
+import { Image } from 'astro:assets';
+import backgroundImage from '../../../assets/about/sections/stadistic/imagen-stadistic.webp';
+
+const statistics = [
+  { value: '100%', label: 'Personalized Attention' },
+  { value: '15+', label: 'Years of Experience' },
+  { value: 'Res + Comm', label: 'Residential / Commercial' },
+  { value: '80+', label: 'Completed Projects' }
+];
+---
+
+<section
+  class="relative isolate flex min-h-[52svh] w-full items-center overflow-hidden bg-brand-black py-16 sm:py-20 lg:py-24"
+  aria-labelledby="about-statistics-title"
+>
+  <div data-reveal-background class="pointer-events-none absolute inset-0 -z-20 overflow-hidden" aria-hidden="true">
+    <Image
+      src={backgroundImage}
+      alt=""
+      class="h-full w-full scale-[1.03] object-cover object-center"
+      widths={[640, 960, 1440, 1920]}
+      sizes="100vw"
+      quality={90}
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <div class="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(0,0,0,0.82)_0%,rgba(0,0,0,0.62)_48%,rgba(0,0,0,0.82)_100%)]" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute inset-0 -z-10 bg-black/25" aria-hidden="true"></div>
+
+  <div class="mx-auto w-full max-w-7xl px-5 text-center sm:px-8 lg:px-10">
+    <header class="mx-auto max-w-5xl">
+      <h2
+        id="about-statistics-title"
+        class="font-primary text-3xl font-bold leading-tight tracking-[-0.035em] text-white sm:text-4xl lg:text-[2.75rem] xl:text-5xl"
+      >
+        Trust built on real results.
+      </h2>
+    </header>
+
+    <dl class="mx-auto mt-12 grid max-w-6xl grid-cols-2 gap-x-5 gap-y-10 sm:mt-14 sm:grid-cols-4 sm:gap-x-4 lg:mt-16 lg:gap-x-8">
+      {statistics.map(({ value, label }) => (
+        <div class="flex min-w-0 flex-col items-center">
+          <dt class="mt-2 max-w-52 font-primary text-[10px] font-semibold uppercase leading-snug tracking-[0.08em] text-white/80 sm:text-[11px] lg:text-xs">
+            {label}
+          </dt>
+          <dd class="order-first whitespace-nowrap font-primary text-4xl font-bold leading-none tracking-[-0.045em] text-brand-red sm:text-[2.75rem] lg:text-[3.25rem] xl:text-[3.6rem]">
+            {value}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>

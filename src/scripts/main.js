@@ -25,11 +25,13 @@ const sectionObserver = new IntersectionObserver((entries, observer) => {
     if (!entry.isIntersecting) return;
     const section = entry.target;
     const sectionIndex = Number(section.dataset.revealIndex || 0);
-    const elements = [...section.querySelectorAll('h1, h2, h3, p, article, figure, [data-reveal-left], [data-reveal-image]')]
+    const elements = [...section.querySelectorAll('h1, h2, h3, p, article, figure, dl > div, [data-reveal-left], [data-reveal-image], [data-reveal-background]')]
       .filter((element) => !element.closest('nav'));
 
     elements.forEach((element, index) => {
-      const variant = element.matches('[data-reveal-left]')
+      const variant = element.matches('[data-reveal-background]')
+        ? 'scale'
+        : element.matches('[data-reveal-left]')
         ? 'left'
         : element.matches('article, figure, [data-reveal-image]')
           ? (index % 2 === 0 ? 'scale' : 'up')

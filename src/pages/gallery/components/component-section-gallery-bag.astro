@@ -1,0 +1,57 @@
+---
+interface Project {
+  id: string;
+  title: string;
+  category: string;
+  beforeImage: string;
+  afterImage: string;
+}
+
+interface Props {
+  projects: Project[];
+  label: string;
+}
+
+const { projects = [], label = 'Projects' } = Astro.props;
+---
+
+<section aria-label={`${label} project gallery`} class="relative mx-auto max-w-7xl">
+  <div class="overflow-x-auto overflow-y-hidden overscroll-x-contain pb-2 scrollbar-none [&::-webkit-scrollbar]:hidden xl:h-204 xl:overflow-x-hidden xl:overflow-y-auto xl:overscroll-y-contain xl:pr-1 xl:scrollbar-none xl:[&::-webkit-scrollbar]:hidden 2xl:h-224">
+    <ul class="flex w-max snap-x snap-mandatory gap-4 pb-3 xl:grid xl:w-full xl:grid-cols-[repeat(4,17.5rem)] xl:justify-center xl:gap-4 xl:pb-16 2xl:grid-cols-[repeat(4,19rem)]">
+      {projects.map((project) => (
+        <li class="h-80 w-72 shrink-0 snap-center sm:h-88 sm:w-80 xl:h-80 xl:w-70 xl:snap-none 2xl:h-88 2xl:w-76">
+          <figure
+            class="group relative size-full overflow-hidden rounded-lg bg-brand-dark shadow-[0_14px_36px_rgba(0,0,0,0.12)]"
+            x-data="{ isAfter: false, timer: null, init() { this.timer = setTimeout(() => { this.isAfter = true }, 3000) }, destroy() { clearTimeout(this.timer) } }"
+          >
+            <img
+              src={project.beforeImage}
+              alt={`Before restoration — ${project.title}`}
+              loading="lazy"
+              decoding="async"
+              class="absolute inset-0 size-full object-cover grayscale-35 brightness-[0.72] transition-transform duration-1000 ease-in-out"
+              :class="isAfter ? '-translate-x-full' : 'translate-x-0'"
+            />
+            <img
+              src={project.afterImage}
+              alt={`After restoration — ${project.title}`}
+              loading="lazy"
+              decoding="async"
+              class="absolute inset-0 size-full translate-x-full object-cover saturate-125 transition-transform duration-1000 ease-in-out"
+              :class="isAfter ? 'translate-x-0' : 'translate-x-full'"
+            />
+
+            <span
+              class="absolute right-4 top-4 font-primary text-[10px] font-bold uppercase tracking-[0.18em] text-white drop-shadow-[0_2px_5px_rgba(0,0,0,0.9)] transition-colors duration-500"
+              :class="isAfter ? 'text-brand-red' : 'text-white'"
+              x-text="isAfter ? 'After' : 'Before'"
+            >Before</span>
+            <figcaption class="sr-only">{project.title}: automatically changes from before to after after three seconds.</figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="pointer-events-none absolute -bottom-8 left-1/2 hidden h-40 w-[112%] -translate-x-1/2 rounded-t-[50%] bg-linear-to-t from-white via-white/95 to-transparent xl:block" aria-hidden="true"></div>
+</section>

@@ -1,1 +1,97 @@
-<!-- Sección Content de Gallery. -->
+---
+import ComponentSectionAll from '../components/component-section-all.astro';
+import ComponentSectionMarble from '../components/component-section-marble.astro';
+import ComponentSectionTravertine from '../components/component-section-travertine.astro';
+import ComponentSectionTerrazzo from '../components/component-section-terrazzo.astro';
+import ComponentSectionNaturalStone from '../components/component-section-natural-stone.astro';
+import ComponentSectionConcrete from '../components/component-section-concrete.astro';
+import beforeImage from '../../../assets/homepages/sections/result/imagen-result1.webp';
+import afterImage from '../../../assets/homepages/sections/result/imagen-result2.webp';
+
+const placeholderPair = {
+  before: beforeImage.src,
+  after: afterImage.src,
+};
+
+const categories = [
+  { id: 'all', label: 'All' },
+  { id: 'marble', label: 'Marble' },
+  { id: 'travertine', label: 'Travertine' },
+  { id: 'terrazzo', label: 'Terrazzo' },
+  { id: 'natural-stone', label: 'Natural Stone' },
+  { id: 'concrete', label: 'Concrete' },
+] as const;
+
+const serviceCategories = categories.filter(({ id }) => id !== 'all');
+const projects = serviceCategories.flatMap(({ id, label }) =>
+  Array.from({ length: 15 }, (_, index) => {
+    return {
+      id: `${id}-${index + 1}`,
+      title: `${label} Project ${String(index + 1).padStart(2, '0')}`,
+      category: id,
+      beforeImage: placeholderPair.before,
+      afterImage: placeholderPair.after,
+    };
+  }),
+);
+
+const totals = Object.fromEntries([
+  ['all', projects.length],
+  ...serviceCategories.map(({ id }) => [id, projects.filter((project) => project.category === id).length]),
+]);
+
+const galleryState = `{ activeCategory: 'all', totals: ${JSON.stringify(totals)} }`;
+---
+
+<section class="relative isolate overflow-hidden bg-white pb-16 pt-14 sm:pb-20 sm:pt-18 lg:pb-24 lg:pt-22" aria-labelledby="gallery-content-title" x-data={galleryState}>
+  <div class="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(32,32,32,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(32,32,32,0.05)_1px,transparent_1px)] bg-size-[42px_42px] mask-[linear-gradient(to_bottom,transparent_0%,black_12%,black_86%,transparent_100%)] sm:bg-size-[52px_52px] lg:bg-size-[64px_64px]" aria-hidden="true"></div>
+
+  <div class="mx-auto w-full max-w-368 px-5 sm:px-8 lg:px-10 xl:px-12">
+    <header class="mb-12 grid items-end gap-8 lg:grid-cols-[1.25fr_0.9fr] lg:gap-20 xl:mb-16 xl:gap-28">
+      <div>
+        <p class="font-primary text-[10px] font-bold uppercase tracking-[0.2em] text-brand-red">Completed Work</p>
+        <h2 id="gallery-content-title" class="mt-3 max-w-3xl font-primary text-3xl font-bold leading-[1.02] tracking-[-0.04em] text-brand-charcoal sm:text-4xl lg:text-5xl xl:text-6xl">
+          Explore our projects
+          <span class="block font-secondary font-normal italic tracking-normal text-brand-red">by surface.</span>
+        </h2>
+      </div>
+      <p class="max-w-2xl font-primary text-sm leading-relaxed text-brand-charcoal/60 sm:text-base lg:pb-1 lg:text-lg">
+        Select a material to explore our transformations. Each project automatically slides from Before to After every three seconds, revealing the difference in the process and finish.
+      </p>
+    </header>
+
+    <nav class="mx-auto mb-12 overflow-x-auto scrollbar-none [&::-webkit-scrollbar]:hidden sm:mb-14 xl:mb-16" aria-label="Filter projects by material">
+      <ul class="mx-auto flex w-max min-w-full items-center justify-start gap-1 sm:justify-center sm:gap-4">
+        {categories.map(({ id, label }) => (
+          <li>
+            <button
+              type="button"
+              @click={`activeCategory = '${id}'`}
+              :aria-pressed={`activeCategory === '${id}'`}
+              :class={`activeCategory === '${id}' ? 'text-brand-red' : 'text-brand-charcoal/50 hover:text-brand-charcoal'`}
+              class="relative whitespace-nowrap px-4 py-3.5 font-primary text-xs font-semibold uppercase tracking-[0.08em] transition-colors duration-300 sm:px-5"
+            >
+              {label}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div aria-live="polite">
+      <template x-if="activeCategory === 'all'"><ComponentSectionAll projects={projects} /></template>
+      <template x-if="activeCategory === 'marble'"><ComponentSectionMarble projects={projects} /></template>
+      <template x-if="activeCategory === 'travertine'"><ComponentSectionTravertine projects={projects} /></template>
+      <template x-if="activeCategory === 'terrazzo'"><ComponentSectionTerrazzo projects={projects} /></template>
+      <template x-if="activeCategory === 'natural-stone'"><ComponentSectionNaturalStone projects={projects} /></template>
+      <template x-if="activeCategory === 'concrete'"><ComponentSectionConcrete projects={projects} /></template>
+    </div>
+
+    <div class="mt-6 flex items-center justify-center gap-3 font-primary text-xs font-semibold uppercase tracking-[0.12em] text-brand-charcoal/50">
+      <span class="h-px w-8 bg-brand-red/50" aria-hidden="true"></span>
+      <span class="xl:hidden">Showing 1 of <span x-text="totals[activeCategory]"></span> projects</span>
+      <span class="hidden xl:inline">Showing <span x-text="Math.min(10, totals[activeCategory])"></span> of <span x-text="totals[activeCategory]"></span> projects</span>
+      <span class="h-px w-8 bg-brand-red/50" aria-hidden="true"></span>
+    </div>
+  </div>
+</section>

@@ -1,1 +1,45 @@
-<!-- Sección Introduction de Gallery. -->
+---
+import { Image } from 'astro:assets';
+import backgroundImage from '../../../assets/gallery/sections/introduction/imagen-gallery.webp';
+---
+
+<section
+  class="relative isolate flex h-svh min-h-svh max-h-svh w-full min-w-0 items-center overflow-hidden bg-brand-black xl:-mt-40 2xl:-mt-54"
+  aria-labelledby="gallery-introduction-title"
+>
+  <Image
+    src={backgroundImage}
+    alt="Professionally restored interior surface completed by Resurfacing Solutions"
+    class="pointer-events-none absolute inset-0 block h-full! min-h-full! w-full max-h-none! object-cover object-center"
+    widths={[640, 960, 1280, 1600, 1920, 2560]}
+    sizes="100vw"
+    quality={92}
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+    data-reveal-background
+  />
+
+  <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.92)_0%,rgba(0,0,0,0.76)_40%,rgba(0,0,0,0.42)_70%,rgba(0,0,0,0.2)_100%)]" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-44 bg-linear-to-b from-transparent to-black/50" aria-hidden="true"></div>
+
+  <div class="relative z-10 mx-auto w-full min-w-0 max-w-7xl px-5 py-10 sm:px-8 sm:py-14 lg:px-10 lg:py-16 xl:translate-y-10 xl:px-12 2xl:max-w-[100rem] 2xl:translate-y-16 2xl:px-16">
+    <header class="max-w-3xl">
+      <p class="mb-4 font-primary text-[10px] font-bold uppercase tracking-[0.2em] text-brand-red sm:text-xs">
+        Project Gallery
+      </p>
+
+      <h1
+        id="gallery-introduction-title"
+        class="font-primary text-[2.7rem] font-bold leading-[0.98] tracking-[-0.045em] text-white min-[430px]:text-5xl sm:text-[3.55rem] lg:text-[4rem] xl:text-[4.35rem] 2xl:text-[4.8rem] [@media(min-width:1280px)_and_(max-width:1535px)_and_(max-height:800px)]:text-[clamp(3rem,4.2vw,3.7rem)]"
+      >
+        Restoration you can<br />
+        <span class="font-secondary font-normal italic tracking-normal text-brand-red">see and feel.</span>
+      </h1>
+
+      <p class="mt-6 max-w-2xl font-primary text-sm leading-[1.7] text-white/75 sm:text-base lg:text-[1.05rem] 2xl:text-lg [@media(min-width:1280px)_and_(max-width:1535px)_and_(max-height:800px)]:mt-5 [@media(min-width:1280px)_and_(max-width:1535px)_and_(max-height:800px)]:text-[0.95rem]">
+        Explore real residential and commercial projects—from natural stone restoration to polished concrete. Every image reflects the care, precision, and lasting quality we bring to each surface.
+      </p>
+    </header>
+  </div>
+</section>

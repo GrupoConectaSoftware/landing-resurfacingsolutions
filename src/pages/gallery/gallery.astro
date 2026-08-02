@@ -1,3 +1,76 @@
 ---
-// Página Gallery.
+import LayoutSectionIntroduction from './layouts/layout-section-introduction.astro';
+import LayoutSectionContent from './layouts/layout-section-content.astro';
+import Navegations from '../../min-layout/navegation/navegations.astro';
+import Footer from '../../min-layout/footerr/footer.astro';
+import '../../styles/global.css';
+
+const siteUrl = 'https://resurfacingsolutions.com';
+const pageUrl = `${siteUrl}/gallery/gallery/`;
+const siteTitle = 'Project Gallery | Resurfacing Solutions';
+const siteDescription = 'Explore completed natural stone and concrete restoration, polishing, repair, sealing, and maintenance projects by Resurfacing Solutions across Los Angeles County.';
+const siteImage = '/images/og-image.jpg';
+
+const gallerySchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: siteTitle,
+  description: siteDescription,
+  url: pageUrl,
+  isPartOf: { '@type': 'WebSite', name: 'Resurfacing Solutions', url: siteUrl },
+  about: {
+    '@type': 'ProfessionalService',
+    name: 'Resurfacing Solutions',
+    url: siteUrl,
+    telephone: '+1-818-618-0574',
+    email: 'info@resurfacingsolutions.services',
+    areaServed: { '@type': 'AdministrativeArea', name: 'Los Angeles County' },
+  },
+};
 ---
+
+<!doctype html>
+<html lang="en" x-data="{ isMenuOpen: false, currentYear: new Date().getFullYear() }">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{siteTitle}</title>
+    <meta name="description" content={siteDescription} />
+    <meta name="author" content="Resurfacing Solutions" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={pageUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={siteDescription} />
+    <meta property="og:image" content={siteUrl + siteImage} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Resurfacing Solutions" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={siteTitle} />
+    <meta name="twitter:description" content={siteDescription} />
+    <meta name="twitter:image" content={siteUrl + siteImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(gallerySchema)}></script>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+
+  <body class="max-w-full overflow-x-clip bg-brand-dark text-brand-charcoal antialiased scroll-smooth">
+    <Navegations />
+
+    <main class="flex min-w-0 max-w-full flex-col gap-0 overflow-x-clip">
+      <LayoutSectionIntroduction />
+      <LayoutSectionContent />
+    </main>
+
+    <Footer />
+
+    <script>
+      import '../../scripts/main.js';
+    </script>
+  </body>
+</html>

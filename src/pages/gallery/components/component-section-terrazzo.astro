@@ -1,0 +1,5 @@
+---
+import GalleryBag from './component-section-gallery-bag.astro';
+const { projects = [] } = Astro.props;
+---
+<GalleryBag projects={projects.filter((project: { category: string }) => project.category === 'terrazzo')} label="Terrazzo" />

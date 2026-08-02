@@ -117,7 +117,7 @@ const carouselImages = [
               class="absolute inset-0 h-full w-full object-cover object-center"
               widths={[480, 640, 800]}
               sizes="40vw"
-              quality={95}
+              quality={88}
               loading={index === 0 ? 'eager' : 'lazy'}
               decoding="async"
               x-show={`currentIndex === ${index}`}
@@ -139,7 +139,7 @@ const carouselImages = [
               class="absolute inset-0 h-full w-full object-cover object-center"
               widths={[320, 480, 640]}
               sizes="18vw"
-              quality={95}
+              quality={88}
               loading="lazy"
               decoding="async"
               x-show={`(currentIndex + 1) % total === ${index}`}
@@ -161,7 +161,7 @@ const carouselImages = [
               class="absolute inset-0 h-full w-full object-cover object-center"
               widths={[240, 320, 480]}
               sizes="10vw"
-              quality={95}
+              quality={88}
               loading="lazy"
               decoding="async"
               x-show={`(currentIndex + 2) % total === ${index}`}

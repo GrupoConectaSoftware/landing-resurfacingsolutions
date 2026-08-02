@@ -1,0 +1,40 @@
+---
+import Navegations from '../min-layout/navegation/navegations.astro';
+import Footer from '../min-layout/footerr/footer.astro';
+import LegalPage from '../min-layout/legal/legal-page.astro';
+import '../styles/global.css';
+
+const siteUrl = 'https://resurfacingsolutions.com';
+const title = 'Terms and Conditions | Resurfacing Solutions';
+const description = 'Terms governing use of the Resurfacing Solutions website, project inquiries, estimates, and published information.';
+
+const sections = [
+  { title: 'Acceptance of these terms', paragraphs: ['By accessing this website, you agree to these Terms and Conditions and our Privacy Policy. If you do not agree, please do not use the website. These terms govern website use; a signed project proposal or service agreement may include additional terms that control the specific work.'] },
+  { title: 'Website information', paragraphs: ['Website content is provided for general information. Surface conditions, materials, finishes, and restoration outcomes vary by project. Photographs illustrate previous work and do not guarantee identical results. A professional assessment and written proposal are required before services are confirmed.'] },
+  { title: 'Estimates and service requests', paragraphs: ['Submitting a form, photograph, email, WhatsApp message, or telephone inquiry does not create a service contract. Estimates may change when site conditions, measurements, material characteristics, access, or requested scope differ from the information originally provided.'] },
+  { title: 'Permitted use', items: ['Use the website only for lawful purposes and genuine service inquiries.', 'Do not attempt to disrupt, probe, copy, scrape, or misuse the website or its systems.', 'Do not submit unlawful, misleading, infringing, or malicious content.'] },
+  { title: 'Intellectual property', paragraphs: ['The website design, text, branding, graphics, and project photography are owned by or licensed to Resurfacing Solutions and are protected by applicable law. You may view the site for personal use, but may not reproduce or commercially use its content without written permission.'] },
+  { title: 'Third-party links', paragraphs: ['Links and embedded tools from third parties are provided for convenience. Resurfacing Solutions does not control those services and is not responsible for their availability, content, privacy practices, or terms.'] },
+  { title: 'Disclaimer and limitation', paragraphs: ['To the extent permitted by law, the website is provided “as is” without warranties regarding uninterrupted access or error-free content. Resurfacing Solutions is not liable for indirect or consequential loss arising solely from website use. Nothing here limits rights or liabilities that cannot legally be limited.'] },
+  { title: 'Changes and governing law', paragraphs: ['We may revise these terms when the website, business practices, or legal requirements change. Updated terms apply when posted. These terms are governed by the laws of the State of California, without regard to conflict-of-law principles.'] },
+  { title: 'Contact', paragraphs: ['Questions about these terms may be sent to info@resurfacingsolutions.services or discussed by calling +1 (818) 618-0574.'] }
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={`${siteUrl}/terms-and-conditions/`} />
+    <link rel="icon" type="image/x-icon" sizes="any" href="/favicon.ico?v=2" />
+  </head>
+  <body class="min-h-screen max-w-full overflow-x-clip bg-brand-dark font-primary text-brand-charcoal antialiased scroll-smooth">
+    <Navegations />
+    <LegalPage eyebrow="Website Terms" title="Terms and Conditions" introduction={description} updated="August 2, 2026" sections={sections} />
+    <Footer />
+    <script>import '../scripts/main.js';</script>
+  </body>
+</html>

@@ -58,14 +58,17 @@ const gallerySchema = {
     <link rel="icon" type="image/x-icon" sizes="any" href="/favicon.ico?v=2" />
   </head>
 
-  <body class="max-w-full overflow-x-clip bg-brand-dark text-brand-charcoal antialiased scroll-smooth">
+  <body class="min-h-screen max-w-full overflow-x-clip bg-brand-dark font-primary text-brand-charcoal antialiased scroll-smooth">
+    <!-- Shared navigation remains above every page section and hides only while scrolling down. -->
     <Navegations />
 
+    <!-- Gallery composition: full-screen introduction followed by the Alpine-powered material gallery. -->
     <main class="flex min-w-0 max-w-full flex-col gap-0 overflow-x-clip">
       <LayoutSectionIntroduction />
       <LayoutSectionContent />
     </main>
 
+    <!-- Shared footer closes the public page with navigation, services, contact paths, and social links. -->
     <Footer />
 
     <script>

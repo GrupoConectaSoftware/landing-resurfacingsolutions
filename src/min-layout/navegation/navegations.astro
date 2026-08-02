@@ -7,6 +7,7 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
 
 <!-- Contenedor de Mneu de Navegacion -->
 <header
+  id="site-top"
   class="sticky top-0 z-2147483647 isolate w-full shrink-0 overflow-x-clip font-primary transition-transform duration-400 ease-out will-change-transform"
   role="banner"
   x-data="{
@@ -96,16 +97,16 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
       <div
         class="topbar-utilities hidden shrink-0 items-center gap-3 text-xs font-semibold md:flex min-[800px]:landscape:flex! lg:gap-5 xl:flex!"
       >
-        <a href="/es/" hreflang="es" class="topbar-utility-link hidden transition-opacity hover:opacity-70 min-[800px]:landscape:inline! lg:inline xl:inline!"
-          >Translate to Spanish</a
-        >
+        <span class="topbar-utility-link hidden cursor-default text-white/55 min-[800px]:landscape:inline! lg:inline xl:inline!" aria-label="Spanish translation, coming soon">
+          Translate to Spanish
+        </span>
         <a href="/#faq" class="topbar-utility-link hidden transition-opacity hover:opacity-70 min-[800px]:landscape:inline! lg:inline xl:inline!"
           >Frequently Asked Questions</a
         >
 
-        <div class="flex items-center gap-3" aria-label="Redes sociales">
+        <div class="flex items-center gap-3" aria-label="Social media">
           <a
-            href="https://instagram.com/resurfacing"
+            href="https://instagram.com/resurfacing.solutions"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
@@ -229,7 +230,7 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
       class="relative z-20 mx-auto flex h-full w-full max-w-7xl items-center justify-between gap-4 px-4 pb-5 sm:px-6 lg:px-8"
     >
       <a
-        href="/"
+        href="/#site-top"
         class="desktop-brand relative z-30 flex min-w-0 items-center md:w-96 md:shrink-0 min-[800px]:landscape:w-72 min-[800px]:landscape:justify-center xl:w-96 xl:justify-center"
         aria-label="Resurfacing Solutions home page"
       >
@@ -253,7 +254,7 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
         class="desktop-navigation-links ml-auto hidden xl:pt-5 items-center justify-end gap-7 min-[800px]:landscape:flex! min-[800px]:landscape:gap-4 xl:flex! xl:gap-7"
       >
         <a
-          href="/"
+          href="/#site-top"
           class="text-sm font-bold uppercase tracking-wide text-brand-white transition-all duration-200 hover:text-white hover:[text-shadow:0_0_10px_rgba(255,255,255,0.9)]"
           >HOME</a
         >
@@ -314,7 +315,7 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
     >
       <div class="mx-auto flex w-full max-w-sm flex-col">
         <a
-          href="/"
+          href="/#site-top"
           class="border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:pl-2"
           @click="isOpen = false">HOME</a
         >

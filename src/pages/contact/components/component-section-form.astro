@@ -56,10 +56,12 @@ import { Icon } from 'astro-icon/components';
     <textarea name="description" rows="8" placeholder="Describe the surface, its current condition, the affected area, and the result you would like to achieve." required class="min-h-48 w-full resize-none rounded-md border border-black/15 bg-white px-4 py-3 font-primary text-sm font-normal leading-relaxed outline-none transition placeholder:text-black/35 focus:border-brand-red focus:ring-2 focus:ring-brand-red/12"></textarea>
   </label>
 
-  <label class="flex items-start gap-3 font-primary text-xs leading-relaxed text-brand-charcoal/65">
-    <input name="consent" type="checkbox" required class="mt-0.5 size-4 shrink-0 accent-brand-red" />
-    I agree to be contacted by Resurfacing Solutions regarding my request.
-  </label>
+  <div class="flex items-start gap-3 font-primary text-xs leading-relaxed text-brand-charcoal/65">
+    <input id="contact-consent" name="consent" type="checkbox" required class="mt-0.5 size-4 shrink-0 accent-brand-red" />
+    <label for="contact-consent">
+      I agree to be contacted by Resurfacing Solutions regarding my request and acknowledge the <a href="/privacy-policy/" class="font-semibold text-brand-charcoal underline decoration-brand-red underline-offset-2">Privacy Policy</a>.
+    </label>
+  </div>
 
   <button type="submit" class="group flex min-h-13 w-full items-center justify-center gap-3 rounded-md bg-brand-black px-6 py-4 font-primary text-sm font-bold uppercase tracking-[0.08em] text-white transition duration-300 hover:-translate-y-0.5 hover:bg-brand-red active:translate-y-0">
     <Icon name="mdi:send-outline" class="text-lg transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />

@@ -2,6 +2,30 @@
 // Tailwind-only and no view-level CSS is needed.
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// Same-page anchors keep their context and glide below the sticky navigation.
+const scrollToAnchor = (target, updateHistory = true) => {
+  const element = document.querySelector(target);
+  if (!element) return false;
+  const header = document.querySelector('header[role="banner"]');
+  const offset = header instanceof HTMLElement ? header.offsetHeight + 12 : 12;
+  const top = element.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top: Math.max(0, top), behavior: reducedMotion ? 'auto' : 'smooth' });
+  if (updateHistory) history.pushState(null, '', target);
+  return true;
+};
+
+document.addEventListener('click', (event) => {
+  const link = event.target.closest('a[href]');
+  if (!(link instanceof HTMLAnchorElement)) return;
+  const url = new URL(link.href, window.location.href);
+  if (!url.hash || url.origin !== window.location.origin || url.pathname !== window.location.pathname) return;
+  if (scrollToAnchor(url.hash)) event.preventDefault();
+});
+
+if (window.location.hash) {
+  window.addEventListener('load', () => requestAnimationFrame(() => scrollToAnchor(window.location.hash, false)), { once: true });
+}
+
 const revealFrames = {
   up: [{ opacity: 0, transform: 'translate3d(0, 32px, 0)' }, { opacity: 1, transform: 'translate3d(0, 0, 0)' }],
   left: [{ opacity: 0, transform: 'translate3d(-38px, 0, 0)' }, { opacity: 1, transform: 'translate3d(0, 0, 0)' }],

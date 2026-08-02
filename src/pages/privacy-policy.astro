@@ -1,0 +1,65 @@
+---
+import Navegations from '../min-layout/navegation/navegations.astro';
+import Footer from '../min-layout/footerr/footer.astro';
+import LegalPage from '../min-layout/legal/legal-page.astro';
+import '../styles/global.css';
+
+const siteUrl = 'https://resurfacingsolutions.com';
+const title = 'Privacy Policy | Resurfacing Solutions';
+const description = 'Learn how Resurfacing Solutions collects, uses, protects, and manages information submitted through our website and customer communications.';
+
+const sections = [
+  {
+    title: 'Information we collect',
+    paragraphs: ['We collect information you choose to provide when requesting an estimate, contacting our team, or communicating with us through the website, email, phone, WhatsApp, or social media.'],
+    items: ['Your name, telephone number, and email address.', 'Property, surface, material, and project details.', 'Photographs or files you voluntarily submit for an evaluation.', 'Technical information such as browser type, device type, referring page, and basic usage data.']
+  },
+  {
+    title: 'How we use your information',
+    paragraphs: ['We use personal information only for legitimate business purposes connected to the services you request.'],
+    items: ['Responding to inquiries and preparing project recommendations or estimates.', 'Scheduling, providing, and following up on restoration services.', 'Improving our website, customer experience, and business operations.', 'Maintaining records, preventing fraud, and complying with legal obligations.']
+  },
+  {
+    title: 'How information is shared',
+    paragraphs: ['We do not sell or rent personal information. We may share limited information with service providers that help us operate the website, communicate with customers, process business records, or comply with law. Those providers may use the information only for the work they perform for us.']
+  },
+  {
+    title: 'Third-party services',
+    paragraphs: ['The website may open or embed third-party services such as Google Maps, WhatsApp, Instagram, and Facebook. Their own privacy policies apply when you use those services. We encourage you to review their terms before submitting information.']
+  },
+  {
+    title: 'Data retention and security',
+    paragraphs: ['We keep information only as long as reasonably necessary for the purposes described here, our business records, dispute resolution, and legal requirements. We use reasonable administrative and technical safeguards, but no internet transmission or storage system can be guaranteed to be completely secure.']
+  },
+  {
+    title: 'Your California privacy choices',
+    paragraphs: ['California residents may request access to, correction of, or deletion of certain personal information, subject to applicable exceptions. You may also ask us how we have handled your information. We will verify requests before responding and will not discriminate against you for exercising an applicable privacy right.']
+  },
+  {
+    title: 'Children and policy updates',
+    paragraphs: ['Our services are intended for adults and we do not knowingly collect personal information from children under 13. We may update this policy as our practices or legal requirements change. The date at the top identifies the latest version.']
+  },
+  {
+    title: 'Contact us',
+    paragraphs: ['For privacy questions or requests, contact Resurfacing Solutions at info@resurfacingsolutions.services or +1 (818) 618-0574.']
+  }
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={`${siteUrl}/privacy-policy/`} />
+    <link rel="icon" type="image/x-icon" sizes="any" href="/favicon.ico?v=2" />
+  </head>
+  <body class="min-h-screen max-w-full overflow-x-clip bg-brand-dark font-primary text-brand-charcoal antialiased scroll-smooth">
+    <Navegations />
+    <LegalPage eyebrow="Privacy & Data" title="Privacy Policy" introduction={description} updated="August 2, 2026" sections={sections} />
+    <Footer />
+    <script>import '../scripts/main.js';</script>
+  </body>
+</html>

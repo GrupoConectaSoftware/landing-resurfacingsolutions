@@ -2,6 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
 import footerImage from '../../assets/footer/imagen-footer.webp'; 
+import CustomerSupport from './customer-support.astro';
 
 ---
 
@@ -15,14 +16,14 @@ import footerImage from '../../assets/footer/imagen-footer.webp';
     <div class="absolute inset-0 overflow-hidden min-[800px]:landscape:-bottom-0.5 xl:-bottom-0.5">
       <Image
         src={footerImage}
-        alt="Interior restaurado por Resurfacing Solutions"
+        alt="Interior surface restored by Resurfacing Solutions"
         class="absolute inset-0 h-full w-full object-cover"
         widths={[640, 960, 1440, 1920]}
         sizes="100vw"
-        loading="eager"
+        loading="lazy"
         decoding="async"
       />
-      <div class="absolute inset-x-0 bottom-0 h-[58%] bg-[linear-gradient(to_bottom,transparent_0%,rgba(33,33,33,0.22)_30%,rgba(33,33,33,0.70)_68%,var(--brand-charcoal)_100%)] 2xl:h-[64%] 2xl:bg-[linear-gradient(to_bottom,transparent_0%,rgba(33,33,33,0.28)_26%,rgba(33,33,33,0.82)_66%,var(--brand-charcoal)_100%)]" aria-hidden="true"></div>
+      <div class="absolute inset-x-0 bottom-0 h-[58%] bg-[linear-gradient(to_bottom,transparent_0%,rgba(33,33,33,0.22)_30%,rgba(33,33,33,0.70)_68%,var(--color-brand-charcoal)_100%)] 2xl:h-[64%] 2xl:bg-[linear-gradient(to_bottom,transparent_0%,rgba(33,33,33,0.28)_26%,rgba(33,33,33,0.82)_66%,var(--color-brand-charcoal)_100%)]" aria-hidden="true"></div>
     </div>
 
     <div
@@ -54,7 +55,7 @@ import footerImage from '../../assets/footer/imagen-footer.webp';
       <nav aria-label="Footer navigation">
         <h3 class="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-brand-red">Navigation</h3>
         <ul class="space-y-3">
-          <li><a href="/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Home</a></li>
+          <li><a href="/#site-top" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Home</a></li>
           <li><a href="/about/about/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">About</a></li>
           <li><a href="/gallery/gallery/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Gallery</a></li>
           <li><a href="/contact/contact/" class="inline-block text-sm text-brand-red transition-all duration-200 hover:translate-x-1">Contact</a></li>
@@ -64,20 +65,20 @@ import footerImage from '../../assets/footer/imagen-footer.webp';
       <nav aria-label="Services">
         <h3 class="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-brand-red">Services</h3>
         <ul class="space-y-3">
-          <li><a href="/services/restauracion/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Surface Restoration and Refinishing</a></li>
-          <li><a href="/services/pulido/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Honing and Polishing</a></li>
-          <li><a href="/services/limpieza/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Cleaning and Sealing</a></li>
-          <li><a href="/services/reparacion/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Crack, Chip, and Joint Repair</a></li>
-          <li><a href="/services/concreto/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Concrete Polishing</a></li>
-          <li><a href="/services/mantenimiento/" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Maintenance Programs</a></li>
+          <li><a href="/gallery/gallery/#project-gallery" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Surface Restoration and Refinishing</a></li>
+          <li><a href="/gallery/gallery/#project-gallery" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Honing and Polishing</a></li>
+          <li><a href="/gallery/gallery/#project-gallery" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Cleaning and Sealing</a></li>
+          <li><a href="/gallery/gallery/#project-gallery" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Crack, Chip, and Joint Repair</a></li>
+          <li><a href="/gallery/gallery/#project-gallery" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Concrete Polishing</a></li>
+          <li><a href="/gallery/gallery/#project-gallery" class="inline-block text-sm leading-relaxed text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red lg:whitespace-nowrap">Maintenance Programs</a></li>
         </ul>
       </nav>
 
       <nav aria-label="Privacy and support">
         <h3 class="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-brand-red">Privacy</h3>
         <ul class="space-y-3">
-          <li><a href="/privacy/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Privacy Policy</a></li>
-          <li><a href="/terms/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Terms and Conditions</a></li>
+          <li><a href="/privacy-policy/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Privacy Policy</a></li>
+          <li><a href="/terms-and-conditions/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Terms and Conditions</a></li>
           <li><a href="/#faq" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Frequently Asked Questions</a></li>
         </ul>
       </nav>
@@ -88,8 +89,8 @@ import footerImage from '../../assets/footer/imagen-footer.webp';
         © {new Date().getFullYear()} Resurfacing Solutions. All rights reserved
       </p>
 
-      <div class="flex items-center gap-1 min-[800px]:landscape:justify-self-end xl:mr-5 xl:justify-self-end" aria-label="Redes sociales">
-        <a href="https://instagram.com/resurfacing" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="grid h-8 w-8 place-items-center text-white/70">
+      <div class="flex items-center gap-1 min-[800px]:landscape:justify-self-end xl:mr-5 xl:justify-self-end" aria-label="Social media">
+        <a href="https://instagram.com/resurfacing.solutions" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="grid h-8 w-8 place-items-center text-white/70">
           <Icon name="mdi:instagram" class="text-xl" aria-hidden="true" />
         </a>
         <a href="https://wa.me/18186180574" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="grid h-8 w-8 place-items-center text-white/70">
@@ -102,6 +103,8 @@ import footerImage from '../../assets/footer/imagen-footer.webp';
     </div>
   </div>
   </div>
+
+  <CustomerSupport />
 
   <button
     x-data="{
@@ -121,8 +124,8 @@ import footerImage from '../../assets/footer/imagen-footer.webp';
     x-transition:leave-start="translate-y-0 opacity-100"
     x-transition:leave-end="translate-y-4 opacity-0"
     @click="scrollToTop()"
-    class="fixed bottom-5 right-5 z-40 grid h-11 w-11 place-items-center rounded-full bg-brand-red text-white shadow-lg transition-transform hover:-translate-y-1 active:scale-95 sm:bottom-6 sm:right-6"
-    aria-label="Volver al inicio"
+    class="fixed bottom-19 right-5 z-60 grid h-11 w-11 place-items-center rounded-full bg-brand-red text-white shadow-lg transition-transform hover:-translate-y-1 active:scale-95 sm:bottom-20 sm:right-6"
+    aria-label="Back to top"
   >
     <Icon name="mdi:arrow-up" class="text-xl" aria-hidden="true" />
   </button>

@@ -1,0 +1,86 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<!-- Floating customer-care shortcut. The composed message is handed to WhatsApp only after explicit submission. -->
+<aside
+  class="fixed bottom-5 right-5 z-70 font-primary sm:bottom-6 sm:right-6"
+  aria-label="Customer care chat"
+  x-data="{
+    open: false,
+    message: '',
+    sendMessage() {
+      const cleanMessage = this.message.trim();
+      if (!cleanMessage) return;
+      const greeting = `Hello Richard, I am contacting you through the Resurfacing Solutions website. ${cleanMessage}`;
+      window.open(`https://wa.me/18186180574?text=${encodeURIComponent(greeting)}`, '_blank', 'noopener,noreferrer');
+      this.message = '';
+      this.open = false;
+    }
+  }"
+  x-init="open = false"
+  @keydown.escape.window="open = false"
+>
+  <section
+    id="customer-care-panel"
+    x-show="open"
+    x-transition:enter="transition duration-300 ease-out"
+    x-transition:enter-start="translate-y-4 scale-95 opacity-0"
+    x-transition:enter-end="translate-y-0 scale-100 opacity-100"
+    x-transition:leave="transition duration-200 ease-in"
+    x-transition:leave-start="translate-y-0 scale-100 opacity-100"
+    x-transition:leave-end="translate-y-3 scale-95 opacity-0"
+    :class="open ? 'block!' : 'hidden'"
+    class="absolute bottom-14 right-0 hidden w-[min(20rem,calc(100vw-2.5rem))] overflow-hidden rounded-2xl border border-black/8 bg-white text-brand-charcoal shadow-[0_24px_70px_rgba(0,0,0,0.25)]"
+    aria-labelledby="customer-care-title"
+  >
+    <header class="flex items-center gap-3 bg-brand-charcoal px-4 py-4 text-white">
+      <div class="relative grid size-11 shrink-0 place-items-center rounded-full bg-brand-red text-lg font-bold" aria-hidden="true">RA</div>
+      <div class="min-w-0 flex-1">
+        <h2 id="customer-care-title" class="text-sm font-semibold">Richard Aguirre</h2>
+        <p class="mt-0.5 text-[11px] text-white/65">Owner · +1 (818) 618-0574</p>
+      </div>
+      <button type="button" class="grid size-8 place-items-center rounded-full text-white/70 transition hover:bg-white/10 hover:text-white" @click="open = false" aria-label="Close customer care chat">
+        <Icon name="mdi:close" class="text-xl" aria-hidden="true" />
+      </button>
+    </header>
+
+    <div class="px-4 py-4">
+      <div class="max-w-[88%] rounded-2xl rounded-tl-sm bg-brand-gray-light/45 px-3.5 py-3 text-sm leading-relaxed">
+        Hi! How can I help you with your surface today?
+      </div>
+      <form class="mt-4 flex items-end gap-2" @submit.prevent="sendMessage()">
+        <label for="customer-message" class="sr-only">Your message</label>
+        <textarea
+          id="customer-message"
+          x-model="message"
+          rows="2"
+          required
+          class="min-h-14 flex-1 resize-none rounded-xl border border-brand-charcoal/15 bg-white px-3 py-2.5 text-sm outline-none transition placeholder:text-brand-charcoal/35 focus:none focus:ring-brand-red/10"
+          placeholder="Write your message..."
+        ></textarea>
+        <button type="submit" class="grid size-11 shrink-0 place-items-center rounded-full bg-brand-red text-white shadow-md transition hover:-translate-y-0.5 hover:bg-brand-charcoal active:scale-95" aria-label="Send message through WhatsApp">
+          <Icon name="mdi:send" class="text-lg" aria-hidden="true" />
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <div class="group flex items-center justify-end gap-2">
+    <span
+      x-show="!open"
+      class="pointer-events-none translate-x-2 rounded-full bg-brand-charcoal px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-white opacity-0 shadow-lg transition duration-200 group-hover:translate-x-0 group-hover:opacity-100 group-focus-within:translate-x-0 group-focus-within:opacity-100"
+    >Customer Care</span>
+    <button
+      type="button"
+      class="relative grid size-11 place-items-center rounded-full bg-white text-brand-charcoal shadow-[0_10px_28px_rgba(0,0,0,0.22)] ring-1 ring-black/8 transition hover:-translate-y-1 hover:text-brand-red active:scale-95"
+      @click="open = !open"
+      :aria-expanded="open"
+      aria-controls="customer-care-panel"
+      aria-label="Chat with customer care"
+    >
+      <Icon name="mdi:message-text-outline" class="text-xl" aria-hidden="true" />
+      <span class="absolute -right-1 -top-1 grid size-5 place-items-center rounded-full bg-brand-red text-[10px] font-bold text-white ring-2 ring-white">1</span>
+    </button>
+  </div>
+</aside>

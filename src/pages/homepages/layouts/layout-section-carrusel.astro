@@ -13,7 +13,7 @@ const duplicatedItems = [...cycleItems, ...cycleItems];
 ---
 
 <section
-  class="w-full overflow-hidden border-y border-white/20 bg-[#dcdcdc] py-3"
+  class="w-full overflow-hidden border-y border-white/20 bg-[#dcdcdc] py-3 transition-colors duration-300 dark:bg-[#292929]"
   aria-label="Beneficios de Resurfacing Solutions"
   x-data={`{
     items: ${JSON.stringify(duplicatedItems)},
@@ -75,7 +75,7 @@ const duplicatedItems = [...cycleItems, ...cycleItems];
           <span
             class:list={[
               'shrink-0 font-secondary text-[11px] font-bold uppercase tracking-[0.12em] sm:text-xs md:text-[13px] lg:text-sm',
-              index % 2 === 0 ? 'text-brand-red' : 'text-brand-charcoal'
+              index % 2 === 0 ? 'text-brand-red' : 'text-brand-charcoal dark:text-white/80'
             ]}
           >
             {item}

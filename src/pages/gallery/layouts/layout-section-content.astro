@@ -93,7 +93,7 @@ const galleryState = `{ activeCategory: 'all', totals: ${JSON.stringify(totals)}
       <template x-if="activeCategory === 'concrete'"><ComponentSectionConcrete projects={projects} /></template>
     </div>
 
-    <div class="relative z-20 mt-9 flex min-h-6 items-center justify-center gap-3 bg-white/90 px-3 font-primary text-xs font-semibold uppercase leading-6 tracking-[0.12em] text-brand-charcoal/60 sm:mt-10">
+    <div class="relative z-20 mt-9 flex min-h-6 items-center justify-center gap-3 bg-white/90 px-3 font-primary text-xs font-semibold uppercase leading-6 tracking-[0.12em] text-brand-charcoal/60 dark:bg-brand-dark/90 dark:text-white/55 sm:mt-10">
       <span class="h-px w-8 bg-brand-red/50" aria-hidden="true"></span>
       <span class="xl:hidden">Showing 1 of <span x-text="totals[activeCategory]"></span> projects</span>
       <span class="hidden xl:inline">Showing <span x-text="Math.min(10, totals[activeCategory])"></span> of <span x-text="totals[activeCategory]"></span> projects</span>

@@ -12,8 +12,25 @@ import { Icon } from 'astro-icon/components';
     sendMessage() {
       const cleanMessage = this.message.trim();
       if (!cleanMessage) return;
-      const greeting = `Hello Richard, I am contacting you through the Resurfacing Solutions website. ${cleanMessage}`;
-      window.open(`https://wa.me/18186180574?text=${encodeURIComponent(greeting)}`, '_blank', 'noopener,noreferrer');
+
+      const now = new Date();
+      const reference = `RS-${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${String(now.getTime()).slice(-6)}`;
+      const submittedAt = new Intl.DateTimeFormat('en-US', {
+        dateStyle: 'medium',
+        timeStyle: 'short'
+      }).format(now);
+      const supportTicket = [
+        '*RESURFACING SOLUTIONS — SUPPORT REQUEST*',
+        '',
+        `*Reference:* ${reference}`,
+        `*Submitted:* ${submittedAt}`,
+        '*Channel:* Website customer care',
+        '',
+        '*Customer message:*',
+        cleanMessage
+      ].join('\n');
+
+      window.open(`https://wa.me/18186180574?text=${encodeURIComponent(supportTicket)}`, '_blank', 'noopener,noreferrer');
       this.message = '';
       this.open = false;
     }
@@ -49,16 +66,37 @@ import { Icon } from 'astro-icon/components';
       <div class="max-w-[88%] rounded-2xl rounded-tl-sm bg-brand-gray-light/45 px-3.5 py-3 text-sm leading-relaxed">
         Hi! How can I help you with your surface today?
       </div>
+
+      <div
+        x-cloak
+        x-show="message.trim().length > 0"
+        x-transition:enter="transition duration-200 ease-out"
+        x-transition:enter-start="translate-y-2 opacity-0"
+        x-transition:enter-end="translate-y-0 opacity-100"
+        class="ml-auto mt-3 max-w-[92%] overflow-hidden rounded-2xl rounded-tr-sm border border-brand-red/20 bg-brand-charcoal text-white shadow-md"
+        aria-live="polite"
+      >
+        <div class="flex items-center gap-2 border-b border-white/10 px-3 py-2">
+          <Icon name="mdi:ticket-confirmation-outline" class="shrink-0 text-base text-brand-red" aria-hidden="true" />
+          <span class="text-[9px] font-bold uppercase tracking-[0.14em] text-white/65">Support request preview</span>
+        </div>
+        <p class="max-h-28 overflow-y-auto whitespace-pre-wrap break-words px-3 py-2.5 text-xs leading-relaxed" x-text="message.trim()"></p>
+      </div>
+
       <form class="mt-4 flex items-end gap-2" @submit.prevent="sendMessage()">
-        <label for="customer-message" class="sr-only">Your message</label>
-        <textarea
-          id="customer-message"
-          x-model="message"
-          rows="2"
-          required
-          class="min-h-14 flex-1 resize-none rounded-xl border border-brand-charcoal/15 bg-white px-3 py-2.5 text-sm outline-none transition placeholder:text-brand-charcoal/35 focus:none focus:ring-brand-red/10"
-          placeholder="Write your message..."
-        ></textarea>
+        <div class="min-w-0 flex-1">
+          <label for="customer-message" class="sr-only">Your message</label>
+          <textarea
+            id="customer-message"
+            x-model="message"
+            rows="2"
+            maxlength="500"
+            required
+            class="min-h-14 w-full resize-none rounded-xl border border-brand-charcoal/15 bg-white px-3 py-2.5 text-sm outline-none transition placeholder:text-brand-charcoal/35 focus:none focus:ring-brand-red/10"
+            placeholder="Write your message..."
+          ></textarea>
+          <p class="mt-1 px-1 text-right text-[9px] text-brand-charcoal/40"><span x-text="message.length">0</span>/500</p>
+        </div>
         <button type="submit" class="grid size-11 shrink-0 place-items-center rounded-full bg-brand-red text-white shadow-md transition hover:-translate-y-0.5 hover:bg-brand-charcoal active:scale-95" aria-label="Send message through WhatsApp">
           <Icon name="mdi:send" class="text-lg" aria-hidden="true" />
         </button>

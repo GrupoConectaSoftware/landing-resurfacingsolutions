@@ -29,7 +29,7 @@ const steps = [
 ---
 
 <section
-  class="flex min-h-[65vh] w-full items-center bg-[#d1d1d1] py-12 sm:py-10 md:py-12 lg:py-14"
+  class="process-section flex min-h-[65vh] w-full items-center bg-[#d1d1d1] py-12 transition-colors duration-300 dark:bg-[#292929] sm:py-10 md:py-12 lg:py-14"
   aria-labelledby="process-title"
 >
   <div class="mx-auto w-full max-w-7xl px-4 sm:px-5 md:px-6 lg:max-w-[100rem] lg:px-4 xl:px-5 2xl:px-6">
@@ -40,7 +40,7 @@ const steps = [
 
       <h2
         id="process-title"
-        class="text-left font-primary text-[1.75rem] font-bold leading-[1.04] tracking-[-0.04em] text-brand-charcoal sm:text-center sm:text-3xl lg:text-4xl xl:text-[2.65rem]"
+        class="text-left font-primary text-[1.75rem] font-bold leading-[1.04] tracking-[-0.04em] text-brand-charcoal dark:text-white sm:text-center sm:text-3xl lg:text-4xl xl:text-[2.65rem]"
       >
         <span class="sm:block">A clear process, from assessment</span>
         <span class="sm:block">to the final finish.</span>
@@ -51,7 +51,7 @@ const steps = [
       {steps.map((step) => (
         <article class="group flex min-w-0 flex-col transition-transform duration-300 ease-out md:hover:-translate-y-1">
           <div class="relative mb-3 hidden h-px w-full bg-brand-red/80 sm:block" aria-hidden="true">
-            <span class="absolute -top-1 right-0 h-2 w-2 rounded-full border border-brand-red bg-[#d1d1d1] transition-colors duration-300 group-hover:bg-brand-red"></span>
+            <span class="absolute -top-1 right-0 h-2 w-2 rounded-full border border-brand-red bg-[#d1d1d1] transition-colors duration-300 group-hover:bg-brand-red dark:bg-[#292929]"></span>
           </div>
 
           <span class="font-primary text-5xl font-bold leading-none tracking-tighter text-brand-red sm:text-[3.25rem] md:text-4xl lg:text-5xl xl:text-[3.5rem]">
@@ -62,7 +62,7 @@ const steps = [
             {step.title}
           </h3>
 
-          <p class="mt-2.5 max-w-72 font-primary text-xs leading-[1.7] text-brand-charcoal/80 sm:text-[13px] md:mt-2 md:text-[9px] md:leading-[1.65] lg:text-[10px] xl:text-[11px]">
+          <p class="mt-2.5 max-w-72 font-primary text-xs leading-[1.7] text-brand-charcoal/80 dark:text-white/70 sm:text-[13px] md:mt-2 md:text-[9px] md:leading-[1.65] lg:text-[10px] xl:text-[11px]">
             {step.description}
           </p>
         </article>

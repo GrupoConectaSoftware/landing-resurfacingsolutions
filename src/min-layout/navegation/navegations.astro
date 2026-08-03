@@ -5,6 +5,14 @@ import desktopLogo from "../../assets/navegation/imagen-logo.webp";
 import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
 ---
 
+<script is:inline>
+  (() => {
+    const storedTheme = localStorage.getItem('resurfacing-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.classList.toggle('dark', storedTheme ? storedTheme === 'dark' : prefersDark);
+  })();
+</script>
+
 <!-- Contenedor de Mneu de Navegacion -->
 <header
   id="site-top"
@@ -14,6 +22,7 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
     visible: true,
     previousY: 0,
     ready: false,
+    theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
     init() {
       this.visible = true;
       this.previousY = Math.max(window.scrollY, 0);
@@ -27,6 +36,11 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
         this.visible = true;
         this.previousY = Math.max(window.scrollY, 0);
       });
+    },
+    toggleTheme() {
+      this.theme = this.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.classList.toggle('dark', this.theme === 'dark');
+      localStorage.setItem('resurfacing-theme', this.theme);
     },
     updateVisibility() {
       if (!this.ready) return;
@@ -105,6 +119,16 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
         >
 
         <div class="flex items-center gap-3" aria-label="Social media">
+          <button
+            type="button"
+            class="grid size-7 place-items-center rounded-full border border-white/25 text-white transition hover:border-brand-red hover:text-brand-red"
+            @click="toggleTheme()"
+            :aria-label="theme === 'dark' ? 'Activate light mode' : 'Activate dark mode'"
+            :title="theme === 'dark' ? 'Light mode' : 'Dark mode'"
+          >
+            <Icon x-cloak x-show="theme === 'light'" name="mdi:weather-night" class="text-base" aria-hidden="true" />
+            <Icon x-cloak x-show="theme === 'dark'" name="mdi:white-balance-sunny" class="text-base" aria-hidden="true" />
+          </button>
           <a
             href="https://instagram.com/resurfacing.solutions"
             target="_blank"
@@ -230,7 +254,7 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
       class="relative z-20 mx-auto flex h-full w-full max-w-7xl items-center justify-between gap-4 px-4 pb-5 sm:px-6 lg:px-8"
     >
       <a
-        href="/#site-top"
+        href="/"
         class="desktop-brand relative z-30 flex min-w-0 items-center md:w-96 md:shrink-0 min-[800px]:landscape:w-72 min-[800px]:landscape:justify-center xl:w-96 xl:justify-center"
         aria-label="Resurfacing Solutions home page"
       >
@@ -280,7 +304,17 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
 
       <button
         type="button"
-        class="mobile-navigation-toggle relative z-110 ml-auto grid h-11 w-11 shrink-0 place-items-center rounded-md border border-white/80 text-3xl text-white shadow-sm transition-all duration-200 hover:border-white hover:bg-white/10 min-[800px]:landscape:hidden! xl:hidden!"
+        class="relative z-110 ml-auto grid h-11 w-11 shrink-0 place-items-center rounded-md border border-white/80 text-white shadow-sm transition-all duration-200 hover:border-white hover:bg-white/10 min-[800px]:landscape:hidden! xl:hidden!"
+        @click="toggleTheme()"
+        :aria-label="theme === 'dark' ? 'Activate light mode' : 'Activate dark mode'"
+      >
+        <Icon x-cloak x-show="theme === 'light'" name="mdi:weather-night" class="text-2xl" aria-hidden="true" />
+        <Icon x-cloak x-show="theme === 'dark'" name="mdi:white-balance-sunny" class="text-2xl" aria-hidden="true" />
+      </button>
+
+      <button
+        type="button"
+        class="mobile-navigation-toggle relative z-110 grid h-11 w-11 shrink-0 place-items-center rounded-md border border-white/80 text-3xl text-white shadow-sm transition-all duration-200 hover:border-white hover:bg-white/10 min-[800px]:landscape:hidden! xl:hidden!"
         @click="isOpen = !isOpen"
         :aria-expanded="isOpen"
         aria-controls="mobile-navigation"

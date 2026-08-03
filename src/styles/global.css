@@ -7,6 +7,8 @@
 @import "@fontsource/lora/600.css";
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 
 /* Rutas que Tailwind debe escanear para generar las utilidades usadas allí. */
 @source "../pages";
@@ -33,3 +35,218 @@
     --color-brand-blue: #337ab7;
 }
 
+/* Tema oscuro: conserva el rojo y los carbones de la identidad visual. */
+@layer utilities {
+    [x-cloak] {
+        display: none !important;
+    }
+
+    html {
+        color-scheme: light;
+    }
+
+    html.dark {
+        color-scheme: dark;
+    }
+
+    body,
+    main > section,
+    footer,
+    .mobile-navigation-panel,
+    .navigation-contact-strip {
+        transition-property: background-color, border-color, color;
+        transition-duration: 300ms;
+        transition-timing-function: ease;
+    }
+
+    .dark body {
+        background-color: var(--color-brand-dark);
+    }
+
+    .dark main > section.bg-white,
+    .dark main.bg-white,
+    .dark footer.bg-white,
+    .dark footer .bg-white,
+    .dark #footer-banner.bg-white {
+        background-color: var(--color-brand-dark);
+    }
+
+    .dark main > section.bg-white,
+    .dark main.bg-white {
+        background-image:
+            radial-gradient(circle at 92% 4%, rgb(215 43 43 / 0.075), transparent 26rem),
+            linear-gradient(145deg, #1b1b1b 0%, #202020 52%, #1c1c1c 100%);
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.035);
+    }
+
+    .dark main > section.bg-white:nth-of-type(even) {
+        background-image:
+            radial-gradient(circle at 8% 12%, rgb(215 43 43 / 0.055), transparent 24rem),
+            linear-gradient(215deg, #191919 0%, #222222 54%, #1c1c1c 100%);
+    }
+
+    .dark :is(main > section.bg-white, main.bg-white, footer, .mobile-navigation-panel, .process-section) [class*="text-brand-charcoal"],
+    .dark :is(main > section.bg-white, main.bg-white, footer, .mobile-navigation-panel, .process-section) [class*="text-black"] {
+        color: #f5f5f5;
+    }
+
+    .dark :is(main > section.bg-white, main.bg-white, footer, .mobile-navigation-panel, .process-section) [class*="text-brand-gray"] {
+        color: #b9b9b9;
+    }
+
+    .dark :is(main > section.bg-white, main.bg-white, footer, .mobile-navigation-panel) [class*="bg-brand-gray-light"] {
+        background-color: #2c2c2c;
+    }
+
+    .dark :is(main > section.bg-white, main.bg-white, footer, .mobile-navigation-panel) :is([class~="bg-white"], [class*="bg-white/"]) {
+        background-color: #252525;
+    }
+
+    .dark :is(main > section.bg-white, main.bg-white) :is(article, [class*="rounded-xl"], [class*="rounded-2xl"])[class*="bg-white"],
+    .dark :is(main > section.bg-white, main.bg-white) article[class*="bg-brand-gray-light"] {
+        border-color: rgb(255 255 255 / 0.1);
+        background-image: linear-gradient(145deg, rgb(255 255 255 / 0.055), rgb(255 255 255 / 0.012));
+        box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.05),
+            0 18px 45px rgb(0 0 0 / 0.2);
+    }
+
+    .dark :is(main > section.bg-white, main.bg-white, footer) :is(input, select, textarea) {
+        border-color: rgb(255 255 255 / 0.16);
+        background-color: #252525;
+        color: var(--color-brand-white);
+    }
+
+    .dark :is(main > section.bg-white, main.bg-white, footer) :is(input, textarea)::placeholder {
+        color: rgb(255 255 255 / 0.38);
+    }
+
+    .dark .services-section > div[aria-hidden="true"] {
+        background-image:
+            linear-gradient(to right, rgb(255 255 255 / 0.055) 1px, transparent 1px),
+            linear-gradient(to bottom, rgb(255 255 255 / 0.055) 1px, transparent 1px);
+    }
+
+    .dark :is(main > section.bg-white, main.bg-white, footer, .mobile-navigation-panel) [class*="border-black/"],
+    .dark :is(main > section.bg-white, main.bg-white, footer, .mobile-navigation-panel) [class*="border-brand-charcoal/"],
+    .dark :is(main > section.bg-white, main.bg-white, footer, .mobile-navigation-panel) [class*="border-brand-gray-medium"] {
+        border-color: rgb(255 255 255 / 0.14);
+    }
+
+    .dark :is(main > section.bg-white, main.bg-white) [class*="divide-brand-charcoal/"] > :not(:last-child) {
+        border-color: rgb(255 255 255 / 0.12);
+    }
+
+    .dark :is(main > section.bg-white, main.bg-white, footer) :is(input, select, textarea):focus {
+        border-color: var(--color-brand-red);
+        box-shadow: 0 0 0 3px rgb(215 43 43 / 0.14);
+    }
+
+    .dark :is(main > section.bg-white, main.bg-white) [class*="shadow-"] {
+        --tw-shadow-color: rgb(0 0 0 / 0.42);
+    }
+
+    .dark :is(main > section.bg-white, main.bg-white) :is(h1, h2, h3)[class*="text-brand-charcoal"] {
+        text-shadow: 0 1px 18px rgb(0 0 0 / 0.28);
+    }
+
+    .dark :is(main > section.bg-white, main.bg-white) :is(a, button, article) {
+        outline-color: transparent;
+    }
+
+    @media (hover: hover) {
+        .dark :is(main > section.bg-white, main.bg-white) :is(a, button, article):hover {
+            border-color: rgb(215 43 43 / 0.34);
+        }
+    }
+
+    .dark #faq article,
+    .dark .about-advantages article {
+        border: 1px solid rgb(255 255 255 / 0.075);
+        border-radius: 0.85rem;
+        background: linear-gradient(135deg, rgb(255 255 255 / 0.036), rgb(255 255 255 / 0.008));
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.025);
+        padding: 1.15rem;
+        transition: border-color 250ms ease, background-color 250ms ease, transform 250ms ease;
+    }
+
+    @media (hover: hover) {
+        .dark #faq article:hover,
+        .dark .about-advantages article:hover {
+            border-color: rgb(215 43 43 / 0.28);
+            background-color: rgb(215 43 43 / 0.025);
+            transform: translateY(-2px);
+        }
+    }
+
+    .dark #faq article > span,
+    .dark .about-advantages article > span {
+        box-shadow: 0 0 0 5px rgb(215 43 43 / 0.09), 0 0 18px rgb(215 43 43 / 0.2);
+    }
+
+    .dark .services-section article {
+        border: 1px solid rgb(255 255 255 / 0.085);
+        box-shadow: 0 20px 48px rgb(0 0 0 / 0.2);
+    }
+
+    .dark .services-section article.bg-brand-red {
+        border-color: rgb(255 255 255 / 0.13);
+        box-shadow: 0 24px 58px rgb(100 0 0 / 0.22);
+    }
+
+    .dark .services-section article :is(.bg-brand-red, .text-brand-red),
+    .dark :is(#faq, .about-advantages) [class*="text-brand-red"] {
+        filter: saturate(1.08);
+    }
+
+    .dark .navigation-contact-strip {
+        background-image: linear-gradient(90deg, #262626, #303030 50%, #252525);
+        box-shadow: inset 0 -1px 0 rgb(255 255 255 / 0.04);
+    }
+
+    .dark .mobile-navigation-panel {
+        border-top: 1px solid rgb(255 255 255 / 0.08);
+        background-image: linear-gradient(180deg, #242424, #1d1d1d);
+        box-shadow: 0 22px 55px rgb(0 0 0 / 0.48);
+    }
+
+    .dark footer > div.bg-white,
+    .dark #footer-banner {
+        background-image: linear-gradient(180deg, #202020, #1a1a1a);
+    }
+
+    .dark #customer-care-panel {
+        border-color: rgb(255 255 255 / 0.12);
+        background-image: linear-gradient(160deg, #292929, #202020);
+        box-shadow: 0 28px 80px rgb(0 0 0 / 0.55);
+    }
+
+    .dark #customer-care-panel header {
+        border-bottom: 1px solid rgb(255 255 255 / 0.07);
+        background-image: linear-gradient(90deg, #252525, #1d1d1d);
+    }
+
+    .dark footer button[class*="ring-black"] {
+        box-shadow: 0 12px 34px rgb(0 0 0 / 0.42), 0 0 0 1px rgb(255 255 255 / 0.1);
+    }
+
+    .dark .navigation-contact-strip {
+        border-color: rgb(255 255 255 / 0.1);
+        background-color: #2a2a2a;
+        color: var(--color-brand-white);
+    }
+
+    .dark .mobile-navigation-panel {
+        background-color: var(--color-brand-dark);
+        color: var(--color-brand-white);
+    }
+
+    .dark .mobile-navigation-panel a:hover {
+        background-color: rgb(215 43 43 / 0.1);
+    }
+
+    .dark .process-section {
+        background-color: #292929;
+        color: #f5f5f5;
+    }
+}

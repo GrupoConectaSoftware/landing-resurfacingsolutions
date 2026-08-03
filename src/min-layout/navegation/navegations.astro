@@ -8,9 +8,14 @@ import translations from "../../i18n/translations.json";
 
 <script is:inline>
   (() => {
-    const storedTheme = localStorage.getItem('resurfacing-theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    document.documentElement.classList.toggle('dark', storedTheme ? storedTheme === 'dark' : prefersDark);
+    const storedTheme = localStorage.getItem("resurfacing-theme");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    document.documentElement.classList.toggle(
+      "dark",
+      storedTheme ? storedTheme === "dark" : prefersDark,
+    );
   })();
 </script>
 
@@ -21,12 +26,14 @@ import translations from "../../i18n/translations.json";
 <!-- Contenedor de Mneu de Navegacion -->
 <header
   id="site-top"
-  class="sticky top-0 z-[2147483647] isolate w-full shrink-0 overflow-x-clip font-primary transition-transform duration-400 ease-out will-change-transform"
+  class="sticky top-0 z-2147483647solate w-full shrink-0 overflow-visible font-primary transition-transform duration-400 ease-out will-change-transform"
+  style="z-index: 2147483647; pointer-events: auto;"
   role="banner"
   x-data="{
     visible: true,
     previousY: 0,
     ready: false,
+    mobileMenuOpen: false,
     locale: localStorage.getItem('resurfacing-locale') || 'es',
     translations: window.__RS_TRANSLATIONS__ || { es: {}, en: {} },
     englishIndex: {},
@@ -119,6 +126,12 @@ import translations from "../../i18n/translations.json";
     updateVisibility() {
       if (!this.ready) return;
 
+      if (this.mobileMenuOpen) {
+        this.visible = true;
+        this.previousY = Math.max(window.scrollY, 0);
+        return;
+      }
+
       const currentY = Math.max(window.scrollY, 0);
       const movement = currentY - this.previousY;
 
@@ -134,10 +147,13 @@ import translations from "../../i18n/translations.json";
     }
   }"
   @scroll.window.throttle.80ms="updateVisibility()"
+  @nav-menu-state.window="mobileMenuOpen = $event.detail.open; visible = true"
   :class="visible ? 'translate-y-0' : '-translate-y-full'"
 >
   <!-- Barra superior: servicios, utilidades y redes -->
-  <div class="navigation-service-strip h-10 bg-brand-black text-brand-white min-[800px]:landscape:h-10 xl:h-7 2xl:h-10">
+  <div
+    class="navigation-service-strip h-10 bg-brand-black text-brand-white min-[800px]:landscape:h-10 xl:h-7 2xl:h-10"
+  >
     <div
       class="mx-auto flex h-full max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8"
     >
@@ -190,8 +206,11 @@ import translations from "../../i18n/translations.json";
           class="topbar-utility-link hidden text-white/70 transition hover:text-white min-[800px]:landscape:inline! lg:inline xl:inline!"
           @click="toggleLanguage()"
           x-text="locale === 'es' ? t('language.switch_to_en') : t('language.switch_to_es')"
-        >Translate to English</button>
-        <a href="/#faq" class="topbar-utility-link hidden transition-opacity hover:opacity-70 min-[800px]:landscape:inline! lg:inline xl:inline!"
+          >Translate to English</button
+        >
+        <a
+          href="/#faq"
+          class="topbar-utility-link hidden transition-opacity hover:opacity-70 min-[800px]:landscape:inline! lg:inline xl:inline!"
           >Frequently Asked Questions</a
         >
 
@@ -255,13 +274,17 @@ import translations from "../../i18n/translations.json";
           />
           <span class="truncate">info@resurfacingsolutions.services</span>
         </a>
-        <span class="contact-hours hidden shrink-0 items-center gap-1.5 md:flex min-[800px]:landscape:flex! xl:flex!">
+        <span
+          class="contact-hours hidden shrink-0 items-center gap-1.5 md:flex min-[800px]:landscape:flex! xl:flex!"
+        >
           <Icon name="mdi:clock-outline" class="text-sm" aria-hidden="true" />
           <span>7am to 6pm</span>
         </span>
       </div>
 
-      <div class="contact-promo hidden min-w-0 flex-1 overflow-hidden min-[800px]:landscape:block! lg:block xl:block!">
+      <div
+        class="contact-promo hidden min-w-0 flex-1 overflow-hidden min-[800px]:landscape:block! lg:block xl:block!"
+      >
         <div
           class="relative h-5 w-full"
           x-data="{
@@ -306,9 +329,19 @@ import translations from "../../i18n/translations.json";
 
   <!-- Navegación principal -->
   <nav
-    class="main-navigation relative z-50 h-24 w-full overflow-visible bg-brand-red text-brand-white min-[800px]:landscape:h-28 min-[800px]:landscape:overflow-hidden xl:h-28 xl:overflow-hidden 2xl:h-36"
+    class="main-navigation relative z-2147483647 h-auto w-full overflow-visible bg-brand-red text-brand-white min-[800px]:landscape:h-28 min-[800px]:landscape:overflow-hidden xl:h-28 xl:overflow-hidden 2xl:h-36"
     aria-label="Main navigation"
-    x-data="{ isOpen: false }"
+    x-data="{
+      isOpen: false,
+      toggleMenu() {
+        this.isOpen = !this.isOpen;
+        this.$dispatch('nav-menu-state', { open: this.isOpen });
+      },
+      closeMenu() {
+        this.isOpen = false;
+        this.$dispatch('nav-menu-state', { open: false });
+      }
+    }"
   >
     <!-- El panel oscuro solo existe desde tablet -->
     <div
@@ -318,7 +351,7 @@ import translations from "../../i18n/translations.json";
     </div>
 
     <div
-      class="relative z-20 mx-auto flex h-full w-full max-w-7xl items-center justify-between gap-4 px-4 pb-5 sm:px-6 lg:px-8"
+      class="relative z-2147483647 mx-auto flex h-24 w-full max-w-7xl items-center justify-between gap-4 px-4 pb-5 sm:px-6 min-[800px]:landscape:h-full lg:px-8 xl:h-full"
     >
       <a
         href="/"
@@ -371,8 +404,8 @@ import translations from "../../i18n/translations.json";
 
       <button
         type="button"
-        class="mobile-navigation-toggle relative z-[110] ml-auto grid h-11 w-11 shrink-0 place-items-center rounded-md border border-white/80 text-3xl text-white shadow-sm transition-all duration-200 hover:border-white hover:bg-white/10 min-[800px]:landscape:hidden! xl:hidden!"
-        @click="isOpen = !isOpen"
+        class="mobile-navigation-toggle relative z-110 ml-auto grid h-11 w-11 shrink-0 place-items-center rounded-md border border-white/80 text-3xl text-white shadow-sm transition-all duration-200 hover:border-white hover:bg-white/10 min-[800px]:landscape:hidden! xl:hidden!"
+        @click.stop="toggleMenu()"
         :aria-expanded="isOpen"
         aria-controls="mobile-navigation"
         :aria-label="isOpen ? 'Close navigation menu' : 'Open navigation menu'"
@@ -392,18 +425,18 @@ import translations from "../../i18n/translations.json";
       </button>
     </div>
 
-    <!-- Menú móvil desplegable debajo del nav -->
+    <!-- Menú móvil desplegable (SIN x-teleport, funcionando desde el nav) -->
     <div
       id="mobile-navigation"
-      x-cloak
       x-show="isOpen"
+      x-cloak
       x-transition:enter="transition transform ease-out duration-300"
       x-transition:enter-start="-translate-y-4 opacity-0"
       x-transition:enter-end="translate-y-0 opacity-100"
       x-transition:leave="transition transform ease-in duration-200"
       x-transition:leave-start="translate-y-0 opacity-100"
       x-transition:leave-end="-translate-y-4 opacity-0"
-      class="mobile-navigation-panel absolute inset-x-0 top-full z-[100] flex w-full flex-col overflow-x-hidden bg-brand-white px-6 pb-7 pt-5 text-brand-charcoal shadow-xl min-[800px]:landscape:hidden! xl:hidden!"
+      class="mobile-navigation-panel absolute inset-x-0 top-full z-2147483647 flex w-full flex-col overflow-hidden bg-brand-white px-6 pb-7 pt-5 text-brand-charcoal shadow-xl min-[800px]:landscape:hidden! xl:hidden!"
     >
       <div class="mx-auto flex w-full max-w-sm flex-col">
         <a
@@ -411,32 +444,38 @@ import translations from "../../i18n/translations.json";
           class="border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:pl-2"
           @click="isOpen = false">HOME</a
         >
+
         <a
           href="/about/about/"
           class="border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:pl-2"
           @click="isOpen = false">ABOUT</a
         >
+
         <a
           href="/gallery/gallery/"
           class="border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:pl-2"
           @click="isOpen = false">GALLERY</a
         >
+
         <a
           href="/contact/contact/"
           class="border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:pl-2"
           @click="isOpen = false">CONTACT</a
         >
+
         <a
           href="/#faq"
           class="border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:pl-2"
           @click="isOpen = false">FREQUENTLY ASKED QUESTIONS</a
         >
+
         <button
           type="button"
-          class="w-full border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide text-brand-charcoal/65 transition-all hover:bg-brand-red/5 hover:pl-2"
+          class="flex w-full items-center justify-between border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:px-2"
           @click="toggleLanguage()"
           x-text="locale === 'es' ? t('language.switch_to_en') : t('language.switch_to_es')"
-        >Translate to English</button>
+          >Translate to English</button
+        >
 
         <button
           type="button"
@@ -444,9 +483,23 @@ import translations from "../../i18n/translations.json";
           @click="toggleTheme()"
           :aria-label="theme === 'dark' ? 'Activate light mode' : 'Activate dark mode'"
         >
-          <span x-text="theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'">DARK MODE</span>
-          <Icon x-cloak x-show="theme === 'light'" name="mdi:weather-night" class="text-xl text-brand-red" aria-hidden="true" />
-          <Icon x-cloak x-show="theme === 'dark'" name="mdi:white-balance-sunny" class="text-xl text-brand-red" aria-hidden="true" />
+          <span x-text="theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'"
+            >DARK MODE</span
+          >
+          <Icon
+            x-cloak
+            x-show="theme === 'light'"
+            name="mdi:weather-night"
+            class="text-xl text-brand-red"
+            aria-hidden="true"
+          />
+          <Icon
+            x-cloak
+            x-show="theme === 'dark'"
+            name="mdi:white-balance-sunny"
+            class="text-xl text-brand-red"
+            aria-hidden="true"
+          />
         </button>
 
         <a

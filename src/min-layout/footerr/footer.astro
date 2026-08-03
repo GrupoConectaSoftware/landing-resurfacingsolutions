@@ -3,6 +3,7 @@ import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
 import footerImage from '../../assets/footer/imagen-footer.webp'; 
 import CustomerSupport from './customer-support.astro';
+import ToastContainer from '../toast/toast-container.astro';
 
 ---
 
@@ -77,8 +78,8 @@ import CustomerSupport from './customer-support.astro';
       <nav aria-label="Privacy and support">
         <h3 class="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-brand-red">Privacy</h3>
         <ul class="space-y-3">
-          <li><a href="/privacy-policy/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Privacy Policy</a></li>
-          <li><a href="/terms-and-conditions/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Terms and Conditions</a></li>
+          <li><a href="/legal/privacy-policy/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Privacy Policy</a></li>
+          <li><a href="/legal/terms-and-conditions/" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Terms and Conditions</a></li>
           <li><a href="/#faq" class="inline-block text-sm text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-brand-red">Frequently Asked Questions</a></li>
         </ul>
       </nav>
@@ -104,6 +105,7 @@ import CustomerSupport from './customer-support.astro';
   </div>
   </div>
 
+  <ToastContainer />
   <CustomerSupport />
 
   <button

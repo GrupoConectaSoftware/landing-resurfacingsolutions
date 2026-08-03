@@ -9,6 +9,9 @@ import { Icon } from 'astro-icon/components';
   x-data="{
     open: false,
     message: '',
+    notify(type, title, message) {
+      window.dispatchEvent(new CustomEvent('app:toast', { detail: { type, title, message } }));
+    },
     sendMessage() {
       const cleanMessage = this.message.trim();
       if (!cleanMessage) return;
@@ -30,7 +33,15 @@ import { Icon } from 'astro-icon/components';
         cleanMessage
       ].join('\n');
 
-      window.open(`https://wa.me/18186180574?text=${encodeURIComponent(supportTicket)}`, '_blank', 'noopener,noreferrer');
+      const whatsappWindow = window.open(`https://wa.me/18186180574?text=${encodeURIComponent(supportTicket)}`, '_blank');
+
+      if (!whatsappWindow) {
+        this.notify('error', 'WhatsApp could not be opened', 'Allow pop-ups for this site and try sending the support request again.');
+        return;
+      }
+
+      whatsappWindow.opener = null;
+      this.notify('success', 'Support request created', 'Your message was prepared successfully and opened in WhatsApp.');
       this.message = '';
       this.open = false;
     }

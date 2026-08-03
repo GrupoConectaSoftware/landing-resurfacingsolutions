@@ -4,8 +4,47 @@ import { Icon } from 'astro-icon/components';
 
 <form
   class="grid gap-5"
-  x-data="{ submitted: false, handleSubmit() { this.submitted = true; setTimeout(() => this.submitted = false, 3000); } }"
-  @submit.prevent="handleSubmit()"
+  novalidate
+  x-data="{
+    submitted: false,
+    sending: false,
+
+    notify(type, title, message) {
+      window.dispatchEvent(new CustomEvent('app:toast', { detail: { type, title, message } }));
+    },
+
+    async sendEmailRequest() {
+      // Replace this resolved promise with the selected email provider integration.
+      return Promise.resolve({ ok: true });
+    },
+
+    async handleSubmit(event) {
+      const form = event.currentTarget;
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        this.notify('error', 'Email could not be sent', 'Please check the email address and complete all required fields.');
+        return;
+      }
+
+      this.sending = true;
+
+      try {
+        const response = await this.sendEmailRequest(new FormData(form));
+        if (!response?.ok) throw new Error('Email transport rejected the request.');
+
+        this.submitted = true;
+        this.notify('success', 'Email sent successfully', 'Your project information was received. We will contact you shortly.');
+        form.reset();
+        window.setTimeout(() => { this.submitted = false; }, 3000);
+      } catch (error) {
+        this.notify('error', 'Email delivery failed', 'We could not send your information. Please verify the address or try again.');
+      } finally {
+        this.sending = false;
+      }
+    }
+  }"
+  @submit.prevent="handleSubmit($event)"
 >
   <div class="grid gap-5 sm:grid-cols-2">
     <label class="grid gap-2 font-primary text-xs font-semibold text-brand-charcoal">
@@ -59,13 +98,14 @@ import { Icon } from 'astro-icon/components';
   <div class="flex items-start gap-3 font-primary text-xs leading-relaxed text-brand-charcoal/65">
     <input id="contact-consent" name="consent" type="checkbox" required class="mt-0.5 size-4 shrink-0 accent-brand-red" />
     <label for="contact-consent">
-      I agree to be contacted by Resurfacing Solutions regarding my request and acknowledge the <a href="/privacy-policy/" class="font-semibold text-brand-charcoal underline decoration-brand-red underline-offset-2">Privacy Policy</a>.
+      I agree to be contacted by Resurfacing Solutions regarding my request and acknowledge the <a href="/legal/privacy-policy/" class="font-semibold text-brand-charcoal underline decoration-brand-red underline-offset-2">Privacy Policy</a>.
     </label>
   </div>
 
-  <button type="submit" class="group flex min-h-13 w-full items-center justify-center gap-3 rounded-md bg-brand-black px-6 py-4 font-primary text-sm font-bold uppercase tracking-[0.08em] text-white transition duration-300 hover:-translate-y-0.5 hover:bg-brand-red active:translate-y-0">
+  <button type="submit" :disabled="sending" class="group flex min-h-13 w-full items-center justify-center gap-3 rounded-md bg-brand-black px-6 py-4 font-primary text-sm font-bold uppercase tracking-[0.08em] text-white transition duration-300 hover:-translate-y-0.5 hover:bg-brand-red active:translate-y-0 disabled:cursor-wait disabled:opacity-65">
     <Icon name="mdi:send-outline" class="text-lg transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-    <span x-show="!submitted">Send Project Information</span>
-    <span x-show="submitted">Information Sent</span>
+    <span x-show="!sending && !submitted">Send Project Information</span>
+    <span x-cloak x-show="sending">Sending Information...</span>
+    <span x-cloak x-show="submitted && !sending">Information Sent</span>
   </button>
 </form>

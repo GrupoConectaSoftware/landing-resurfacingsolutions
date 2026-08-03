@@ -1,8 +1,8 @@
 ---
-import Navegations from '../min-layout/navegation/navegations.astro';
-import Footer from '../min-layout/footerr/footer.astro';
-import LegalPage from '../min-layout/legal/legal-page.astro';
-import '../styles/global.css';
+import Navegations from '../../min-layout/navegation/navegations.astro';
+import Footer from '../../min-layout/footerr/footer.astro';
+import LegalPage from '../../min-layout/legal/legal-page.astro';
+import '../../styles/global.css';
 
 const siteUrl = 'https://resurfacingsolutions.com';
 const title = 'Terms and Conditions | Resurfacing Solutions';
@@ -28,13 +28,13 @@ const sections = [
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href={`${siteUrl}/terms-and-conditions/`} />
+    <link rel="canonical" href={`${siteUrl}/legal/terms-and-conditions/`} />
     <link rel="icon" type="image/x-icon" sizes="any" href="/favicon.ico?v=2" />
   </head>
   <body class="min-h-screen max-w-full overflow-x-clip bg-brand-dark font-primary text-brand-charcoal antialiased scroll-smooth">
     <Navegations />
     <LegalPage eyebrow="Website Terms" title="Terms and Conditions" introduction={description} updated="August 2, 2026" sections={sections} />
     <Footer />
-    <script>import '../scripts/main.js';</script>
+    <script>import '../../scripts/main.js';</script>
   </body>
 </html>

@@ -1,0 +1,96 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<aside
+  class="pointer-events-none fixed right-4 z-2147483646 w-[min(24rem,calc(100vw-2rem))] font-primary sm:right-6"
+  :style="`top: ${topOffset}px`"
+  aria-label="Website notifications"
+  aria-live="polite"
+  aria-atomic="false"
+  x-data="{
+    toasts: [],
+    topOffset: 16,
+    nextId: 0,
+    toastHandler: null,
+    positionHandler: null,
+
+    updatePosition() {
+      const navigation = document.querySelector('header[role=banner]');
+      const navigationBottom = navigation ? navigation.getBoundingClientRect().bottom : 0;
+      this.topOffset = Math.max(16, Math.round(navigationBottom + 16));
+    },
+
+    addToast(detail = {}) {
+      const toast = {
+        id: ++this.nextId,
+        type: detail.type === 'error' ? 'error' : 'success',
+        title: detail.title || (detail.type === 'error' ? 'Unable to send' : 'Request completed'),
+        message: detail.message || ''
+      };
+
+      this.toasts.push(toast);
+      window.setTimeout(() => this.removeToast(toast.id), 3000);
+    },
+
+    removeToast(id) {
+      this.toasts = this.toasts.filter((toast) => toast.id !== id);
+    },
+
+    init() {
+      this.toastHandler = (event) => this.addToast(event.detail);
+      this.positionHandler = () => {
+        requestAnimationFrame(() => this.updatePosition());
+        window.setTimeout(() => this.updatePosition(), 450);
+      };
+
+      window.addEventListener('app:toast', this.toastHandler);
+      window.addEventListener('resize', this.positionHandler, { passive: true });
+      window.addEventListener('scroll', this.positionHandler, { passive: true });
+      this.$nextTick(() => this.updatePosition());
+    },
+
+    destroy() {
+      window.removeEventListener('app:toast', this.toastHandler);
+      window.removeEventListener('resize', this.positionHandler);
+      window.removeEventListener('scroll', this.positionHandler);
+    }
+  }"
+>
+  <div class="flex flex-col gap-3">
+    <template x-for="toast in toasts" :key="toast.id">
+      <article
+        x-transition:enter="transition duration-300 ease-out"
+        x-transition:enter-start="translate-x-full opacity-0"
+        x-transition:enter-end="translate-x-0 opacity-100"
+        x-transition:leave="transition duration-300 ease-in"
+        x-transition:leave-start="translate-x-0 opacity-100"
+        x-transition:leave-end="-translate-x-8 opacity-0"
+        class="pointer-events-auto relative overflow-hidden rounded-xl border border-white/20 bg-brand-red text-white shadow-[0_18px_45px_rgba(0,0,0,0.3)]"
+        role="status"
+      >
+        <div class="flex items-start gap-3 px-4 py-3.5">
+          <span class="mt-0.5 grid size-9 shrink-0 place-items-center rounded-full bg-white/14 ring-1 ring-white/20">
+            <Icon x-cloak x-show="toast.type === 'success'" name="mdi:check-bold" class="text-xl" aria-hidden="true" />
+            <Icon x-cloak x-show="toast.type === 'error'" name="mdi:close-thick" class="text-xl" aria-hidden="true" />
+          </span>
+
+          <div class="min-w-0 flex-1">
+            <h2 class="text-sm font-bold leading-tight" x-text="toast.title"></h2>
+            <p class="mt-1 text-xs leading-relaxed text-white/85" x-text="toast.message"></p>
+          </div>
+
+          <button
+            type="button"
+            class="grid size-7 shrink-0 place-items-center rounded-full text-white/70 transition hover:bg-white/12 hover:text-white"
+            @click="removeToast(toast.id)"
+            aria-label="Close notification"
+          >
+            <Icon name="mdi:close" class="text-lg" aria-hidden="true" />
+          </button>
+        </div>
+        <div class="h-0.5 origin-left bg-white/75" x-init="$el.animate([{ transform: 'scaleX(1)' }, { transform: 'scaleX(0)' }], { duration: 3000, easing: 'linear', fill: 'forwards' })"></div>
+      </article>
+    </template>
+  </div>
+</aside>

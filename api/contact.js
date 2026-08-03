@@ -5,6 +5,11 @@ const MAX_BODY_BYTES = 20_000;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX_REQUESTS = 3;
 const rateLimits = new Map();
+const blockedEmailDomains = new Set([
+  '10minutemail.com', 'dispostable.com', 'fakeinbox.com', 'guerrillamail.com',
+  'maildrop.cc', 'mailinator.com', 'sharklasers.com', 'temp-mail.org',
+  'tempmail.com', 'throwawaymail.com', 'yopmail.com',
+]);
 
 const allowedValues = {
   propertyType: ['Residential', 'Commercial', 'Industrial'],
@@ -62,7 +67,7 @@ function isRateLimited(ip) {
 
 function isSameOrigin(request) {
   const origin = request.headers.get('origin');
-  if (!origin) return true;
+  if (!origin) return request.headers.get('sec-fetch-site') === 'same-origin';
   const host = request.headers.get('x-forwarded-host') || request.headers.get('host');
   try {
     return new URL(origin).host === host;
@@ -86,10 +91,14 @@ function validate(payload) {
 
   const emailPattern = /^[^\s@]{1,64}@[^\s@]{1,190}\.[A-Za-z]{2,}$/;
   const phonePattern = /^[+()\d\s.-]{7,25}$/;
+  const emailDomain = data.email.split('@')[1] || '';
 
   if (data.name.length < 2 || data.name.length > 100) return { error: 'Enter a valid full name.' };
   if (!phonePattern.test(data.phone)) return { error: 'Enter a valid phone number.' };
   if (!emailPattern.test(data.email) || data.email.includes('..')) return { error: 'Enter a valid email address.' };
+  if (blockedEmailDomains.has(emailDomain) || /^(?:no-?reply|noreply)@/i.test(data.email)) {
+    return { error: 'Please use a permanent email address where we can contact you.' };
+  }
   for (const [field, options] of Object.entries(allowedValues)) {
     if (!options.includes(data[field])) return { error: 'Select valid options in every field.' };
   }

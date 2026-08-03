@@ -36,11 +36,16 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
         this.visible = true;
         this.previousY = Math.max(window.scrollY, 0);
       });
+
+      window.addEventListener('resurfacing:theme-change', (event) => {
+        this.theme = event.detail?.theme || (document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      });
     },
     toggleTheme() {
       this.theme = this.theme === 'dark' ? 'light' : 'dark';
       document.documentElement.classList.toggle('dark', this.theme === 'dark');
       localStorage.setItem('resurfacing-theme', this.theme);
+      window.dispatchEvent(new CustomEvent('resurfacing:theme-change', { detail: { theme: this.theme } }));
     },
     updateVisibility() {
       if (!this.ready) return;
@@ -119,16 +124,6 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
         >
 
         <div class="flex items-center gap-3" aria-label="Social media">
-          <button
-            type="button"
-            class="grid size-7 place-items-center rounded-full border border-white/25 text-white transition hover:border-brand-red hover:text-brand-red"
-            @click="toggleTheme()"
-            :aria-label="theme === 'dark' ? 'Activate light mode' : 'Activate dark mode'"
-            :title="theme === 'dark' ? 'Light mode' : 'Dark mode'"
-          >
-            <Icon x-cloak x-show="theme === 'light'" name="mdi:weather-night" class="text-base" aria-hidden="true" />
-            <Icon x-cloak x-show="theme === 'dark'" name="mdi:white-balance-sunny" class="text-base" aria-hidden="true" />
-          </button>
           <a
             href="https://instagram.com/resurfacing.solutions"
             target="_blank"
@@ -304,17 +299,7 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
 
       <button
         type="button"
-        class="relative z-110 ml-auto grid h-11 w-11 shrink-0 place-items-center rounded-md border border-white/80 text-white shadow-sm transition-all duration-200 hover:border-white hover:bg-white/10 min-[800px]:landscape:hidden! xl:hidden!"
-        @click="toggleTheme()"
-        :aria-label="theme === 'dark' ? 'Activate light mode' : 'Activate dark mode'"
-      >
-        <Icon x-cloak x-show="theme === 'light'" name="mdi:weather-night" class="text-2xl" aria-hidden="true" />
-        <Icon x-cloak x-show="theme === 'dark'" name="mdi:white-balance-sunny" class="text-2xl" aria-hidden="true" />
-      </button>
-
-      <button
-        type="button"
-        class="mobile-navigation-toggle relative z-110 grid h-11 w-11 shrink-0 place-items-center rounded-md border border-white/80 text-3xl text-white shadow-sm transition-all duration-200 hover:border-white hover:bg-white/10 min-[800px]:landscape:hidden! xl:hidden!"
+        class="mobile-navigation-toggle relative z-110 ml-auto grid h-11 w-11 shrink-0 place-items-center rounded-md border border-white/80 text-3xl text-white shadow-sm transition-all duration-200 hover:border-white hover:bg-white/10 min-[800px]:landscape:hidden! xl:hidden!"
         @click="isOpen = !isOpen"
         :aria-expanded="isOpen"
         aria-controls="mobile-navigation"
@@ -363,6 +348,17 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
           class="border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:pl-2"
           @click="isOpen = false">GALLERY</a
         >
+
+        <button
+          type="button"
+          class="flex w-full items-center justify-between border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:px-2"
+          @click="toggleTheme()"
+          :aria-label="theme === 'dark' ? 'Activate light mode' : 'Activate dark mode'"
+        >
+          <span x-text="theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'">DARK MODE</span>
+          <Icon x-cloak x-show="theme === 'light'" name="mdi:weather-night" class="text-xl text-brand-red" aria-hidden="true" />
+          <Icon x-cloak x-show="theme === 'dark'" name="mdi:white-balance-sunny" class="text-xl text-brand-red" aria-hidden="true" />
+        </button>
 
         <a
           href="/contact/contact/"

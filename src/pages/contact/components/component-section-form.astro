@@ -3,109 +3,163 @@ import { Icon } from 'astro-icon/components';
 ---
 
 <form
+  id="contact-form"
   class="grid gap-5"
   novalidate
   x-data="{
-    submitted: false,
+    form: {
+      name: '', phone: '', email: '', postalCode: '', propertyType: '', material: '',
+      surfaceType: '', service: '', description: '', consent: false, website: ''
+    },
     sending: false,
+    status: '',
+    statusMessage: '',
+    startedAt: Date.now(),
 
     notify(type, title, message) {
       window.dispatchEvent(new CustomEvent('app:toast', { detail: { type, title, message } }));
     },
 
-    async sendEmailRequest() {
-      // Replace this resolved promise with the selected email provider integration.
-      return Promise.resolve({ ok: true });
+    resetForm(element) {
+      this.form = {
+        name: '', phone: '', email: '', postalCode: '', propertyType: '', material: '',
+        surfaceType: '', service: '', description: '', consent: false, website: ''
+      };
+      this.startedAt = Date.now();
+      this.$nextTick(() => element.reset());
     },
 
     async handleSubmit(event) {
-      const form = event.currentTarget;
+      const element = event.currentTarget;
+      this.status = '';
+      this.statusMessage = '';
 
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        this.notify('error', 'Email could not be sent', 'Please check the email address and complete all required fields.');
+      if (!element.checkValidity()) {
+        element.reportValidity();
+        this.status = 'error';
+        this.statusMessage = 'Please complete all required fields correctly.';
+        this.notify('error', 'Check the form', this.statusMessage);
         return;
       }
 
       this.sending = true;
-
       try {
-        const response = await this.sendEmailRequest(new FormData(form));
-        if (!response?.ok) throw new Error('Email transport rejected the request.');
+        const requestId = window.crypto?.randomUUID?.()
+          || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ ...this.form, startedAt: this.startedAt, requestId }),
+        });
 
-        this.submitted = true;
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || !result.ok) throw new Error(result.message || 'The message could not be sent.');
+
+        this.status = 'success';
+        this.statusMessage = result.message || 'Your message was sent successfully.';
         this.notify('success', 'Email sent successfully', 'Your project information was received. We will contact you shortly.');
-        form.reset();
-        window.setTimeout(() => { this.submitted = false; }, 3000);
+        this.resetForm(element);
       } catch (error) {
-        this.notify('error', 'Email delivery failed', 'We could not send your information. Please verify the address or try again.');
+        this.status = 'error';
+        this.statusMessage = error instanceof Error
+          ? error.message
+          : 'We could not send your message. Please try again.';
+        this.notify('error', 'Email delivery failed', this.statusMessage);
       } finally {
         this.sending = false;
       }
     }
   }"
   @submit.prevent="handleSubmit($event)"
+  aria-describedby="contact-form-status"
 >
-  <div class="grid gap-5 sm:grid-cols-2">
-    <label class="grid gap-2 font-primary text-xs font-semibold text-brand-charcoal">
-      Full Name
-      <input name="name" type="text" autocomplete="name" placeholder="e.g. John Smith" required class="h-12 w-full rounded-md border border-black/15 bg-white px-4 font-primary text-sm font-normal outline-none transition placeholder:text-black/35 focus:border-brand-red focus:ring-2 focus:ring-brand-red/12" />
-    </label>
-    <label class="grid gap-2 font-primary text-xs font-semibold text-brand-charcoal">
-      Phone
-      <input name="phone" type="tel" autocomplete="tel" placeholder="e.g. (818) 618-0574" required class="h-12 w-full rounded-md border border-black/15 bg-white px-4 font-primary text-sm font-normal outline-none transition placeholder:text-black/35 focus:border-brand-red focus:ring-2 focus:ring-brand-red/12" />
-    </label>
+  <div class="pointer-events-none absolute left-[-9999px] h-px w-px overflow-hidden opacity-0" aria-hidden="true">
+    <label for="contact-website">Website</label>
+    <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off" x-model="form.website" />
   </div>
 
-  <label class="grid gap-2 font-primary text-xs font-semibold text-brand-charcoal">
-    Email Address
-    <input name="email" type="email" autocomplete="email" placeholder="e.g. john@example.com" required class="h-12 w-full rounded-md border border-black/15 bg-white px-4 font-primary text-sm font-normal outline-none transition placeholder:text-black/35 focus:border-brand-red focus:ring-2 focus:ring-brand-red/12" />
-  </label>
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div class="grid gap-2">
+      <label for="contact-name" class="font-primary text-xs font-semibold text-brand-charcoal">Full Name</label>
+      <input id="contact-name" name="name" x-model.trim="form.name" type="text" minlength="2" maxlength="100" autocomplete="name" placeholder="e.g. John Smith" required class="h-12 w-full rounded-md border border-black/15 bg-white px-4 font-primary text-sm font-normal text-brand-charcoal outline-none transition placeholder:text-black/35 focus:border-brand-red focus:ring-2 focus:ring-brand-red/12" />
+    </div>
+    <div class="grid gap-2">
+      <label for="contact-phone" class="font-primary text-xs font-semibold text-brand-charcoal">Phone</label>
+      <input id="contact-phone" name="phone" x-model.trim="form.phone" type="tel" minlength="7" maxlength="25" autocomplete="tel" placeholder="e.g. (818) 618-0574" required class="h-12 w-full rounded-md border border-black/15 bg-white px-4 font-primary text-sm font-normal text-brand-charcoal outline-none transition placeholder:text-black/35 focus:border-brand-red focus:ring-2 focus:ring-brand-red/12" />
+    </div>
+  </div>
 
-  <div class="grid gap-5 sm:grid-cols-3">
-    <label class="grid gap-2 font-primary text-xs font-semibold text-brand-charcoal">
-      Property Type
-      <select name="propertyType" required class="h-12 w-full rounded-md border border-black/15 bg-white px-3 font-primary text-sm font-normal text-brand-charcoal outline-none transition focus:border-brand-red focus:ring-2 focus:ring-brand-red/12">
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div class="grid gap-2">
+      <label for="contact-email" class="font-primary text-xs font-semibold text-brand-charcoal">Email Address</label>
+      <input id="contact-email" name="email" x-model.trim="form.email" type="email" maxlength="254" autocomplete="email" placeholder="e.g. john@example.com" required class="h-12 w-full rounded-md border border-black/15 bg-white px-4 font-primary text-sm font-normal text-brand-charcoal outline-none transition placeholder:text-black/35 focus:border-brand-red focus:ring-2 focus:ring-brand-red/12" />
+    </div>
+    <div class="grid gap-2">
+      <label for="contact-postal-code" class="font-primary text-xs font-semibold text-brand-charcoal">Postal Code</label>
+      <input id="contact-postal-code" name="postalCode" x-model.trim="form.postalCode" type="text" minlength="3" maxlength="12" autocomplete="postal-code" placeholder="e.g. 90001" required class="h-12 w-full rounded-md border border-black/15 bg-white px-4 font-primary text-sm font-normal uppercase text-brand-charcoal outline-none transition placeholder:normal-case placeholder:text-black/35 focus:border-brand-red focus:ring-2 focus:ring-brand-red/12" />
+    </div>
+  </div>
+
+  <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="grid gap-2">
+      <label for="contact-property" class="font-primary text-xs font-semibold text-brand-charcoal">Property Type</label>
+      <select id="contact-property" name="propertyType" x-model="form.propertyType" required class="h-12 w-full rounded-md border border-black/15 bg-white px-3 font-primary text-sm font-normal text-brand-charcoal outline-none transition focus:border-brand-red focus:ring-2 focus:ring-brand-red/12">
         <option value="">Select an option</option><option>Residential</option><option>Commercial</option><option>Industrial</option>
       </select>
-    </label>
-    <label class="grid gap-2 font-primary text-xs font-semibold text-brand-charcoal">
-      Material
-      <select name="material" required class="h-12 w-full rounded-md border border-black/15 bg-white px-3 font-primary text-sm font-normal text-brand-charcoal outline-none transition focus:border-brand-red focus:ring-2 focus:ring-brand-red/12">
+    </div>
+    <div class="grid gap-2">
+      <label for="contact-material" class="font-primary text-xs font-semibold text-brand-charcoal">Material</label>
+      <select id="contact-material" name="material" x-model="form.material" required class="h-12 w-full rounded-md border border-black/15 bg-white px-3 font-primary text-sm font-normal text-brand-charcoal outline-none transition focus:border-brand-red focus:ring-2 focus:ring-brand-red/12">
         <option value="">Select an option</option><option>Marble</option><option>Travertine</option><option>Terrazzo</option><option>Concrete</option><option>Natural Stone</option><option>Other</option>
       </select>
-    </label>
-    <label class="grid gap-2 font-primary text-xs font-semibold text-brand-charcoal">
-      Surface Type
-      <select name="surfaceType" required class="h-12 w-full rounded-md border border-black/15 bg-white px-3 font-primary text-sm font-normal text-brand-charcoal outline-none transition focus:border-brand-red focus:ring-2 focus:ring-brand-red/12">
+    </div>
+    <div class="grid gap-2 sm:col-span-2 lg:col-span-1">
+      <label for="contact-surface" class="font-primary text-xs font-semibold text-brand-charcoal">Surface Type</label>
+      <select id="contact-surface" name="surfaceType" x-model="form.surfaceType" required class="h-12 w-full rounded-md border border-black/15 bg-white px-3 font-primary text-sm font-normal text-brand-charcoal outline-none transition focus:border-brand-red focus:ring-2 focus:ring-brand-red/12">
         <option value="">Select an option</option><option>Floor</option><option>Countertop</option><option>Wall</option><option>Stairs</option><option>Exterior</option><option>Other</option>
       </select>
-    </label>
+    </div>
   </div>
 
-  <label class="grid gap-2 font-primary text-xs font-semibold text-brand-charcoal">
-    Service Needed
-    <select name="service" required class="h-12 w-full rounded-md border border-black/15 bg-white px-3 font-primary text-sm font-normal text-brand-charcoal outline-none transition focus:border-brand-red focus:ring-2 focus:ring-brand-red/12">
+  <div class="grid gap-2">
+    <label for="contact-service" class="font-primary text-xs font-semibold text-brand-charcoal">Service Needed</label>
+    <select id="contact-service" name="service" x-model="form.service" required class="h-12 w-full rounded-md border border-black/15 bg-white px-3 font-primary text-sm font-normal text-brand-charcoal outline-none transition focus:border-brand-red focus:ring-2 focus:ring-brand-red/12">
       <option value="">Select an option</option><option>Surface Restoration and Refinishing</option><option>Honing and Polishing</option><option>Cleaning and Sealing</option><option>Crack, Chip, and Joint Repair</option><option>Concrete Polishing</option><option>Maintenance Program</option>
     </select>
-  </label>
+  </div>
 
-  <label class="grid gap-2 font-primary text-xs font-semibold text-brand-charcoal">
-    Project Description
-    <textarea name="description" rows="8" placeholder="Describe the surface, its current condition, the affected area, and the result you would like to achieve." required class="min-h-48 w-full resize-none rounded-md border border-black/15 bg-white px-4 py-3 font-primary text-sm font-normal leading-relaxed outline-none transition placeholder:text-black/35 focus:border-brand-red focus:ring-2 focus:ring-brand-red/12"></textarea>
-  </label>
+  <div class="grid gap-2">
+    <label for="contact-description" class="font-primary text-xs font-semibold text-brand-charcoal">Project Description</label>
+    <textarea id="contact-description" name="description" x-model.trim="form.description" rows="7" minlength="10" maxlength="3000" placeholder="Describe the surface, its current condition, the affected area, and the result you would like to achieve." required class="min-h-44 w-full resize-y rounded-md border border-black/15 bg-white px-4 py-3 font-primary text-sm font-normal leading-relaxed text-brand-charcoal outline-none transition placeholder:text-black/35 focus:border-brand-red focus:ring-2 focus:ring-brand-red/12"></textarea>
+  </div>
 
   <div class="flex items-start gap-3 font-primary text-xs leading-relaxed text-brand-charcoal/65">
-    <input id="contact-consent" name="consent" type="checkbox" required class="mt-0.5 size-4 shrink-0 accent-brand-red" />
+    <input id="contact-consent" name="consent" x-model="form.consent" type="checkbox" required class="mt-0.5 size-4 shrink-0 accent-brand-red" />
     <label for="contact-consent">
       I agree to be contacted by Resurfacing Solutions regarding my request and acknowledge the <a href="/legal/privacy-policy/" class="font-semibold text-brand-charcoal underline decoration-brand-red underline-offset-2">Privacy Policy</a>.
     </label>
   </div>
 
+  <p
+    id="contact-form-status"
+    x-cloak
+    x-show="statusMessage"
+    x-text="statusMessage"
+    role="status"
+    aria-live="polite"
+    class="rounded-md border px-4 py-3 font-primary text-sm"
+    :class="status === 'success' ? 'border-green-700/20 bg-green-700/8 text-green-800' : 'border-brand-red/25 bg-brand-red/7 text-brand-red'"
+  ></p>
+
   <button type="submit" :disabled="sending" class="group flex min-h-13 w-full items-center justify-center gap-3 rounded-md bg-brand-black px-6 py-4 font-primary text-sm font-bold uppercase tracking-[0.08em] text-white transition duration-300 hover:-translate-y-0.5 hover:bg-brand-red active:translate-y-0 disabled:cursor-wait disabled:opacity-65">
-    <Icon name="mdi:send-outline" class="text-lg transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-    <span x-show="!sending && !submitted">Send Project Information</span>
-    <span x-cloak x-show="sending">Sending Information...</span>
-    <span x-cloak x-show="submitted && !sending">Information Sent</span>
+    <span x-show="!sending" class="contents">
+      <Icon name="mdi:send-outline" class="text-lg transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+      Send Project Information
+    </span>
+    <span x-cloak x-show="sending" class="flex items-center gap-3">
+      <Icon name="mdi:loading" class="animate-spin text-lg" aria-hidden="true" />
+      Sending Information...
+    </span>
   </button>
 </form>

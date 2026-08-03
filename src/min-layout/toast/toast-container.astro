@@ -3,7 +3,7 @@ import { Icon } from 'astro-icon/components';
 ---
 
 <aside
-  class="pointer-events-none fixed right-4 z-2147483646 w-[min(24rem,calc(100vw-2rem))] font-primary sm:right-6"
+  class="pointer-events-none fixed right-4 z-2147483646 w-[min(42rem,calc(100vw-2rem))] font-primary sm:right-6"
   :style="`top: ${topOffset}px`"
   aria-label="Website notifications"
   aria-live="polite"
@@ -69,15 +69,16 @@ import { Icon } from 'astro-icon/components';
         class="pointer-events-auto relative overflow-hidden rounded-xl border border-white/20 bg-brand-red text-white shadow-[0_18px_45px_rgba(0,0,0,0.3)]"
         role="status"
       >
-        <div class="flex items-start gap-3 px-4 py-3.5">
-          <span class="mt-0.5 grid size-9 shrink-0 place-items-center rounded-full bg-white/14 ring-1 ring-white/20">
-            <Icon x-cloak x-show="toast.type === 'success'" name="mdi:check-bold" class="text-xl" aria-hidden="true" />
-            <Icon x-cloak x-show="toast.type === 'error'" name="mdi:close-thick" class="text-xl" aria-hidden="true" />
+        <div class="flex min-w-0 items-center gap-2.5 px-3 py-2.5 sm:px-4">
+          <span class="grid size-7 shrink-0 place-items-center rounded-full bg-white/14 ring-1 ring-white/20">
+            <Icon x-cloak x-show="toast.type === 'success'" name="mdi:check-bold" class="text-base" aria-hidden="true" />
+            <Icon x-cloak x-show="toast.type === 'error'" name="mdi:close-thick" class="text-base" aria-hidden="true" />
           </span>
 
-          <div class="min-w-0 flex-1">
-            <h2 class="text-sm font-bold leading-tight" x-text="toast.title"></h2>
-            <p class="mt-1 text-xs leading-relaxed text-white/85" x-text="toast.message"></p>
+          <div class="flex min-w-0 flex-1 items-baseline gap-2 overflow-hidden whitespace-nowrap">
+            <h2 class="shrink-0 text-xs font-bold leading-none sm:text-sm" x-text="toast.title"></h2>
+            <span class="text-white/55" aria-hidden="true">—</span>
+            <p class="min-w-0 truncate text-[11px] leading-none text-white/85 sm:text-xs" x-text="toast.message"></p>
           </div>
 
           <button

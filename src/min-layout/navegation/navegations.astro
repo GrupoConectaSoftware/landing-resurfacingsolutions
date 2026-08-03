@@ -236,7 +236,13 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
   <nav
     class="main-navigation relative z-50 h-24 w-full overflow-visible bg-brand-red text-brand-white min-[800px]:landscape:h-28 min-[800px]:landscape:overflow-hidden xl:h-28 xl:overflow-hidden 2xl:h-36"
     aria-label="Main navigation"
-    x-data="{ isOpen: false }"
+    x-data="{
+      isOpen: false,
+      navigate(path) {
+        this.isOpen = false;
+        window.location.assign(path);
+      }
+    }"
   >
     <!-- El panel oscuro solo existe desde tablet -->
     <div
@@ -336,17 +342,17 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
         <a
           href="/#site-top"
           class="border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:pl-2"
-          @click="isOpen = false">HOME</a
+          @click.prevent="navigate('/')">HOME</a
         >
         <a
           href="/about/about/"
           class="border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:pl-2"
-          @click="isOpen = false">ABOUT</a
+          @click.prevent="navigate('/about/about/')">ABOUT</a
         >
         <a
           href="/gallery/gallery/"
           class="border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:pl-2"
-          @click="isOpen = false">GALLERY</a
+          @click.prevent="navigate('/gallery/gallery/')">GALLERY</a
         >
 
         <button
@@ -363,7 +369,7 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
         <a
           href="/contact/contact/"
           class="mb-6 mt-7 flex items-center justify-center gap-2 rounded-md bg-brand-black px-5 py-3 text-sm font-bold text-white shadow-md"
-          @click="isOpen = false"
+          @click.prevent="navigate('/contact/contact/')"
         >
           <Icon name="mdi:forum-outline" class="text-xl" aria-hidden="true" />
           <span>TALK TO US</span>

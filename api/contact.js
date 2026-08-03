@@ -76,7 +76,6 @@ function validate(payload) {
     name: clean(payload.name),
     phone: clean(payload.phone),
     email: clean(payload.email).toLowerCase(),
-    postalCode: clean(payload.postalCode).toUpperCase(),
     propertyType: clean(payload.propertyType),
     material: clean(payload.material),
     surfaceType: clean(payload.surfaceType),
@@ -87,12 +86,10 @@ function validate(payload) {
 
   const emailPattern = /^[^\s@]{1,64}@[^\s@]{1,190}\.[A-Za-z]{2,}$/;
   const phonePattern = /^[+()\d\s.-]{7,25}$/;
-  const postalPattern = /^[A-Z0-9][A-Z0-9 -]{1,10}[A-Z0-9]$/;
 
   if (data.name.length < 2 || data.name.length > 100) return { error: 'Enter a valid full name.' };
   if (!phonePattern.test(data.phone)) return { error: 'Enter a valid phone number.' };
   if (!emailPattern.test(data.email) || data.email.includes('..')) return { error: 'Enter a valid email address.' };
-  if (!postalPattern.test(data.postalCode)) return { error: 'Enter a valid postal code.' };
   for (const [field, options] of Object.entries(allowedValues)) {
     if (!options.includes(data[field])) return { error: 'Select valid options in every field.' };
   }
@@ -170,7 +167,6 @@ async function handlePost(request) {
                 <tr><td style="padding:8px 0;font-weight:bold">Nombre</td><td>${safe.name}</td></tr>
                 <tr><td style="padding:8px 0;font-weight:bold">Tel&eacute;fono</td><td>${safe.phone}</td></tr>
                 <tr><td style="padding:8px 0;font-weight:bold">Correo</td><td>${safe.email}</td></tr>
-                <tr><td style="padding:8px 0;font-weight:bold">C&oacute;digo postal</td><td>${safe.postalCode}</td></tr>
                 <tr><td style="padding:8px 0;font-weight:bold">Propiedad</td><td>${safe.propertyType}</td></tr>
                 <tr><td style="padding:8px 0;font-weight:bold">Material</td><td>${safe.material}</td></tr>
                 <tr><td style="padding:8px 0;font-weight:bold">Superficie</td><td>${safe.surfaceType}</td></tr>
@@ -181,7 +177,7 @@ async function handlePost(request) {
               <p style="white-space:pre-wrap;line-height:1.6;margin:0">${safe.description}</p>
             </div>
           </div>`,
-        text: `Nuevo mensaje de contacto\n\nNombre: ${data.name}\nTelefono: ${data.phone}\nCorreo: ${data.email}\nCodigo postal: ${data.postalCode}\nPropiedad: ${data.propertyType}\nMaterial: ${data.material}\nSuperficie: ${data.surfaceType}\nServicio: ${data.service}\nAcepto terminos: Si\n\nDescripcion:\n${data.description}`,
+        text: `Nuevo mensaje de contacto\n\nNombre: ${data.name}\nTelefono: ${data.phone}\nCorreo: ${data.email}\nPropiedad: ${data.propertyType}\nMaterial: ${data.material}\nSuperficie: ${data.surfaceType}\nServicio: ${data.service}\nAcepto terminos: Si\n\nDescripcion:\n${data.description}`,
       },
       { idempotencyKey: `contact-${requestId}` },
     );

@@ -8,7 +8,7 @@ import { Icon } from 'astro-icon/components';
   novalidate
   x-data="{
     form: {
-      name: '', phone: '', email: '', postalCode: '', propertyType: '', material: '',
+      name: '', phone: '', email: '', propertyType: '', material: '',
       surfaceType: '', service: '', description: '', consent: false, website: ''
     },
     sending: false,
@@ -22,7 +22,7 @@ import { Icon } from 'astro-icon/components';
 
     resetForm(element) {
       this.form = {
-        name: '', phone: '', email: '', postalCode: '', propertyType: '', material: '',
+        name: '', phone: '', email: '', propertyType: '', material: '',
         surfaceType: '', service: '', description: '', consent: false, website: ''
       };
       this.startedAt = Date.now();
@@ -79,8 +79,8 @@ import { Icon } from 'astro-icon/components';
     <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off" x-model="form.website" />
   </div>
 
-  <div class="grid gap-5 sm:grid-cols-2">
-    <div class="grid gap-2">
+  <div class="grid w-full gap-5 sm:grid-cols-2">
+    <div class="grid w-full gap-2 sm:col-span-2">
       <label for="contact-name" class="font-primary text-xs font-semibold text-brand-charcoal">Full Name</label>
       <input id="contact-name" name="name" x-model.trim="form.name" type="text" minlength="2" maxlength="100" autocomplete="name" placeholder="e.g. John Smith" required class="h-12 w-full rounded-md border border-black/15 bg-white px-4 font-primary text-sm font-normal text-brand-charcoal outline-none transition placeholder:text-black/35 focus:border-brand-red focus:ring-2 focus:ring-brand-red/12" />
     </div>
@@ -94,10 +94,6 @@ import { Icon } from 'astro-icon/components';
     <div class="grid gap-2">
       <label for="contact-email" class="font-primary text-xs font-semibold text-brand-charcoal">Email Address</label>
       <input id="contact-email" name="email" x-model.trim="form.email" type="email" maxlength="254" autocomplete="email" placeholder="e.g. john@example.com" required class="h-12 w-full rounded-md border border-black/15 bg-white px-4 font-primary text-sm font-normal text-brand-charcoal outline-none transition placeholder:text-black/35 focus:border-brand-red focus:ring-2 focus:ring-brand-red/12" />
-    </div>
-    <div class="grid gap-2">
-      <label for="contact-postal-code" class="font-primary text-xs font-semibold text-brand-charcoal">Postal Code</label>
-      <input id="contact-postal-code" name="postalCode" x-model.trim="form.postalCode" type="text" minlength="3" maxlength="12" autocomplete="postal-code" placeholder="e.g. 90001" required class="h-12 w-full rounded-md border border-black/15 bg-white px-4 font-primary text-sm font-normal uppercase text-brand-charcoal outline-none transition placeholder:normal-case placeholder:text-black/35 focus:border-brand-red focus:ring-2 focus:ring-brand-red/12" />
     </div>
   </div>
 

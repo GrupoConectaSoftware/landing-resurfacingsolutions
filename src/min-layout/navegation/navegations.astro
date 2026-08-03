@@ -3,6 +3,7 @@ import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import desktopLogo from "../../assets/navegation/imagen-logo.webp";
 import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
+import translations from "../../i18n/translations.json";
 ---
 
 <script is:inline>
@@ -13,24 +14,45 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
   })();
 </script>
 
+<script is:inline define:vars={{ translations }}>
+  window.__RS_TRANSLATIONS__ = translations;
+</script>
+
 <!-- Contenedor de Mneu de Navegacion -->
 <header
   id="site-top"
-  class="sticky top-0 z-2147483647 isolate w-full shrink-0 overflow-x-clip font-primary transition-transform duration-400 ease-out will-change-transform"
+  class="sticky top-0 z-[2147483647] isolate w-full shrink-0 overflow-x-clip font-primary transition-transform duration-400 ease-out will-change-transform"
   role="banner"
   x-data="{
     visible: true,
     previousY: 0,
     ready: false,
+    locale: localStorage.getItem('resurfacing-locale') || 'es',
+    translations: window.__RS_TRANSLATIONS__ || { es: {}, en: {} },
+    englishIndex: {},
+    translationObserver: null,
     theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
     init() {
       this.visible = true;
       this.previousY = Math.max(window.scrollY, 0);
+      this.locale = ['es', 'en'].includes(this.locale) ? this.locale : 'es';
+      this.englishIndex = Object.fromEntries(
+        Object.entries(this.translations.en || {}).map(([key, value]) => [this.normalizeText(value), key])
+      );
+      document.documentElement.lang = this.locale;
 
       requestAnimationFrame(() => {
         this.previousY = Math.max(window.scrollY, 0);
         this.ready = true;
+        this.translateDocument();
       });
+
+      this.translationObserver = new MutationObserver((mutations) => {
+        if (mutations.some((mutation) => mutation.addedNodes.length || mutation.type === 'characterData')) {
+          requestAnimationFrame(() => this.translateDocument());
+        }
+      });
+      this.translationObserver.observe(document.body, { childList: true, subtree: true, characterData: true });
 
       window.addEventListener('pageshow', () => {
         this.visible = true;
@@ -39,6 +61,53 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
 
       window.addEventListener('resurfacing:theme-change', (event) => {
         this.theme = event.detail?.theme || (document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      });
+    },
+    normalizeText(value) {
+      return String(value || '').replace(/\s+/g, ' ').trim();
+    },
+    t(key) {
+      return this.translations[this.locale]?.[key] ?? this.translations.en?.[key] ?? key;
+    },
+    toggleLanguage() {
+      this.locale = this.locale === 'es' ? 'en' : 'es';
+      localStorage.setItem('resurfacing-locale', this.locale);
+      document.documentElement.lang = this.locale;
+      this.translateDocument();
+      window.dispatchEvent(new CustomEvent('resurfacing:locale-change', { detail: { locale: this.locale } }));
+    },
+    translateDocument() {
+      const root = document.body;
+      if (!root) return;
+
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      let node;
+      while ((node = walker.nextNode())) {
+        const parent = node.parentElement;
+        if (!parent || ['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA'].includes(parent.tagName)) continue;
+
+        let key = node.__rsI18nKey;
+        if (!key) {
+          key = this.englishIndex[this.normalizeText(node.nodeValue)];
+          if (key) node.__rsI18nKey = key;
+        }
+        if (!key) continue;
+
+        const translated = this.t(key);
+        if (node.nodeValue !== translated) node.nodeValue = translated;
+      }
+
+      root.querySelectorAll('[placeholder], [title], [aria-label]').forEach((element) => {
+        element.__rsI18nAttrs ||= {};
+        ['placeholder', 'title', 'aria-label'].forEach((attribute) => {
+          if (!element.hasAttribute(attribute)) return;
+          let key = element.__rsI18nAttrs[attribute];
+          if (!key) {
+            key = this.englishIndex[this.normalizeText(element.getAttribute(attribute))];
+            if (key) element.__rsI18nAttrs[attribute] = key;
+          }
+          if (key) element.setAttribute(attribute, this.t(key));
+        });
       });
     },
     toggleTheme() {
@@ -116,9 +185,12 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
       <div
         class="topbar-utilities hidden shrink-0 items-center gap-3 text-xs font-semibold md:flex min-[800px]:landscape:flex! lg:gap-5 xl:flex!"
       >
-        <span class="topbar-utility-link hidden cursor-default text-white/55 min-[800px]:landscape:inline! lg:inline xl:inline!" aria-label="Spanish translation, coming soon">
-          Translate to Spanish
-        </span>
+        <button
+          type="button"
+          class="topbar-utility-link hidden text-white/70 transition hover:text-white min-[800px]:landscape:inline! lg:inline xl:inline!"
+          @click="toggleLanguage()"
+          x-text="locale === 'es' ? t('language.switch_to_en') : t('language.switch_to_es')"
+        >Translate to English</button>
         <a href="/#faq" class="topbar-utility-link hidden transition-opacity hover:opacity-70 min-[800px]:landscape:inline! lg:inline xl:inline!"
           >Frequently Asked Questions</a
         >
@@ -236,13 +308,7 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
   <nav
     class="main-navigation relative z-50 h-24 w-full overflow-visible bg-brand-red text-brand-white min-[800px]:landscape:h-28 min-[800px]:landscape:overflow-hidden xl:h-28 xl:overflow-hidden 2xl:h-36"
     aria-label="Main navigation"
-    x-data="{
-      isOpen: false,
-      navigate(path) {
-        this.isOpen = false;
-        window.location.assign(path);
-      }
-    }"
+    x-data="{ isOpen: false }"
   >
     <!-- El panel oscuro solo existe desde tablet -->
     <div
@@ -305,7 +371,7 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
 
       <button
         type="button"
-        class="mobile-navigation-toggle relative z-110 ml-auto grid h-11 w-11 shrink-0 place-items-center rounded-md border border-white/80 text-3xl text-white shadow-sm transition-all duration-200 hover:border-white hover:bg-white/10 min-[800px]:landscape:hidden! xl:hidden!"
+        class="mobile-navigation-toggle relative z-[110] ml-auto grid h-11 w-11 shrink-0 place-items-center rounded-md border border-white/80 text-3xl text-white shadow-sm transition-all duration-200 hover:border-white hover:bg-white/10 min-[800px]:landscape:hidden! xl:hidden!"
         @click="isOpen = !isOpen"
         :aria-expanded="isOpen"
         aria-controls="mobile-navigation"
@@ -329,6 +395,7 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
     <!-- Menú móvil desplegable debajo del nav -->
     <div
       id="mobile-navigation"
+      x-cloak
       x-show="isOpen"
       x-transition:enter="transition transform ease-out duration-300"
       x-transition:enter-start="-translate-y-4 opacity-0"
@@ -336,24 +403,40 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
       x-transition:leave="transition transform ease-in duration-200"
       x-transition:leave-start="translate-y-0 opacity-100"
       x-transition:leave-end="-translate-y-4 opacity-0"
-      class="mobile-navigation-panel absolute inset-x-0 top-full z-100 flex w-full flex-col overflow-x-hidden bg-brand-white px-6 pb-7 pt-5 text-brand-charcoal shadow-xl min-[800px]:landscape:hidden! xl:hidden!"
+      class="mobile-navigation-panel absolute inset-x-0 top-full z-[100] flex w-full flex-col overflow-x-hidden bg-brand-white px-6 pb-7 pt-5 text-brand-charcoal shadow-xl min-[800px]:landscape:hidden! xl:hidden!"
     >
       <div class="mx-auto flex w-full max-w-sm flex-col">
         <a
           href="/#site-top"
           class="border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:pl-2"
-          @click.prevent="navigate('/')">HOME</a
+          @click="isOpen = false">HOME</a
         >
         <a
           href="/about/about/"
           class="border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:pl-2"
-          @click.prevent="navigate('/about/about/')">ABOUT</a
+          @click="isOpen = false">ABOUT</a
         >
         <a
           href="/gallery/gallery/"
           class="border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:pl-2"
-          @click.prevent="navigate('/gallery/gallery/')">GALLERY</a
+          @click="isOpen = false">GALLERY</a
         >
+        <a
+          href="/contact/contact/"
+          class="border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:pl-2"
+          @click="isOpen = false">CONTACT</a
+        >
+        <a
+          href="/#faq"
+          class="border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide transition-all hover:bg-brand-red/5 hover:pl-2"
+          @click="isOpen = false">FREQUENTLY ASKED QUESTIONS</a
+        >
+        <button
+          type="button"
+          class="w-full border-b border-red-300/40 py-4 text-left text-sm font-bold tracking-wide text-brand-charcoal/65 transition-all hover:bg-brand-red/5 hover:pl-2"
+          @click="toggleLanguage()"
+          x-text="locale === 'es' ? t('language.switch_to_en') : t('language.switch_to_es')"
+        >Translate to English</button>
 
         <button
           type="button"
@@ -369,7 +452,7 @@ import mobileLogo from "../../assets/navegation/imagen-logoM.webp";
         <a
           href="/contact/contact/"
           class="mb-6 mt-7 flex items-center justify-center gap-2 rounded-md bg-brand-black px-5 py-3 text-sm font-bold text-white shadow-md"
-          @click.prevent="navigate('/contact/contact/')"
+          @click="isOpen = false"
         >
           <Icon name="mdi:forum-outline" class="text-xl" aria-hidden="true" />
           <span>TALK TO US</span>
